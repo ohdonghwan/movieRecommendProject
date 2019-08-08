@@ -1,0 +1,42 @@
+///////////////////// 테이블 설계 ///////////////////////
+
+drop table security_member ;
+
+create table security_member(
+	id varchar2(100) primary key,
+	password varchar2(100) not null,
+	name varchar2(100) not null,
+	address varchar2(100) not null
+);
+
+
+desc security_member;
+
+
+drop table authorities;
+
+create table authorities(
+	username varchar2(100) not null,
+	role varchar(30) not null,
+	constraint fk_authorities foreign key(username) references security_member(id),
+	constraint authorities_pk primary key(username,role));
+	
+desc authorities;
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+1. poem.xml 
+2. 테이블 설계
+3. VO 테이블 작성 
+4. SqlMapConfig.xml | jdbc.properties | memberMapper.xml | authoritiesMapper.xml
+5. DAO, SERVICE 작성
+6. MemberAuthenticationProvider, MemberAuthenticationFailureHandler 클래스 작성
+7. web.xml | spring-db.xml, spring-web.xml, spring-security.xml 작성
+8. IndexController, MemberController와 함께 jsp페이지 작성
+
+
+
+
+
+
+

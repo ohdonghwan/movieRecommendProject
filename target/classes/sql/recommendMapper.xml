@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recommendMapper">
+	
+	<insert id="insertRecommend" parameterType="recommend">
+		insert into recommend(recommend_no, member_id,movie_no,recommend_grade)
+		values(recommend_no_seq.nextval ,#{memberId},#{movieNo},#{recommendGrade})
+	</insert>
+	<!-- 처음 랜덤 영화 20개 랜덤으로 띄워주기-->
+	<select id="selectRecommed" resultType="movie">
+ 		select * from ( select * from movie order by dbms_random.value) where rownum &lt; 6
+ 	</select>
+ 	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
