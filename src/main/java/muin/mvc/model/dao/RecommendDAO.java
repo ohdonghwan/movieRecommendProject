@@ -9,5 +9,5 @@ public interface RecommendDAO {
 	public int insertRecommend(RecommendDTO dto);
 	
 	
-	public List<MovieDTO> selectRecommend();
+	public List<MovieDTO> selectRecommend(Long memberId);
 }

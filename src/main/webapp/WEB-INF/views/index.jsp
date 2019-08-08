@@ -26,7 +26,6 @@
 	<li><a href="${pageContext.request.contextPath}/registerForm">회원 가입 하기</a></li>
 	<li><a href="${pageContext.request.contextPath}/loginForm">로그인 하기</a></li>
 	<li><a href="${pageContext.request.contextPath}/findMemberByIdForm">회원 검색 하기</a></li>
-	<li><a href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
 </ul>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">

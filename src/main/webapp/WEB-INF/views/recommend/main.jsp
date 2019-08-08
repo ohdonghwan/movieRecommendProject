@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
+	
+	
+	<sec:authentication var="mvo" property="principal" /> 
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +21,13 @@ $(function(){
 		$.ajax({			
 			type:"POST",
 			url:"${pageContext.request.contextPath}/recommend/select",
-			data:"${_csrf.parameterName}=${_csrf.token}",
+			data:"${_csrf.parameterName}=${_csrf.token}&memberId="+"${mvo.memberId}",
 			dataType:"json",
 			success:function(result){							
 				 var data="<table border='1' cellpadding='5'>";
 				 data+="<form method='post'>";
 				 $.each(result, function(index, item){
-					data += "<input type='hidden' id='memberId' value='1234' name='memberId'/>";
+					data += "<input type='hidden' id='memberId' value='${mvo.memberId}' name='memberId'/>";
 					//data += "<input type='hidden' id='movieNo' value="+item.movieNo+" name='movieNo'/>";					
 					data+="<tr>";
 						data+="<td id='movieNo'>"+item.movieNo+"</td>";

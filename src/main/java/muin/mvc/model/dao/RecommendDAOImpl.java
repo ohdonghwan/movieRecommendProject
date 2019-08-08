@@ -21,8 +21,8 @@ public class RecommendDAOImpl implements RecommendDAO {
 	}
 
 	@Override
-	public List<MovieDTO> selectRecommend() {		
-		return session.selectList("recommendMapper.selectRecommed");
+	public List<MovieDTO> selectRecommend(Long memberId) {		
+		return session.selectList("recommendMapper.selectRecommed", memberId);
 	}
 	
 

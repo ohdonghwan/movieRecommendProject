@@ -6,9 +6,9 @@
 		insert into recommend(recommend_no, member_id,movie_no,recommend_grade)
 		values(recommend_no_seq.nextval ,#{memberId},#{movieNo},#{recommendGrade})
 	</insert>
-	<!-- 처음 랜덤 영화 20개 랜덤으로 띄워주기-->
-	<select id="selectRecommed" resultType="movie">
- 		select * from ( select * from movie order by dbms_random.value) where rownum &lt; 6
+	<!-- 처음 랜덤 영화 20개 랜덤으로 띄워주기 중복 없이 띄우기-->
+	<select id="selectRecommed" resultType="movie" parameterType="long">
+		select * from (select * from movie where movie_no not in (select movie_no from recommend WHERE member_id = 21) order by dbms_random.value) where rownum &lt; 6
  	</select>
  	
 </mapper>

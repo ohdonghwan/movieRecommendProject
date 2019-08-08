@@ -21,8 +21,8 @@ public class RecommendServiceImpl implements RecommendService {
 	}
 
 	@Override
-	public List<MovieDTO> selectRecommend() {
-		return recommendDAO.selectRecommend();
+	public List<MovieDTO> selectRecommend(Long memberId) {
+		return recommendDAO.selectRecommend(memberId);
 	}
 
 

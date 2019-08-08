@@ -24,9 +24,9 @@ public class RecommendController {
 	
 	@RequestMapping("/recommend/select")
 	@ResponseBody
-	public List<MovieDTO> selectRecommend(){
+	public List<MovieDTO> selectRecommend(Long memberId){
 		List<MovieDTO> list = new ArrayList<MovieDTO>();
-		list = recommendService.selectRecommend();
+		list = recommendService.selectRecommend(memberId);
 		return list;
 	}
 	
