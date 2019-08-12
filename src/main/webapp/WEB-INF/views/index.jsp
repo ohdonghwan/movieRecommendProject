@@ -1,17 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
-  
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description"
+	content="영화 보고 갈래는 무인 팀이 제작한 사용자 경험 기반 영화 추천 사이트 입니다.">
+<meta name="author" content="Team Muin">
+<link rel="icon" href="../../favicon.ico">
 
-<style type="text/css">
-	a{text-decoration:  none;}
-</style>
+<title>영화 보고 갈래 : index page</title>
+
+<!-- Custom styles for this template -->
+<link href="${pageContext.request.contextPath}/resources/css/cover.css"
+	rel="stylesheet">
+
+<!-- link for main fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+	rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
 <script type="text/javascript">
 	function logout() {
 		document.getElementById("logoutFrm").submit();
@@ -20,48 +48,101 @@
 
 </head>
 <body>
-<h2>Spring Security를 이용한 Register Member</h2>
-<sec:authorize access="isAnonymous()">
-<ul>
-	<li><a href="${pageContext.request.contextPath}/registerForm">회원 가입 하기</a></li>
-	<li><a href="${pageContext.request.contextPath}/loginForm">로그인 하기</a></li>
-	<li><a href="${pageContext.request.contextPath}/findMemberByIdForm">회원 검색 하기</a></li>
-</ul>
-</sec:authorize>
-<sec:authorize access="isAuthenticated()">
-	<sec:authentication var="mvo" property="principal" /> 
-	<b>${mvo.memberName}님 환영합니다.</b><p>
-	
-	<!-- 
+
+
+	<video class="video-background" height="100%" width="100%"
+		preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+	<source
+		src="${pageContext.request.contextPath}/resources/video/44_MTZfQmxva2Jhc3Rlcl9DREVJVk8.mp4"
+		type="video/mp4"></video>
+	<nav class="navbar navbar-expand-md fixed-top"> <a
+		class="navbar-brand" href="${pageContext.request.contextPath}"
+		style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 50px;">영화보고갈래?</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarsExampleDefault"
+		aria-controls="navbarsExampleDefault" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<sec:authorize access="isAnonymous()">
+
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					href="${pageContext.request.contextPath}/registerForm">가입해 <span
+						class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/loginForm">어서와</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/findMemberByIdForm">회원검색
+				</a></li>
+	</div>
+	</sec:authorize>
+	</ul>
+	<form class="form-inline my-2 my-lg-0">
+		<input class="form-control mr-sm-2" type="text" placeholder="Search"
+			aria-label="Search">
+		<button class="btn btn-secondary my-2 my-sm-0" type="submit">찾아봐</button>
+	</form>
+	</div>
+	</nav>
+
+
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication var="mvo" property="principal" />
+		<b>${mvo.memberName}님 환영합니다.</b>
+		<p>
+
+			<!-- 
 		authentication의 getPrincipal().getName() ::
 		Principal은 Provider 에서 Authentication에 넣어준 VO(생성자의 첫 매개변수)
-	 -->		
-</sec:authorize>
-<p></p>
-<!-- 인증됬으면 -->
+	 -->
+	</sec:authorize>
+	<p></p>
+	<!-- 인증됬으면 -->
 	<sec:authorize access="isAuthenticated()">
 		<!-- 관리자인 경우 -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<li><a href="${pageContext.request.contextPath }/admin/enterCafe">ADMIN Cafe Enterance</a></li>
+			<li><a
+				href="${pageContext.request.contextPath }/admin/enterCafe">ADMIN
+					Cafe Enterance</a></li>
 		</sec:authorize>
-		
+
 		<!--  일반 회원이거나 관리자인 두 경우. 두개 이상의 role을 비교할때 hasAnyRole()-->
 		<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
-			<li><a href="${pageContext.request.contextPath }/member/updateForm">정보 수정 폼</a></li>
-			<li><a href="${pageContext.request.contextPath }/member/addressList">주소별 검색 하기</a></li>
-			<li><a href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>			
+			<li><a
+				href="${pageContext.request.contextPath }/member/updateForm">정보
+					수정 폼</a></li>
+			<li><a
+				href="${pageContext.request.contextPath }/member/addressList">주소별
+					검색 하기</a></li>
+			<li><a href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
 		</sec:authorize>
 		<li><a href="javascript:logout();">로그아웃</a></li>
 	</sec:authorize>
-<p>
+	<p>
 
-<!--  
+		<!--  
 1. 로그아웃은 스프링 시큐러티 4부터는 로그아웃시 post 방식으로 이동하며 
   /logout url로 요청한다(따로 정의하지 않으면...)
 2. _csrf 를 요청 파라미터로 보내야 한다.
 -->
-<form id="logoutFrm" action="${pageContext.request.contextPath}/member/logout" method="post" style:"display:none">
-	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-</form>
+
+		<form id="logoutFrm"
+		action="${pageContext.request.contextPath}/member/logout"
+		method="post"style:"display:none"><input type="hidden" name="${_csrf.parameterName }"
+			value="${_csrf.token }"></form>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+		integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+		crossorigin="anonymous"></script>
+
 </body>
 </html>
