@@ -50,11 +50,17 @@
 <body>
 
 
+
+	<header style="position:relative;">
+	<div class=overlay></div>
+
 	<video class="video-background" height="100%" width="100%"
-		preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
-	<source
+		preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"
+		style="z-index:0;"> <source
 		src="${pageContext.request.contextPath}/resources/video/44_MTZfQmxva2Jhc3Rlcl9DREVJVk8.mp4"
-		type="video/mp4"></video>
+		type="video/mp4"></video> </header>
+
+
 	<nav class="navbar navbar-expand-md fixed-top"> <a
 		class="navbar-brand" href="${pageContext.request.contextPath}"
 		style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 50px;">영화보고갈래?</a>
@@ -66,9 +72,9 @@
 	</button>
 
 
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		<sec:authorize access="isAnonymous()">
 
+	<sec:authorize access="isAnonymous()">
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
 					href="${pageContext.request.contextPath}/registerForm">가입해 <span
@@ -79,62 +85,83 @@
 				<li class="nav-item"><a class="nav-link"
 					href="${pageContext.request.contextPath}/findMemberByIdForm">회원검색
 				</a></li>
-	</div>
-	</sec:authorize>
-	</ul>
-	<form class="form-inline my-2 my-lg-0">
+			</ul>
+		</div>
+<form class="form-inline my-2 my-lg-0">
 		<input class="form-control mr-sm-2" type="text" placeholder="Search"
 			aria-label="Search">
 		<button class="btn btn-secondary my-2 my-sm-0" type="submit">찾아봐</button>
 	</form>
-	</div>
+	</sec:authorize>
+
+
+	
 	</nav>
 
 
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication var="mvo" property="principal" />
-		<b>${mvo.memberName}님 환영합니다.</b>
-		<p>
+		<div
+			style="position: fixed; top: 200px; left: 150px; font-family: 'Do Hyeon'; font-size: 25pt; color: white; z-index: 5;">${mvo.memberName}
+			어서온나. 오늘은 뭐볼라꼬? 	<form class="form-inline my-2 my-lg-0">
+		<input class="form-control mr-sm-2" type="text" placeholder="Search"
+			aria-label="Search">
+		<button class="btn btn-secondary my-2 my-sm-0" type="submit">함 찾아봐</button>
+	</form></div>
 
-			<!-- 
+
+		<!-- 
 		authentication의 getPrincipal().getName() ::
 		Principal은 Provider 에서 Authentication에 넣어준 VO(생성자의 첫 매개변수)
 	 -->
-	</sec:authorize>
-	<p></p>
-	<!-- 인증됬으면 -->
-	<sec:authorize access="isAuthenticated()">
+		<!-- 인증됬으면 -->
 		<!-- 관리자인 경우 -->
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<li><a
-				href="${pageContext.request.contextPath }/admin/enterCafe">ADMIN
-					Cafe Enterance</a></li>
-		</sec:authorize>
+		<nav class="navbar navbar-expand-md fixed-top"> <a
+			class="navbar-brand" href="${pageContext.request.contextPath}"
+			style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 50px;">영화보고갈래?</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExampleDefault"
+			aria-controls="navbarsExampleDefault" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 
-		<!--  일반 회원이거나 관리자인 두 경우. 두개 이상의 role을 비교할때 hasAnyRole()-->
-		<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
-			<li><a
-				href="${pageContext.request.contextPath }/member/updateForm">정보
-					수정 폼</a></li>
-			<li><a
-				href="${pageContext.request.contextPath }/member/addressList">주소별
-					검색 하기</a></li>
-			<li><a href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
-		</sec:authorize>
-		<li><a href="javascript:logout();">로그아웃</a></li>
+
+
+					<li><a class="nav-link"
+						href="${pageContext.request.contextPath }/admin/enterCafe">어드민</a></li>
+				</sec:authorize>
+				<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
+					<li><a class="nav-link"
+						href="${pageContext.request.contextPath }/member/updateForm">정보수정</a></li>
+					<li><a class="nav-link"
+						href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
+				</sec:authorize>
+			</ul>
+
+			<a class="btn btn-secondary my-2 my-sm-0" href="javascript:logout();"
+				role="button">로그아웃</a>
+		</div>
+		</nav>
+
 	</sec:authorize>
-	<p>
 
-		<!--  
+
+
+	<!--  
 1. 로그아웃은 스프링 시큐러티 4부터는 로그아웃시 post 방식으로 이동하며 
   /logout url로 요청한다(따로 정의하지 않으면...)
 2. _csrf 를 요청 파라미터로 보내야 한다.
 -->
-
-		<form id="logoutFrm"
+	<form id="logoutFrm"
 		action="${pageContext.request.contextPath}/member/logout"
-		method="post"style:"display:none"><input type="hidden" name="${_csrf.parameterName }"
-			value="${_csrf.token }"></form>
+		method="post" style="display:none">
+		<input type="hidden" name="${_csrf.parameterName }"
+			value="${_csrf.token }">
+	</form>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
