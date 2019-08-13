@@ -25,7 +25,6 @@
 		<td>${MemberDTO.memberEmail }</td>
 		<td>${MemberDTO.memberName }</td>
 		<td>${MemberDTO.memberId }</td>
-		<td>${MemberDTO.memberAddress }</td>
 	</tr>
 	</c:forEach>
 </table>
