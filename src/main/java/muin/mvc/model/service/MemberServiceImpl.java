@@ -87,5 +87,11 @@ public class MemberServiceImpl implements MemberService {
 		return authoritiesDAO.selectAuthorityByUserName(username);
 	}
 
+	@Override
+	public List<MemberDTO> memberList() {
+		
+		return memberDAO.memberList();
+	}
+
 	
 }

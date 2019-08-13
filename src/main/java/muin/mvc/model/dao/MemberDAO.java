@@ -21,6 +21,7 @@ public interface MemberDAO {
 	void registerMember(MemberDTO vo);
 
 	int idcheck(String id);
-
+	
+	List<MemberDTO> memberList();
 
 }

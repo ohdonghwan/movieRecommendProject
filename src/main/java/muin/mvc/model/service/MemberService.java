@@ -24,4 +24,6 @@ public interface MemberService {
 	String idcheck(String id);
 	
 	List<AuthorityDTO> selectAuthorityByUsername(String username);
+	
+	List<MemberDTO> memberList();
 }

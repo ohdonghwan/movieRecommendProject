@@ -12,11 +12,12 @@
  		select id,name from security_member
  		where address=#{value}
  	</select>
- 	<update id="updateMember" parameterType="member">
-		update security_member set password=#{password},name=#{name},address=#{address}
-		where id=#{id}
+ 	 	-->
+	<update id="updateMember" parameterType="member">
+		update member set member_pwd=#{memberPwd},member_name=#{memberName}
+		where member_Id=#{memberId}
 	</update> 
- 	-->
+
  	<select id="login" resultType="member" parameterType="member">
  		<include refid="selectMember"></include>
  		where member_email=#{memberEmail} and member_Pwd=#{memberPwd}
@@ -39,22 +40,8 @@
 		FROM	member
 		WHERE 	member_email=#{value}				
  	</select>
+ 	
+ 	<select id="adminList" resultType="member">
+ 		select member_Id,member_pwd,member_name,member_email from member
+ 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

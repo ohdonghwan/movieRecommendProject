@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,6 +55,7 @@ public class MemberController {
 		return "member/findForm";
 	}
 	
+	
 //	//특정 회원 검색하기
 //	@RequestMapping("member/findMember")
 //	public ModelAndView findMember(HttpServletRequest request) {
@@ -63,10 +65,21 @@ public class MemberController {
 //	}
 //	
 //	//관리자 권한으로 들어가서 회원 명수 파악하기
-//	@RequestMapping("admin/enterCafe")
-//	public  ModelAndView adminWelcome() {
-//		return new ModelAndView("admin/main","count",memberService.getMemberCount());
-//	}
+	@RequestMapping("admin/enterCafe")
+	public String adminSelect(Model model) {
+		List<MemberDTO> list = memberService.memberList();
+		int count = memberService.getMemberCount();
+		model.addAttribute("list", list);
+		model.addAttribute("count", count);
+		return "admin/enterCafe";
+	}
+	
+	//관리자 권한으로 들어가서 회원 명수 파악하기
+//		@RequestMapping("admin/enterCafe")
+//		public  ModelAndView adminWelcome() {
+//			return new ModelAndView("admin/enterCafe","count",memberService.getMemberCount());
+//		}
+	
 	
 	//아이디 중복확인
 	@RequestMapping("idcheckAjax")
@@ -117,19 +130,7 @@ public class MemberController {
 		System.out.println("3. Spring Security 세션 수정 후 회원정보:" + pvo);
 				
 		
-		return new ModelAndView("member/update_result");
+		return new ModelAndView("/index");   //member/update_result
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-

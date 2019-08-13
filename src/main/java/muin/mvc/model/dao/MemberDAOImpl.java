@@ -47,24 +47,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public int idcheck(String id) {
 		return sqlSession.selectOne("memberMapper.idcheck",id);				
 	}
+	@Override
+	public List<MemberDTO> memberList() {
+		return sqlSession.selectList("memberMapper.adminList");
+	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
