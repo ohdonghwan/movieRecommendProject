@@ -15,7 +15,7 @@
  	 	-->
 	<update id="updateMember" parameterType="member">
 		update member set member_pwd=#{memberPwd},member_name=#{memberName}
-		where member_Id=#{memberId}
+		where member_Email=#{memberEmail}
 	</update> 
 
  	<select id="login" resultType="member" parameterType="member">

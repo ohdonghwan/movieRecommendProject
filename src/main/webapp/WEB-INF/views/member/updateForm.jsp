@@ -6,12 +6,10 @@
  <form method="post" action="${pageContext.request.contextPath}/updateMemberAction">
 		<input type="hidden" name="command" value="update">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		아이디 : <input type="text" name="id" value="<sec:authentication property="principal.id"/>" readonly>
-		<br>패스워드 : <input type="text" name="password" >	
-		<br>이름 : <input type="text" name="name" 
-		value="<sec:authentication property="principal.name"/>" >	
-		<br>주소 : <input type="text" name="address" 
-		value="<sec:authentication property="principal.address"/>" >	
+		이메일 : <input type="text" name="memberEmail" value="<sec:authentication property="principal.memberEmail"/>" readonly>
+		<br>패스워드 : <input type="password" name="memberPwd" >	
+		<br>이름 : <input type="text" name="memberName" 
+		value="<sec:authentication property="principal.memberName"/>" >	
 		<br><input type="submit" value="회원정보수정">
 		</form>
 </sec:authorize>
