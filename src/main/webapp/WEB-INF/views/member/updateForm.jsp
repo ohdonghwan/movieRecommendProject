@@ -8,8 +8,8 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		이메일 : <input type="text" name="memberEmail" value="<sec:authentication property="principal.memberEmail"/>" readonly>
 		<br>패스워드 : <input type="password" name="memberPwd" >	
-		<br>이름 : <input type="text" name="memberName" 
-		value="<sec:authentication property="principal.memberName"/>" >	
+		<br>이름 : <input type="text" name="memberName"> 
+		<sec:authentication property="principal.memberName"/>
 		<br><input type="submit" value="회원정보수정">
 		</form>
 </sec:authorize>

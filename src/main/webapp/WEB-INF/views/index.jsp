@@ -82,9 +82,7 @@
 				</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${pageContext.request.contextPath}/loginForm">어서와</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath}/findMemberByIdForm">회원검색
-				</a></li>
+				
 			</ul>
 		</div>
 <form class="form-inline my-2 my-lg-0">
@@ -137,6 +135,8 @@
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath }/member/updateForm">정보수정</a></li>
+					<li><a class="nav-link"
+						href="#">마이페이지</a></li>
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
 				</sec:authorize>

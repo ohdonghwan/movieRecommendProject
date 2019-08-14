@@ -73,9 +73,9 @@
 											if (memberEmail.length<4 || memberEmail.length>10) {
 												$("#idCheckView")
 														.html(
-																"4>id length OR id length>10")
-														.css("background",
-																"pink");
+																"4자 이상 10자 이하로 작성해주세요")
+														.css("font-family",
+																"Do Hyeon");
 												checkResultmemberId = "";
 												return;
 											}
@@ -93,10 +93,9 @@
 																		.html(
 																				"  "
 																						+ memberEmail
-																						+ " ID Can't Use!! ")
-																		.css(
-																				"background",
-																				"red");
+																						+ "이미 존재한 아이디 입니다.")
+																		.css("font-family",
+																		"Do Hyeon");
 																checkResultId = "";
 															} else {
 																$(
@@ -104,10 +103,8 @@
 																		.html(
 																				"  "
 																						+ memberEmail
-																						+ " ID Can Use!! ")
-																		.css(
-																				"background",
-																				"yellow");
+																						+ "사용 가능한 아이디 입니다.")
+																		.css("font-family", "Do Hyeon");
 																checkResultmemberId = memberEmail;
 															}
 														}//callback			
@@ -174,17 +171,12 @@ body {
 	z-index: 2;
 }
 
-#regForm input[type="text"] {
+#regForm input{
 	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
 }
 
-#regForm input[type="password"] {
-	margin-bottom: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-}
+
+
 </style>
 
 </head>
@@ -196,26 +188,24 @@ body {
 		<h1 class="signinhead">
 			이렇게 간단한<br>회원가입 해 봤어?
 		</h1>
-		<input type="hidden" name="memberId" id="memberId"><br>
-		<br>
+		<input type="hidden" name="memberId" id="memberId"><br> <br>
 		<!-- Id는 seq로 준다. 로그인 아이디는 email -->
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}"> <label for="inputEmail"
 			class="sr-only">Email address</label> <input type="text"
-			name="memberEmail" class="form-control" placeholder="Email address"
-			required autofocus> <span id="idCheckView"></span><label
-			for="inputPassword" class="sr-only">Password</label> <input
-			type="password" name="memberPwd" class="form-control"
-			placeholder="Password" required> <label for="inputName"
-			class="sr-only">Name</label> <input type="password" name="memberName"
-			class="form-control" required>
+			name="memberEmail" class="form-control"
+			placeholder="Email address" required autofocus> <span
+			id="idCheckView"></span> <label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" name="memberPwd"
+			class="form-control" placeholder="Password" required> <label
+			for="inputName" class="sr-only">Name</label> <input type="text" name="memberName" class="form-control" placeholder="Name" required>
 		<div class="checkbox mb-3">
-			<input type="radio" value="0" name="userType">ROLE_MEMBER <input
-				type="radio" value="1" name="userType">ROLE_ADMIN
+			<input type="radio" value="0" name="userType">		ROLE_MEMBER <input
+				type="radio" value="1" name="userType">		ROLE_ADMIN
 
 		</div>
 		<button class="btn btn-lg btn-secondary btn-block" type="submit"
-			value="Register Member">가입하</button>
+			value="Register Member">웰컴</button>
 		<p class="mt-5 mb-3 text-muted">&copy; 2017-2019 created by
 			Bootstrap project by team MUIN</p>
 	</form>
