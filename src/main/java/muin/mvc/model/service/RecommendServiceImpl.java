@@ -1,9 +1,14 @@
 package muin.mvc.model.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.mahout.cf.taste.common.TasteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import muin.mvc.model.dao.RecommendDAO;
 import muin.mvc.model.dto.MovieDTO;
@@ -25,5 +30,13 @@ public class RecommendServiceImpl implements RecommendService {
 		return recommendDAO.selectRecommend(memberId);
 	}
 
+	@Override
+	public void createCsv() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+		recommendDAO.createCsv();
+	}
 
+	@Override
+	public List<MovieDTO> recommendMovie(Long memberId) throws IOException, TasteException {
+		return recommendDAO.recommendMovie(memberId);
+	}
 }

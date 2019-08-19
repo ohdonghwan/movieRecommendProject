@@ -139,6 +139,8 @@
 						href="#">마이페이지</a></li>
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
+					<li><a class="nav-link"
+						href="${pageContext.request.contextPath}/recommend/createCsv">추천목록띄우기</a></li>
 				</sec:authorize>
 			</ul>
 
