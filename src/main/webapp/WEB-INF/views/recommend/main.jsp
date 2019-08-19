@@ -16,7 +16,6 @@
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script>
 $(function(){	
-	//메인 띄울 때 랜덤 영화 뿌려주기
 	function selectRecommendView(){		
 		$.ajax({			
 			type:"POST",
@@ -59,11 +58,12 @@ $(function(){
 	$(document).on("change","select[name=recommendGrade]" ,function(){ // 별점 select 할때마다 ajax처리로 바로바로 영화 들어가게끔 한다.		
 		var params = {
 			memberId:$("#memberId").val(),
-			movieNo:$("#movieNo").text(),
+			movieNo:$(this).parent().parent().children().first().text(), // movieNo를 가져오는 방법을 찾지 못해 DOM을 사용했습니다.
+			//UI가 바뀌게 되면 수정해야 하니 꼭 말씀해주세요
 			recommendGrade:$(this).val(),
 			"${_csrf.parameterName}":"${_csrf.token}"
 		};
-		console.log($("#memberId").val());
+		//console.log($(this).parent().parent().children().first().text());
 		$(this).parent().parent().remove(); // 평점 누르면서 동시에 행 삭제, db에선 삭제하지않는다.
 		
 		$.ajax({
