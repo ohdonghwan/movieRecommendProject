@@ -69,7 +69,7 @@ public class RecommendDAOImpl implements RecommendDAO {
 				similarity, model);
 		UserBasedRecommender recommender = new GenericUserBasedRecommender(
 				model, neighborhood, similarity);
-		List<RecommendedItem> recommendations = recommender.recommend(memberId,2);
+		List<RecommendedItem> recommendations = recommender.recommend(memberId,5);
 		
 		
 		List<MovieDTO> movieList = new ArrayList<MovieDTO>();
