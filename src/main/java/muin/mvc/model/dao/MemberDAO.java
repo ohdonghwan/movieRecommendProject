@@ -23,5 +23,6 @@ public interface MemberDAO {
 	int idcheck(String id);
 	
 	List<MemberDTO> memberList();
-
+	
+	MemberDTO mypage(Long memberId);
 }

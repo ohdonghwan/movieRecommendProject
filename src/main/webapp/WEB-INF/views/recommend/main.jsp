@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
-	
-	
-	<sec:authentication var="mvo" property="principal" /> 
-	
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
+
+
+<sec:authentication var="mvo" property="principal" /> 
+<sec:authorize access="isAuthenticated()">
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,3 +84,4 @@ $(function(){
 	<div id="movieListView">여기에 영화 뿌리는거임!</div>
 </body>
 </html>
+</sec:authorize>

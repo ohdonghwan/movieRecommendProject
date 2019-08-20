@@ -39,4 +39,9 @@ public class RecommendServiceImpl implements RecommendService {
 	public List<MovieDTO> recommendMovie(Long memberId) throws IOException, TasteException {
 		return recommendDAO.recommendMovie(memberId);
 	}
+
+	@Override
+	public List<RecommendDTO> myRecommendGrade(Long memberId) {
+		return recommendDAO.myRecommendGrade(memberId);
+	}
 }

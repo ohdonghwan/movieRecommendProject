@@ -12,7 +12,7 @@ import muin.mvc.model.service.DetailService;
 public class DetailController {
 	
 	
-	@Autowired	 // ╩С╪╪╣╔юлем╦╕ ╬Р╬Н©ю╢б ╟╢ц╪ ажют
+	@Autowired	 // О©╫С╪╪╣О©╫О©╫О©╫О©╫м╦О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫ц╪ О©╫О©╫О©╫О©╫
 	private DetailJson dJson;
 	
 	@Autowired
@@ -20,12 +20,12 @@ public class DetailController {
 	
 	@RequestMapping("detail/movieDetail")
 	public String detail() {
-	    String title="©ц╣Е╨╦юл";	    
+	    String title="Л≤╛К⌠°КЁ╢Л²╢";	    
 		  
-			// ╩С╪╪╣╔юлем╦╕ JSONгЭеб╥н ╧ч╬ф MovieDetailVO©║ юЗюЕ
+			// О©╫С╪╪╣О©╫О©╫О©╫О©╫м╦О©╫ JSONО©╫О©╫О©╫б╥О©╫ О©╫ч╬О©╫ MovieDetailVOО©╫О©╫ О©╫О©╫О©╫О©╫
 	    MovieDTO dto =dJson.getJson(title);
 			
-			// ╣╔юлем╨ёюл╫╨©║ а╒╪с©║ ╟Э╥цго╢б╟╢ц╪╦╕ ╦╦╣И╟М ╣╔юлем╨ёюл╫╨©║ ют╥б
+			// О©╫О©╫О©╫О©╫О©╫м╨О©╫О©╫л╫О©╫О©╫О©╫ О©╫О©╫О©╫с©О©╫ О©╫О©╫О©╫О©╫О©╫о╢б╟О©╫ц╪О©╫О©╫ О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫м╨О©╫О©╫л╫О©╫О©╫О©╫ О©╫т╥О©╫
 			sv.insert(dto);
 			
 		return "detail/movieDetail";

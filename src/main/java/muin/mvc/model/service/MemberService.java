@@ -26,4 +26,6 @@ public interface MemberService {
 	List<AuthorityDTO> selectAuthorityByUsername(String username);
 	
 	List<MemberDTO> memberList();
+	
+	MemberDTO mypage(Long memberId);
 }

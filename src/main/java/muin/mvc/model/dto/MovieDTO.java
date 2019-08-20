@@ -17,4 +17,8 @@ public class MovieDTO {
 	private String movieActor;
 	private String movieDirector;
 	private String moviePoster;
+	
+	
+	private RecommendDTO recommendDTO;
+	
 }

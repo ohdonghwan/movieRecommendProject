@@ -20,4 +20,6 @@ public interface RecommendDAO {
 	public void createCsv() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException;
 	
 	public List<MovieDTO> recommendMovie(Long memberId) throws IOException, TasteException;
+	
+	public List<RecommendDTO> myRecommendGrade(Long memberId);
 }

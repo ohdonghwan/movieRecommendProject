@@ -30,7 +30,7 @@ $(function(){
 					data += "<input type='hidden' id='memberId' value='${mvo.memberId}' name='memberId'/>";
 					data+="<tr>";
 						data+="<td id='movieNo'>"+item.movieNo+"</td>";
-						data+="<td>"+item.movieName+"</td>";
+						data+="<td><a href='${pageContext.request.contextPath}/detail/movieDetail'>"+item.movieName+"</a></td>";
 						data+="<td>"+item.movieGenre+"</td>";
 						data+="<td>"+item.movieStory+"</td>";
 						data+="<td>"+item.movieActor+"</td>";

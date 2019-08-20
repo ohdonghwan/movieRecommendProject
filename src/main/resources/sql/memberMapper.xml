@@ -44,4 +44,49 @@
  	<select id="adminList" resultType="member">
  		select member_Id,member_pwd,member_name,member_email from member
  	</select>
+ 	
+ 	<select id="mypage" resultType="member">
+ 		select member_Id, member_name, member_email from member
+ 	</select>
+ 	
+ 	<!-- 마이페이지, movie와 recommend table 조인을 통한 내가 별점 준 영화 select -->
+ <!-- 	<resultMap type="recommend" id="MovieRecommendAssociationJoin">
+ 			<id column="recommend_No" property="recommendNo"/>
+ 			<result column="member_Id" property="memberId"/>
+ 			<result column="movie_no" property="movieNo"/>
+ 			<result column="recommend_grade" property="recommendGrade"/>
+ 		<association property="myRecommendGradeList" javaType="movie">
+	 		<id column="movie_No" property="movieNo"/>
+	 		<result column="movie_name" property="movieName"/>
+	 		<result column="movie_story" property="movieStory"/>
+	 		<result column="movie_genre" property="movieGenre"/> 			
+ 		</association>
+ 	</resultMap> -->
+ 	
+ 	<resultMap type="movie" id="MovieRecommendAssociationJoin"> 	
+ 	       <id column="movie_No" property="movieNo"/>
+	 		<result column="movie_name" property="movieName"/>
+	 		<result column="movie_story" property="movieStory"/>
+	 		<result column="movie_genre" property="movieGenre"/> 	
+	 		<result column="movie_director" property="movieDirector"/> 	
+	 		<result column="movie_poster" property="moviePoster"/> 		
+ 		<association property="recommendDTO" javaType="recommend">
+	 		<id column="recommend_No" property="recommendNo"/>
+ 			<result column="member_Id" property="memberId"/>
+ 			<result column="movie_no" property="movieNo"/>
+ 			<result column="recommend_grade" property="recommendGrade"/>			
+ 		</association>
+ 	</resultMap> 	
+ 	<select id="myRecommendGrade" resultMap="MovieRecommendAssociationJoin" parameterType="long">
+ 	select m.movie_no, m.movie_name,m.movie_story,m.movie_Genre,r.recommend_No , r.member_id, r.movie_no , r.recommend_grade,
+ 	m.movie_poster, m.movie_director
+ 	from movie m join recommend r 
+ 	on m.movie_no = r.movie_no and member_id = #{value}
+ 	</select>
+ 	
+ 	<!-- 찜목록에 insert wishMap을 만들어서 movie_no와 member_id 두개 동시에 넣을 수 있게 한다.-->
+ 	<!-- <insert id="insertWishList" parameterMap="wishMap">
+ 		insert into wishList(wish_no, member_id) values(#{value}, #{value})
+ 	</insert> -->
+ 	
 </mapper>

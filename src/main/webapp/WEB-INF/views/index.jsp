@@ -136,7 +136,7 @@
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath }/member/updateForm">정보수정</a></li>
 					<li><a class="nav-link"
-						href="#">마이페이지</a></li>
+						href="${pageContext.request.contextPath}/member/mypage">마이페이지</a></li>
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
 					<li><a class="nav-link"

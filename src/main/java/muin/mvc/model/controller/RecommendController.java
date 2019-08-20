@@ -38,7 +38,6 @@ public class RecommendController {
 	@RequestMapping("/recommend/insert")
 	@ResponseBody
 	public String recommendInsert(RecommendDTO dto) {
-		System.out.println(dto.getMemberId()+"\t"+dto.getMovieNo()+"\t"+dto.getRecommendGrade());
 		recommendService.insertRecommend(dto);
 		return "1";
 	}
@@ -54,9 +53,13 @@ public class RecommendController {
 	@RequestMapping("/recommend/recommendMovie")
 	@ResponseBody
 	public List<MovieDTO> recommendMovie(Long memberId) throws IOException, TasteException {
-		System.out.println("memberId = " + memberId);
 		List<MovieDTO> list = recommendService.recommendMovie(memberId);
-		System.out.println("list = " + list);
 		return list;
+	}
+	
+	@RequestMapping("/member/myRecommendGrade")
+	public ModelAndView myRecommendGrade(Long memberId){
+		List<RecommendDTO> list = recommendService.myRecommendGrade(memberId);
+		return new ModelAndView("member/myRecommendGrade", "list", list);	
 	}
 }

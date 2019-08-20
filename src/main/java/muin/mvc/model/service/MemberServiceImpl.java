@@ -93,5 +93,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.memberList();
 	}
 
+	@Override
+	public MemberDTO mypage(Long memberId) {
+		return memberDAO.mypage(memberId);
+	}
+
 	
 }

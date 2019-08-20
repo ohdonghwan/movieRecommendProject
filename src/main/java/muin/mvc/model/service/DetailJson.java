@@ -127,7 +127,7 @@ public class DetailJson {
 				
 				
 				dto =new MovieDTO(0, vo.getMovieName(), vo.getMovieGenre(), vo.getMovieStory(), 
-						vo.getMovieActor(), vo.getMovieDirector(),vo.getMoviePoster());
+						vo.getMovieActor(), vo.getMovieDirector(),vo.getMoviePoster(),null);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -133,4 +133,11 @@ public class MemberController {
 		return new ModelAndView("/index");   //member/update_result
 	}
 	
+	//마이페이지
+	@RequestMapping("/member/mypage")
+	public MemberDTO mypage(Long memberId) {
+		return memberService.mypage(memberId);
+	}
+	
+	
 }

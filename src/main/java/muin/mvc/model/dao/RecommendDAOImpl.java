@@ -56,7 +56,6 @@ public class RecommendDAOImpl implements RecommendDAO {
 					CSVWriter.DEFAULT_ESCAPE_CHARACTER,
 					CSVWriter.DEFAULT_LINE_END);
 		){			
-			System.out.println("list 생성");
 			for(RecommendDTO dto : list) {
 				csvWriter.writeNext(new String[] {Integer.toString(dto.getMemberId()),Integer.toString(dto.getMovieNo()), Integer.toString((dto.getRecommendGrade()))});
 			}
@@ -76,11 +75,16 @@ public class RecommendDAOImpl implements RecommendDAO {
 		List<MovieDTO> movieList = new ArrayList<MovieDTO>();
 		for (RecommendedItem recommendation : recommendations) {
 			int movieNo = (int) recommendation.getItemID();
-			System.out.println(movieNo);
 			MovieDTO movieDTO = session.selectOne("recommendMapper.recommendMovie", movieNo);
 			movieList.add(movieDTO);
 		}
 		return movieList;
+	}
+
+	@Override
+	public List<RecommendDTO> myRecommendGrade(Long memberId) {
+		List<RecommendDTO> list = session.selectList("memberMapper.myRecommendGrade", memberId);
+		return list;
 	}
 
 }

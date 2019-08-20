@@ -51,5 +51,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<MemberDTO> memberList() {
 		return sqlSession.selectList("memberMapper.adminList");
 	}
+	@Override
+	public MemberDTO mypage(Long memberId) {		
+		return sqlSession.selectOne("memberMapper.findMemberById", memberId);
+	}
 	
 }
