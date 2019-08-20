@@ -10,6 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieDTO {
+	
+	public MovieDTO(int i, String movieName2, String movieGenre2, String movieStory2, String movieActor2,
+			String movieDirector2, String moviePoster2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	private int movieNo;
 	private String movieName;
 	private String movieGenre;

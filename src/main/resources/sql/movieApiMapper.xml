@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movieApiMapper">
+
+
+	<!-- 영화 상세 검색 <select id="movieDetail" parameterType="list" resultType="movieDetailVO"> 
+		select movie_name,movie_genre,movie_story,movie_actor,movie_director,movie_poster 
+		from movie where movie_no=#{movie_no} </select> -->
+
+	<!-- 배우 상세 검색 -->
+
+
+<!-- 전체 정보 저장 -->
+	<insert id="insertall" parameterType="movie">
+		insert into movie(movie_no,movie_name,movie_genre,movie_story,movie_actor,movie_director,movie_poster)
+		values(movie_no_seq.nextval,#{movieName},#{movieGenre},#{movieStory},#{movieActor},#{movieDirector},#{moviePoster})
+	</insert>
+
+</mapper>
