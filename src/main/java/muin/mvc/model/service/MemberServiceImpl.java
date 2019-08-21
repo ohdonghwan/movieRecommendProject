@@ -1,11 +1,7 @@
 package muin.mvc.model.service;
 
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import muin.mvc.model.dao.AuthoritiesDAO;
 import muin.mvc.model.dao.MemberDAO;
-import muin.mvc.model.dao.MemberDAOImpl;
 import muin.mvc.model.dto.AuthorityDTO;
 import muin.mvc.model.dto.MemberDTO;
+import muin.mvc.model.dto.WishListDTO;
 import muin.mvc.model.util.Constants;
 
 @Service
@@ -113,6 +109,16 @@ public class MemberServiceImpl implements MemberService {
 			System.out.println("2");
 			return true;
 		}
+	}
+
+	@Override
+	public int insertWishList(Long memberId, int movieNo) {
+		return memberDAO.insertWishList(memberId, movieNo);
+	}
+
+	@Override
+	public List<WishListDTO> checkWishList(Long memberId, int movieNo) {
+		return memberDAO.checkWishList(memberId, movieNo);
 	}
 
 	

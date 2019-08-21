@@ -4,15 +4,7 @@
 	<sql id="selectMember">
  		select member_Id,member_pwd,member_name,member_email from member
  	</sql>
- 	
-<!--  	<select id="getAddressList" resultType="string">
- 		select distinct address from security_member
- 	</select>
- 	<select id="findMemberListByAddress" resultType="member">
- 		select id,name from security_member
- 		where address=#{value}
- 	</select>
- 	 	-->
+
 	<update id="updateMember" parameterType="member">
 		update member set member_pwd=#{memberPwd},member_name=#{memberName}
 		where member_Email=#{memberEmail}
@@ -48,20 +40,7 @@
  	<select id="mypage" resultType="member">
  		select member_Id, member_name, member_email from member
  	</select>
- 	
- 	<!-- 마이페이지, movie와 recommend table 조인을 통한 내가 별점 준 영화 select -->
- <!-- 	<resultMap type="recommend" id="MovieRecommendAssociationJoin">
- 			<id column="recommend_No" property="recommendNo"/>
- 			<result column="member_Id" property="memberId"/>
- 			<result column="movie_no" property="movieNo"/>
- 			<result column="recommend_grade" property="recommendGrade"/>
- 		<association property="myRecommendGradeList" javaType="movie">
-	 		<id column="movie_No" property="movieNo"/>
-	 		<result column="movie_name" property="movieName"/>
-	 		<result column="movie_story" property="movieStory"/>
-	 		<result column="movie_genre" property="movieGenre"/> 			
- 		</association>
- 	</resultMap> -->
+
  	
  	<resultMap type="movie" id="MovieRecommendAssociationJoin"> 	
  	       <id column="movie_No" property="movieNo"/>
@@ -85,9 +64,15 @@
  	</select>
  	
  	<!-- 찜목록에 insert wishMap을 만들어서 movie_no와 member_id 두개 동시에 넣을 수 있게 한다.-->
- 	<!-- <insert id="insertWishList" parameterMap="wishMap">
- 		insert into wishList(wish_no, member_id) values(#{value}, #{value})
- 	</insert> -->
+	<insert id="insertWishList" parameterType="map">
+ 		insert into wishList(member_id, wish_no) values(#{memberId}, #{movieNo})
+ 	</insert>
+ 	<!-- 찜목록에 찜 중복 안되게 검사하기 -->
+ 	<select id="checkWishList" parameterType="map">
+ 		select member_id, wish_no from wishList where member_id = #{memberid} and wish_no = #{movieNo}
+ 	</select>
+ 	<!-- 회원이 찜한 찜목록 전체 출력 join기능 사용 -->
+ 	
  	
  	<!-- 회원탈퇴 -->
  	<delete id="memberDelete" parameterType="member">

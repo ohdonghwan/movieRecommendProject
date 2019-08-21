@@ -171,4 +171,18 @@ public class MemberController {
 			return "member/updateInfo";
 		}
 	}
+	
+	@RequestMapping("/member/insertWishList")
+	@ResponseBody
+	public int regitWishList(Long memberId, int movieNo) {
+		memberService.insertWishList(memberId, movieNo);
+		return 1;
+	}
+	
+//	@RequestMapping("/member/checkWishList")
+//	@ResponseBody
+//	public int checkWishList(Long memberId, int movieNo) {
+//		if(memberService.checkWishList(memberId, movieNo)==null) return 0; // select문에서 아무것도 안나왔을때 찜할 수 있음 0이나오면 중복아닌것
+//		else return 1;		
+//	}
 }

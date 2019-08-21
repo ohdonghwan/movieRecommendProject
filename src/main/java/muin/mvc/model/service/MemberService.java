@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import muin.mvc.model.dto.AuthorityDTO;
 import muin.mvc.model.dto.MemberDTO;
+import muin.mvc.model.dto.WishListDTO;
 
 public interface MemberService {
 	MemberDTO findMemberById(String id);
@@ -31,5 +32,9 @@ public interface MemberService {
 	boolean confirmPwd(String memberEmail, String memberPwd);
 	
 	boolean withdrawal(MemberDTO member) throws Exception;
+	
+	public int insertWishList(Long memberId, int movieNo); 
+	
+	public List<WishListDTO> checkWishList(Long memberId, int movieNo);
 
 }

@@ -7,6 +7,6 @@
 
 <!-- 영화 제목으로 검색 -->
 	<select id="selectMovieByKeyWord" resultType="movie" parameterType="String">
-		select movie_poster, movie_name, movie_genre, movie_story, movie_director, movie_actor from movie where movie_name like '%'||#{value}||'%'
+		select movie_no, movie_poster, movie_name, movie_genre, movie_story, movie_director, movie_actor from movie where movie_name like '%'||#{value}||'%'
 	</select>
 </mapper>

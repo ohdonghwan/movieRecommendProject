@@ -2,11 +2,13 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
+<sec:authentication var="mvo" property="principal" />
 <!-- jQuery -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
@@ -35,6 +37,7 @@ padding-bottom: 30px;
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 
 <script>
+	
 	$(document).on('click', '#gomain', function(e){
 		e.preventDefault();
 		location.href = "${pageContext.request.contextPath}/";
@@ -57,12 +60,14 @@ padding-bottom: 30px;
 				 $.each(result, function(index, item){
 					data += "<input type='hidden' id='memberId' value='${mvo.memberId}' name='memberId'/>";
 					data += "<tr>";
+						data+="<input type='hidden' value='"+item.movieNo+"'>";
 						data+="<td>"+item.movieName+"</td>";
 						data+="<td>"+item.movieGenre+"</td>";
 						data+="<td>"+item.movieStory+"</td>";
 						data+="<td>"+item.movieActor+"</td>";
 						data+="<td>"+item.movieDirector+"</td>";
-						data+="<td>"+item.moviePoster+"</td>";
+						data+="<td><img src='"+item.moviePoster+"'></td>";
+						data+="<td><input type='button' value='찜하기' name='wishListBtn'></td>";
 					data += "</tr>";
 				 })
 				data+="</form>";
@@ -72,13 +77,34 @@ padding-bottom: 30px;
 		})
 	}
 	selectMovieResult();
-
+	
+	$(document).on("click", "input[name=wishListBtn]", function(){
+		//console.log($(this).parent().parent().children().first().val())
+		//checkWishList();
+		var params={
+			memberId:$("#memberId").val(),
+			movieNo:$(this).parent().parent().children().first().val(),
+			"${_csrf.parameterName}":"${_csrf.token}"
+		}	
+		
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/member/insertWishList",
+			data:params,
+			success:function(){
+				alert("찜목록에 추가되었습니다!")
+			},
+			error:function(error){
+				alert("이미 찜목록에 추가 되었습니다.")
+			}
+		})
+		
+	})
 
 </script>
 </head>
 <body>
 
-<sec:authentication var="mvo" property="principal" />
  <br><br>
 <article>
 <button type="button" class="btn btn-sm btn-primary" id="gomain">메인으로</button>

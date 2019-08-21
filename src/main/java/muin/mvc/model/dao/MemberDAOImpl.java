@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import muin.mvc.model.dto.MemberDTO;
+import muin.mvc.model.dto.WishListDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -71,5 +72,19 @@ public class MemberDAOImpl implements MemberDAO {
 			result = true;
 		}
 		return  result;
+	}
+	@Override
+	public int insertWishList(Long memberId, int movieNo) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("memberId", memberId);
+		map.put("movieNo", (long) movieNo);		
+		return sqlSession.insert("memberMapper.insertWishList", map);
+	}
+	@Override
+	public List<WishListDTO> checkWishList(Long memberId, int movieNo) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("memberId", memberId);
+		map.put("movieNo", (long) movieNo);		
+		return sqlSession.selectList("memberMapper.checkWishList", map);
 	}
 }

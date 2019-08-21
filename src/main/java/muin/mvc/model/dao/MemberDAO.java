@@ -3,6 +3,7 @@ package muin.mvc.model.dao;
 import java.util.List;
 
 import muin.mvc.model.dto.MemberDTO;
+import muin.mvc.model.dto.WishListDTO;
 
 public interface MemberDAO {
 
@@ -27,5 +28,9 @@ public interface MemberDAO {
 	boolean confirmPwd(String memberEmail ,String memberPwd);
 	
 	int withdrawal(MemberDTO member) throws Exception;
+	
+	public int insertWishList(Long memberId, int movieNo);
+	
+	public List<WishListDTO> checkWishList(Long memberId, int movieNo);
 
 }
