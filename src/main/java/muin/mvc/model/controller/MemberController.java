@@ -2,10 +2,7 @@ package muin.mvc.model.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,16 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import muin.mvc.model.dto.MemberDTO;
+import muin.mvc.model.dto.WishListDTO;
 import muin.mvc.model.service.MemberService;
-import oracle.net.ano.Service;
 
 @Controller
 public class MemberController {
@@ -178,7 +173,12 @@ public class MemberController {
 		memberService.insertWishList(memberId, movieNo);
 		return 1;
 	}
-	
+	@RequestMapping("/member/myWishList")
+	@ResponseBody
+	public ModelAndView myWishList(Long memberId) {
+		List<WishListDTO> list = memberService.myWishList(memberId);
+		return new ModelAndView("member/wishList", "list", list);
+	}
 //	@RequestMapping("/member/checkWishList")
 //	@ResponseBody
 //	public int checkWishList(Long memberId, int movieNo) {

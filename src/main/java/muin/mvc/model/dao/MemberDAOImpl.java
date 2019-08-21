@@ -87,4 +87,9 @@ public class MemberDAOImpl implements MemberDAO {
 		map.put("movieNo", (long) movieNo);		
 		return sqlSession.selectList("memberMapper.checkWishList", map);
 	}
+	@Override
+	public List<WishListDTO> myWishList(Long memberId) {
+		List<WishListDTO> list = sqlSession.selectList("memberMapper.myWishList", memberId);
+		return list;
+	}
 }

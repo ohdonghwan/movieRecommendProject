@@ -35,7 +35,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <style>
-
+img{width: 100px; height: 150px}
 
 </style>
 
@@ -47,11 +47,11 @@
 <c:if test="${not empty requestScope.errorMessage}">
 	<span style="color:red">${requestScope.errorMessage}</span>
 </c:if>
-<h1>찜목록 (현재는 내가 별점 준 영화)</h1><br>
+<h1>찜목록</h1><br>
 <div><a href="${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}">내가 별점 준 영화</a></div><br>
 <div><a href="${pageContext.request.contextPath }/member/updateForm">정보 수정</a></div><br>
 <div><a href="${pageContext.request.contextPath}">홈으로</a></div><br>
-<div><a href="${pageContext.request.contextPath }/member/wishList">찜목록</a></div>
+<div><a href="${pageContext.request.contextPath }/member/myWishList?memberId=${mvo.memberId}">찜목록</a></div>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
   <div class="container">
@@ -63,17 +63,15 @@
   				<td>영화제목</td>
   				<td>영화장르</td>
   				<td>영화감독</td>
-  				<td>내 평점</td>
   			</tr>
   		</thead>
   		<tbody>
   		<c:forEach items="${list}" var="list">
   			<tr>
-  				<td>${list.moviePoster}</td>
+  				<td><img src='${list.moviePoster}'/></td>
   				<td>${list.movieName}</td>
   				<td>${list.movieGenre}</td>
   				<td>${list.movieDirector}</td>
-  				<td>${list.recommendDTO.recommendGrade} 점</td>
   			</tr>
   		</c:forEach>
   		</tbody>

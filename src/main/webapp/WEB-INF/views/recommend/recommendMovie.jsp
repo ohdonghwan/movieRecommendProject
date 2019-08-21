@@ -35,7 +35,7 @@ $(function(){
 						data+="<td>"+item.movieStory+"</td>";
 						data+="<td>"+item.movieActor+"</td>";
 						data+="<td>"+item.movieDirector+"</td>";
-						data+="<td>"+item.moviePoster+"</td>";
+						data+="<td><img src='"+item.moviePoster+"'/></td>";
 					data+="</tr>";
 				 })
 				data+="</form>";

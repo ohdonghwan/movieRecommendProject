@@ -2,6 +2,8 @@ package muin.mvc.model.dao;
 
 import java.util.List;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import muin.mvc.model.dto.MemberDTO;
 import muin.mvc.model.dto.WishListDTO;
 
@@ -32,5 +34,7 @@ public interface MemberDAO {
 	public int insertWishList(Long memberId, int movieNo);
 	
 	public List<WishListDTO> checkWishList(Long memberId, int movieNo);
+	
+	public List<WishListDTO> myWishList(Long memberId);
 
 }

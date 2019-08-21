@@ -28,4 +28,6 @@ public class MovieDTO {
 	
 	private RecommendDTO recommendDTO;
 	
+	private WishListDTO wishListDTO;
+	
 }

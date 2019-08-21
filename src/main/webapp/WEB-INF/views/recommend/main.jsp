@@ -35,7 +35,7 @@ $(function(){
 						data+="<td>"+item.movieStory+"</td>";
 						data+="<td>"+item.movieActor+"</td>";
 						data+="<td>"+item.movieDirector+"</td>";
-						data+="<td>"+item.moviePoster+"</td>";
+						data+="<td><img src='"+item.moviePoster+"'/></td>";
 						data+="<td><select id='"+index+"' name='recommendGrade'>";
 						data+="<option value=''>---별점 선택---</option>";
 						data+= "<option value='1'>★☆☆☆☆</option>";

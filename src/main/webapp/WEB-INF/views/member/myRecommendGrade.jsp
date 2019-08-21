@@ -35,8 +35,8 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <style>
-img{height: 20px; width: 80px}
-
+img{width: 100px; height: 150px}
+.starImg{width: 80px; height: 30px;}
 </style>
 
 </head>
@@ -51,7 +51,7 @@ img{height: 20px; width: 80px}
 	<div><a href="${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}">내가 별점 준 영화</a></div><br>
 	<div><a href="${pageContext.request.contextPath }/member/updateForm">정보 수정</a></div><br>
 	<div><a href="${pageContext.request.contextPath}">홈으로</a></div><br>
-	<div><a href="${pageContext.request.contextPath }/member/wishList">찜목록</a></div>
+	<div><a href="${pageContext.request.contextPath }/member/myWishList?memberId=${mvo.memberId}">찜목록</a></div>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
   <div class="container">
@@ -69,17 +69,17 @@ img{height: 20px; width: 80px}
   		<tbody>
   		<c:forEach items="${list}" var="list">
   			<tr>
-  				<td>${list.moviePoster}</td>
+  				<td><img src='${list.moviePoster}'/></td>
   				<td>${list.movieName}</td>
   				<td>${list.movieGenre}</td>
   				<td>${list.movieDirector}</td>
   				<td>  				
   				<c:choose>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 5}"><img src="../resources/images/star5.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 4}"><img src="../resources/images/star4.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 3}"><img src="../resources/images/star3.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 2}"><img src="../resources/images/star2.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 1}"><img src="../resources/images/star1.png"/></c:when>
+  					<c:when test="${list.recommendDTO.recommendGrade eq 5}"><img class='starImg' src="../resources/images/star5.png"/></c:when>
+  					<c:when test="${list.recommendDTO.recommendGrade eq 4}"><img class='starImg' src="../resources/images/star4.png"/></c:when>
+  					<c:when test="${list.recommendDTO.recommendGrade eq 3}"><img class='starImg' src="../resources/images/star3.png"/></c:when>
+  					<c:when test="${list.recommendDTO.recommendGrade eq 2}"><img class='starImg' src="../resources/images/star2.png"/></c:when>
+  					<c:when test="${list.recommendDTO.recommendGrade eq 1}"><img class='starImg' src="../resources/images/star1.png"/></c:when>
   				</c:choose>  				
   				</td>
   			</tr>

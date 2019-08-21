@@ -41,7 +41,7 @@
  		select member_Id, member_name, member_email from member
  	</select>
 
- 	
+ 	<!-- 내가 별점 준 영화 보기 Join 사용-->
  	<resultMap type="movie" id="MovieRecommendAssociationJoin"> 	
  	       <id column="movie_No" property="movieNo"/>
 	 		<result column="movie_name" property="movieName"/>
@@ -72,7 +72,24 @@
  		select member_id, wish_no from wishList where member_id = #{memberid} and wish_no = #{movieNo}
  	</select>
  	<!-- 회원이 찜한 찜목록 전체 출력 join기능 사용 -->
- 	
+ 	<resultMap type="movie" id="MovieWishListAssociationJoin"> 	
+ 	       <id column="movie_No" property="movieNo"/>
+	 		<result column="movie_name" property="movieName"/>
+	 		<result column="movie_story" property="movieStory"/>
+	 		<result column="movie_genre" property="movieGenre"/> 	
+	 		<result column="movie_director" property="movieDirector"/> 	
+	 		<result column="movie_poster" property="moviePoster"/> 		
+ 		<association property="wishListDTO" javaType="wishList">
+	 		<id column="wish_no" property="wishNo"/>
+ 			<result column="member_Id" property="memberId"/>
+ 		</association>
+ 	</resultMap> 	
+ 	<select id="myWishList" resultMap="MovieWishListAssociationJoin" parameterType="long">
+ 	select m.movie_no, m.movie_name,m.movie_story,m.movie_Genre,w.wish_no , w.member_id,
+ 	m.movie_poster, m.movie_director
+ 	from movie m join wishList w
+ 	on m.movie_no = w.wish_no and member_id = #{value}
+ 	</select>
  	
  	<!-- 회원탈퇴 -->
  	<delete id="memberDelete" parameterType="member">

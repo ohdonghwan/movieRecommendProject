@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import muin.mvc.model.dao.AuthoritiesDAO;
 import muin.mvc.model.dao.MemberDAO;
@@ -119,6 +120,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<WishListDTO> checkWishList(Long memberId, int movieNo) {
 		return memberDAO.checkWishList(memberId, movieNo);
+	}
+
+	@Override
+	public List<WishListDTO> myWishList(Long memberId) {
+		return memberDAO.myWishList(memberId);
 	}
 
 	

@@ -58,7 +58,7 @@ $(function(){
 		<div><a href="${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}">내가 별점 준 영화</a></div><br>
 		<div><a href="${pageContext.request.contextPath }/member/updateForm">정보 수정</a></div><br>
 		<div><a href="${pageContext.request.contextPath}">홈으로</a></div><br>
-		<div><a href="${pageContext.request.contextPath }/member/wishList">찜목록</a></div>
+		<div><a href="${pageContext.request.contextPath }/member/myWishList?memberId=${mvo.memberId}">찜목록</a></div>
 	</div>
 	</sec:authorize>
 	<div align="center">
