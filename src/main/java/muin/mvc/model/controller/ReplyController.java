@@ -53,4 +53,11 @@ public class ReplyController {
 		replyService.replyDown(replyNo);
 		return 0;
 	}
+	
+	//리플 삭제
+	@RequestMapping("reply/replyDelete")
+	@ResponseBody
+	public int replyDelete(Long replyNo, Long memberId) {
+		return replyService.replyDelete(replyNo, memberId);
+	}
 }

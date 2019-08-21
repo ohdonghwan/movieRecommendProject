@@ -12,4 +12,6 @@ public List<ReplyDTO> selectReply(int movieNo);
 	public void replyUp(Long replyNo);
 	
 	public void replyDown(Long replyNo);
+	
+	public int replyDelete(Long replyNo, Long memberId);
 }

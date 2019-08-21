@@ -35,6 +35,7 @@ $(function(){
 					data+="<td><input type='button' class='btn btn-success' name='replyUp' value='공감 : "+item.replyUp+"'></td>";
 					data+="<td><input type='button' class='btn btn-danger' name='replyDown' value='비공감 : "+item.replyDown+"'></td>";
 					data+="<td>"+item.replyDate+"</td>";
+					data+="<td><input type='button' class='btn btn-info' name='replyDelete' value='삭제'></td>";
 					data+="</tr>";
 				})
 				$("#replyTable").html(data);
@@ -72,6 +73,7 @@ $(function(){
 			}
 		})
 	})
+	//비공감 버튼 클릭
 	$(document).on("click", "input[name=replyDown]", function(){
 		var params={
 			"${_csrf.parameterName}":"${_csrf.token}",
@@ -83,6 +85,25 @@ $(function(){
 			data:params,
 			success:function(){
 				selectReply();
+			}
+		})
+	})
+	
+	//댓글 삭제
+	$(document).on("click", "input[name=replyDelete]", function(){
+		var params={
+			"${_csrf.parameterName}":"${_csrf.token}",
+			replyNo:$(this).parent().parent().children().first().val(),
+			memberId:"${mvo.memberId}"
+		}
+		
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/reply/replyDelete",
+			data:params,
+			success:function(result){
+				if(result==1) selectReply();
+				else alert("니가 쓴 댓글 아니야 ^^")
 			}
 		})
 	})

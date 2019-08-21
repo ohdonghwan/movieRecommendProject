@@ -18,5 +18,10 @@
 	<update id="replyDown" parameterType="long">
 		update reply set reply_down = reply_down+1 where reply_no = #{value}
 	</update>
+		
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="map">
+		delete from reply where reply_no = #{replyNo} and member_id= #{memberId}
+	</delete>
  	
 </mapper>

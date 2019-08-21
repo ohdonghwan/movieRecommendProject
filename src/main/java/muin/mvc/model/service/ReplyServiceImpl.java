@@ -33,5 +33,10 @@ public class ReplyServiceImpl implements ReplyService{
 	public void replyDown(Long replyNo) {
 		replyDAO.replyDown(replyNo);
 	}
+
+	@Override
+	public int replyDelete(Long replyNo, Long memberId) {
+		return replyDAO.replyDelete(replyNo, memberId);
+	}
 	
 }

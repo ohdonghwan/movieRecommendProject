@@ -1,6 +1,8 @@
 package muin.mvc.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,14 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public void replyDown(Long replyNo) {
 		session.update("replyMapper.replyDown", replyNo);
+	}
+
+	@Override
+	public int replyDelete(Long replyNo, Long memberId) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("replyNo", replyNo);
+		map.put("memberId", memberId);
+		return session.delete("replyMapper.replyDelete", map);
 	}
 
 }
