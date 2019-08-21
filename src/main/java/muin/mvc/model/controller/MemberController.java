@@ -107,9 +107,9 @@ public class MemberController {
 		return new ModelAndView("/index");   //member/update_result
 	}
 	
-	@RequestMapping("member/myPage") //마이페이지
+	@RequestMapping("member/mypage") //마이페이지
 	public String myPage() {
-		return "member/myPage";
+		return "member/mypage";
 	}
 	
 	@RequestMapping("/withdrawal")  //탈퇴처리(고객정보삭제)

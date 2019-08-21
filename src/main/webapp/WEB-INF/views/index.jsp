@@ -141,6 +141,8 @@
 						href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/recommend/createCsv">추천목록띄우기</a></li>
+					<li><a class="nav-link"
+						href="${pageContext.request.contextPath}/reply/replyPage">상세보기댓글TEST</a></li>
 				</sec:authorize>
 			</ul>
 
