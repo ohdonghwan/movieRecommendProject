@@ -89,4 +89,9 @@
  		insert into wishList(wish_no, member_id) values(#{value}, #{value})
  	</insert> -->
  	
+ 	<!-- 회원탈퇴 -->
+ 	<delete id="memberDelete" parameterType="member">
+ 		delete from member where member_email=#{memberEmail}
+ 	</delete>
+ 	
 </mapper>
