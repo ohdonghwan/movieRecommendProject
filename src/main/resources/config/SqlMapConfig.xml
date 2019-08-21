@@ -20,5 +20,6 @@
 		<mapper resource="sql/recommendMapper.xml"/>
 		<mapper resource="sql/movieDetailMapper.xml"/>
 		<mapper resource="sql/replyMapper.xml"/>
+		<mapper resource="sql/movieMapper.xml"/>
 	</mappers>
 </configuration>

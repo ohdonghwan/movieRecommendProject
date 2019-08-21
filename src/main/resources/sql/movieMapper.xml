@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movieMapper">
+
+
+<!-- 영화 제목으로 검색 -->
+	<select id="selectMovieByKeyWord" resultType="movie" parameterType="String">
+		select movie_poster, movie_name, movie_genre, movie_story, movie_director, movie_actor from movie where movie_name like '%'||#{value}||'%'
+	</select>
+</mapper>

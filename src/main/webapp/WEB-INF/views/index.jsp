@@ -45,7 +45,11 @@
 		document.getElementById("logoutFrm").submit();
 	}
 </script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<script>
 
+</script>
 </head>
 <body>
 
@@ -85,8 +89,9 @@
 				
 			</ul>
 		</div>
-<form class="form-inline my-2 my-lg-0">
-		<input class="form-control mr-sm-2" type="text" placeholder="Search"
+<form class="form-inline my-2 my-lg-0" name='searchMovie' method='post' action='${pageContext.request.contextPath}/movie/selectMovieView'>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		<input class="form-control mr-sm-2" type="text" placeholder="Search" name='searchByMovieKeyWord'
 			aria-label="Search">
 		<button class="btn btn-secondary my-2 my-sm-0" type="submit">찾아봐</button>
 	</form>
@@ -101,8 +106,9 @@
 		<sec:authentication var="mvo" property="principal" />
 		<div
 			style="position: fixed; top: 200px; left: 150px; font-family: 'Do Hyeon'; font-size: 25pt; color: white; z-index: 5;">${mvo.memberName}
-			어서온나. 오늘은 뭐볼라꼬? 	<form class="form-inline my-2 my-lg-0">
-		<input class="form-control mr-sm-2" type="text" placeholder="Search"
+			어서온나. 오늘은 뭐볼라꼬? 	
+	<form class="form-inline my-2 my-lg-0" name='searchMovie' method='post' action='${pageContext.request.contextPath}/movie/selectMovieView'>
+		<input class="form-control mr-sm-2" type="text" placeholder="Search" name='searchByMovieKeyWord'
 			aria-label="Search">
 		<button class="btn btn-secondary my-2 my-sm-0" type="submit">함 찾아봐</button>
 	</form></div>
