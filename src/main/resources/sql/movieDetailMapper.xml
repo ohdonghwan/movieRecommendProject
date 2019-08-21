@@ -26,5 +26,12 @@
 		insert into movie(movie_no,movie_name,movie_genre,movie_story,movie_actor,movie_director,movie_poster)
 		values(movie_seq.nextval,#{movieName},#{movieGenre},#{movieStory},#{movieActor},#{movieDirector},#{moviePoster})
 	</insert>
+	
+	<!-- 상세 검색 (영화정보) -->
+	<select id="selectMovie" parameterType="movie">
+		select movie_no,movie_name,movie_genre,movie_story,movie_actor,movie_director,movie_poster
+		from movie
+		where movie_name=#{movieName}
+	</select>
 
 </mapper>
