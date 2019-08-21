@@ -5,11 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <script>
+<script>
 	$(function(){
-		if(${msg ne null}){
-			alert('${msg}');
-		};
 		
 		if($("#pwForm").submit(function(){
 			if($("#pw").val() !== $("#pw2").val()){
@@ -27,7 +24,7 @@
 			}
 		}));
 	})
-</script> -->
+</script>
 
 <%-- <sec:authorize access="isAuthenticated()">
  <form method="post" action="${pageContext.request.contextPath}/updateMemberAction">
@@ -47,12 +44,12 @@
 				<h3>정보수정</h3>
 			</div>
 			<div>
-				<form id="myForm" action="updateMemberAction" method="post">
+				<form id="myForm" action="${pageContext.request.contextPath}/updateMemberAction" method="post">
 					<input type="hidden" name="command" value="update">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
 					<p>
 						<label>New Password</label> 
-						<input class="w3-input" id="pw" name="pw" type="password" required>
+						<input class="w3-input" id="pw" name="memberPwd" type="password" required>
 					</p>
 					<p>
 						<label>Confirm</label>
@@ -62,8 +59,9 @@
 						<button type="submit" id="joinBtn" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">비밀번호 변경</button>
 					</p>
 				</form>
-				<form id="wdForm" action="../member/withdrawal.do" method="post">
+				<form id="wdForm" action="${pageContext.request.contextPath}/withdrawal" method="post">
 					<input type="hidden" name="id" readonly  value="${memberEmail}">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<p>
 						<label>Password</label>
 						<input class="w3-input" type="password" name="pw" required>
