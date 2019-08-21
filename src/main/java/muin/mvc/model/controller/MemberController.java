@@ -4,18 +4,26 @@ import java.util.List;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import muin.mvc.model.dto.MemberDTO;
 import muin.mvc.model.service.MemberService;
+import oracle.net.ano.Service;
 
 @Controller
 public class MemberController {
@@ -55,15 +63,6 @@ public class MemberController {
 		return "member/findForm";
 	}
 	
-	
-//	//특정 회원 검색하기
-//	@RequestMapping("member/findMember")
-//	public ModelAndView findMember(HttpServletRequest request) {
-//		String id = request.getParameter("memberEmail");
-//		MemberDTO vo=memberService.findMemberById(id);
-//		return new ModelAndView("member/findMember_result","vo",vo);
-//	}
-//	
 //	//관리자 권한으로 들어가서 회원 명수 파악하기
 	@RequestMapping("admin/enterCafe")
 	public String adminSelect(Model model) {
@@ -74,35 +73,12 @@ public class MemberController {
 		return "admin/enterCafe";
 	}
 	
-	//관리자 권한으로 들어가서 회원 명수 파악하기
-//		@RequestMapping("admin/enterCafe")
-//		public  ModelAndView adminWelcome() {
-//			return new ModelAndView("admin/enterCafe","count",memberService.getMemberCount());
-//		}
-	
-	
 	//아이디 중복확인
 	@RequestMapping("idcheckAjax")
 	@ResponseBody
 	public String idCheckAjax(HttpServletRequest request) {
 		return memberService.idcheck(request.getParameter("memberEmail"));
 	}
-	
-//	//주소 종류별 검색 :: select form
-//	@RequestMapping("member/addressList")
-//	public ModelAndView addressList() {
-//		System.out.println("addressList");
-//		return new ModelAndView("member/addressList", "list", memberService.getAddressList());
-//	}
-	
-	
-//	@RequestMapping("findMemberListByAddress")
-//	@ResponseBody
-//	public List<MemberDTO> findMemberListByAddress(HttpServletRequest request) { //?address
-//		List<MemberDTO> list=memberService.findMemberListByAddress(request.getParameter("address"));
-//		System.out.println("list="+list);
-//		return list;
-//	}
 	
 	@RequestMapping("member/updateForm") 
 	public String updateForm() {
@@ -111,33 +87,88 @@ public class MemberController {
 	
 	
 	@RequestMapping("updateMemberAction")
-	public ModelAndView updateMemberAction(HttpServletRequest request, MemberDTO vo) {
+	public ModelAndView updateMemberAction(@RequestParam String memberPwd,HttpServletRequest request, MemberDTO vo) {
 		System.out.println("1. MemberVO  :: "+vo);
+		System.out.println("비밀번호값"+memberPwd);
 		//회원정보 수정위해 Spring Security 세션 회원정보를 반환받는다
-		MemberDTO pvo=(MemberDTO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		vo =(MemberDTO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		System.out.println("2. Spring Security 세션 수정 전 회원정보:" + pvo);
+		System.out.println("2. Spring Security 세션 수정 전 회원정보:" + vo);
 		
 		//변경할 비밀번호를 암호화한다 
-		String encodePassword=passwordEncoder.encode(vo.getMemberPwd());
+		String encodePassword=passwordEncoder.encode(memberPwd);
 		vo.setMemberPwd(encodePassword);
 		memberService.updateMember(vo);
 		
 		System.out.println("**********************************************");
 		// 수정한 회원정보로 Spring Security 세션 회원정보를 업데이트한다
-		pvo.setMemberPwd(encodePassword);
-		pvo.setMemberName(vo.getMemberName());
-		System.out.println("3. Spring Security 세션 수정 후 회원정보:" + pvo);
-				
+		System.out.println(vo.getMemberPwd());
 		
 		return new ModelAndView("/index");   //member/update_result
 	}
 	
-	//마이페이지
-	@RequestMapping("/member/mypage")
-	public MemberDTO mypage(Long memberId) {
-		return memberService.mypage(memberId);
+	@RequestMapping("member/myPage") //마이페이지
+	public String myPage() {
+		return "member/myPage";
 	}
 	
+	@RequestMapping("/withdrawal")  //탈퇴처리(고객정보삭제)
+	public String deleteSecession(@RequestParam String pw, Model model, MemberDTO vo,HttpServletRequest request) throws Exception {
+		vo = (MemberDTO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if(passwordEncoder.matches(pw, vo.getMemberPwd())) {
+			memberService.withdrawal(vo);
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if (auth != null){
+			   new SecurityContextLogoutHandler().logout(request, null, null);
+			}
+			
+			return "redirect:/";
+			
+		}else {
+			model.addAttribute("message","비밀번호가 불일치합니다.");
+			return "member/withdrawal";
+		}
 	
+	}
+	
+	@RequestMapping("member/withdrawal")
+	public String withdrawal() {
+		return "member/withdrawal";
+	}
+	
+//	@RequestMapping("/withdrawal")  //탈퇴처리(고객정보삭제)
+//	public String deleteSecession(@RequestParam String pwd, Model model, HttpSession session) {
+//		String id=((MemberDTO)(session.getAttribute("loginForm"))).getMemberEmail();
+//		System.out.println(id);
+//		return pwd;
+//		
+//	}
+	
+	@RequestMapping("member/updateInfo") 
+	  public String updateInfo() { 
+		  
+		  return "member/updateInfo"; 
+		
+	  }
+	 
+	@RequestMapping("/confirm")
+	public String confirm(@RequestParam String memberPwd, Model model,MemberDTO vo) {
+	
+		vo = (MemberDTO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		
+		System.out.println(vo.getMemberEmail());
+		System.out.println(memberPwd);
+		System.out.println(vo.getMemberPwd());
+		System.out.println(passwordEncoder.matches(memberPwd, vo.getMemberPwd()));
+		
+		if(passwordEncoder.matches(memberPwd, vo.getMemberPwd())) { 
+			return "member/updateForm";
+		}else {
+			model.addAttribute("message","비밀번호가 불일치합니다.");
+			return "member/updateInfo";
+		}
+	}
 }

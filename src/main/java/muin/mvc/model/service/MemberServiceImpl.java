@@ -1,7 +1,11 @@
 package muin.mvc.model.service;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import muin.mvc.model.dao.AuthoritiesDAO;
 import muin.mvc.model.dao.MemberDAO;
+import muin.mvc.model.dao.MemberDAOImpl;
 import muin.mvc.model.dto.AuthorityDTO;
 import muin.mvc.model.dto.MemberDTO;
 import muin.mvc.model.util.Constants;
@@ -94,8 +99,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDTO mypage(Long memberId) {
-		return memberDAO.mypage(memberId);
+	public boolean confirmPwd(String memberEmail, String memberPwd) {
+		
+		return memberDAO.confirmPwd(memberEmail,memberPwd);
+	}
+
+	@Override
+	public boolean withdrawal(MemberDTO member) throws Exception {
+		System.out.println("1");
+		if(memberDAO.withdrawal(member)==1) {
+			return false;
+		} else {
+			System.out.println("2");
+			return true;
+		}
 	}
 
 	

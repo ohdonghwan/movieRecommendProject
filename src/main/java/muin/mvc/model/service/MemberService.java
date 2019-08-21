@@ -2,6 +2,7 @@ package muin.mvc.model.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 
 import muin.mvc.model.dto.AuthorityDTO;
 import muin.mvc.model.dto.MemberDTO;
@@ -27,5 +28,8 @@ public interface MemberService {
 	
 	List<MemberDTO> memberList();
 	
-	MemberDTO mypage(Long memberId);
+	boolean confirmPwd(String memberEmail, String memberPwd);
+	
+	boolean withdrawal(MemberDTO member) throws Exception;
+
 }

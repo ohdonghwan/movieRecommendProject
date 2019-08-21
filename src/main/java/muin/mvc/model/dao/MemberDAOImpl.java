@@ -1,12 +1,14 @@
 package muin.mvc.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import muin.mvc.model.dto.MemberDTO;
 
@@ -51,9 +53,23 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<MemberDTO> memberList() {
 		return sqlSession.selectList("memberMapper.adminList");
 	}
-	@Override
-	public MemberDTO mypage(Long memberId) {		
-		return sqlSession.selectOne("memberMapper.findMemberById", memberId);
-	}
 	
+	@Override
+	@Transactional
+	public int withdrawal(MemberDTO member) throws Exception{
+		return sqlSession.delete("memberMapper.memberDelete", member);
+	}
+	@Override
+	public boolean confirmPwd(String memberEmail, String memberPwd) {
+		boolean result = false;
+		Map<String, String> map =  new HashMap<String,String>();
+		map.put("memberEmail", memberEmail);
+		map.put("memberPwd",memberPwd);
+		
+		int count = sqlSession.selectOne("memberMapper.confirmPwd",map);
+		if(count == 1) {
+			result = true;
+		}
+		return  result;
+	}
 }

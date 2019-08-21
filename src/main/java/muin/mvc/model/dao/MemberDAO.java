@@ -24,5 +24,8 @@ public interface MemberDAO {
 	
 	List<MemberDTO> memberList();
 	
-	MemberDTO mypage(Long memberId);
+	boolean confirmPwd(String memberEmail ,String memberPwd);
+	
+	int withdrawal(MemberDTO member) throws Exception;
+
 }
