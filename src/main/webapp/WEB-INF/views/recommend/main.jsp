@@ -23,19 +23,19 @@ $(function(){
 			data:"${_csrf.parameterName}=${_csrf.token}&memberId="+"${mvo.memberId}",
 			dataType:"json",
 			success:function(result){							
-				 var data="<table border='1' cellpadding='5'>";
-				 data+="<form method='post'>";
-				 $.each(result, function(index, item){
-					data += "<input type='hidden' id='memberId' value='${mvo.memberId}' name='memberId'/>";
+				 var data = "";
+				 var data="<form method='post'>";
+				 $.each(result, function(index, item){					
 					//data += "<input type='hidden' id='movieNo' value="+item.movieNo+" name='movieNo'/>";					
 					data+="<tr>";
-						data+="<td id='movieNo'>"+item.movieNo+"</td>";
+						data+="<input type='hidden' value='"+item.movieNo+"'>";
+						data += "<input type='hidden' id='memberId' value='${mvo.memberId}' name='memberId'/>";
+						data+="<td><img src='"+item.moviePoster+"'/></td>";
 						data+="<td>"+item.movieName+"</td>";
 						data+="<td>"+item.movieGenre+"</td>";
 						data+="<td>"+item.movieStory+"</td>";
 						data+="<td>"+item.movieActor+"</td>";
 						data+="<td>"+item.movieDirector+"</td>";
-						data+="<td><img src='"+item.moviePoster+"'/></td>";
 						data+="<td><select id='"+index+"' name='recommendGrade'>";
 						data+="<option value=''>---별점 선택---</option>";
 						data+= "<option value='1'>★☆☆☆☆</option>";
@@ -47,7 +47,6 @@ $(function(){
 					data+="</tr>";
 				 })
 				data+="</form>";
-				data+="</table>";	
 				
 				$("#movieListView").html(data);	
 			}
@@ -58,7 +57,7 @@ $(function(){
 	$(document).on("change","select[name=recommendGrade]" ,function(){ // 별점 select 할때마다 ajax처리로 바로바로 영화 들어가게끔 한다.		
 		var params = {
 			memberId:$("#memberId").val(),
-			movieNo:$(this).parent().parent().children().first().text(), // movieNo를 가져오는 방법을 찾지 못해 DOM을 사용했습니다.
+			movieNo:$(this).parent().parent().children().first().val(), // movieNo를 가져오는 방법을 찾지 못해 DOM을 사용했습니다.
 			//UI가 바뀌게 되면 수정해야 하니 꼭 말씀해주세요
 			recommendGrade:$(this).val(),
 			"${_csrf.parameterName}":"${_csrf.token}"
@@ -71,7 +70,17 @@ $(function(){
 			url:"${pageContext.request.contextPath}/recommend/insert",				
 			data:params			
 		});//ajax
+		//5개 다 선택하면 새로 5개 불러옴
+		if($("#movieListView").children().children().length==0){
+			selectRecommendView();
+		}
+		
+		
 	});	
+	//버튼 누르면 새로 5개 불러옴
+	$("#reSelectRecommendView").click(function(){
+		selectRecommendView();
+	})
 });
 </script>
 <body>
@@ -81,7 +90,23 @@ $(function(){
 		영화 목록 랜덤으로 20개 띄워주고<br> 별표 누를때 마다 ajax로
 		user_id,Movie_no,recommend_grade를 table에 insert해줍니다.
 	</h3>
-	<div id="movieListView">여기에 영화 뿌리는거임!</div>
+	<input type="button" id="reSelectRecommendView" value="5개 새로 가져오기"/>
+	<div id="movieListContainer">여기에 영화 뿌리는거임!
+	<table border='1' cellpadding='5'>
+		<thead>
+			<th>포스터</th>
+			<th>제목</th>
+			<th>장르</th>
+			<th>줄거리</th>
+			<th>주연배우</th>
+			<th>감독</th>
+			<th>별점</th>
+		</thead>
+		<tbody id='movieListView'>
+		
+		</tbody>
+	</table>
+	</div>
 </body>
 </html>
 </sec:authorize>
