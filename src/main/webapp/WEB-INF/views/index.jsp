@@ -39,24 +39,51 @@
 	rel="stylesheet"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$("#yup").click(function() {
+			var loginbtn = "<a href='/controller/loginForm'>로그인!</a>";
+			var registerbtn = "<a href='/controller/registerForm'>처음이니?</a>";
+			$("a").remove("#yup");
+			$("a").remove("#nope");
+			$("#yesorno").append(registerbtn + loginbtn);
+		});
 
-<script type="text/javascript">
+		$("#nope").click(function() {
+			document.getElementById("movietonite").textContent = "알았어 잘가";
+			document.getElementById("yup").textContent = "영화 볼거야";
+			$("a").remove("#nope");
+		});
+	});
+</script>
+<script>
 	function logout() {
 		document.getElementById("logoutFrm").submit();
 	}
 </script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-<script>
 
-</script>
 </head>
 <body>
 
 
 
 	<header style="position:relative;">
-	<div class=overlay></div>
+	<div class=overlay>
+
+		<sec:authorize access="isAnonymous()">
+			<div id="opening" style="position: absolute; top: 30%; left: 10%;">
+				<div id="movietonite"
+					style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 120pt;">영화보고갈래?</div>
+				<div id="yesorno" style="">
+					<a href="#" id="yup">응</a> <a href="#" id="nope">아니</a>
+
+				</div>
+			</div>
+		</sec:authorize>
+
+	</div>
 
 	<video class="video-background" height="100%" width="100%"
 		preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"
@@ -65,64 +92,28 @@
 		type="video/mp4"></video> </header>
 
 
-	<nav class="navbar navbar-expand-md fixed-top"> <a
-		class="navbar-brand" href="${pageContext.request.contextPath}"
-		style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 50px;">영화보고갈래?</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarsExampleDefault"
-		aria-controls="navbarsExampleDefault" aria-expanded="false"
-		aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-
-
-	<sec:authorize access="isAnonymous()">
-		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="${pageContext.request.contextPath}/registerForm">가입해 <span
-						class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath}/loginForm">어서와</a></li>
-				
-			</ul>
-		</div>
-<form class="form-inline my-2 my-lg-0" name='searchMovie' method='post' action='${pageContext.request.contextPath}/movie/selectMovieView'>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		<select name='searchKind'>
-			<option value="movieName">영화제목</option>
-			<option value="movieGenre">영화장르</option>
-			<option value="movieDirector">영화감독명</option>
-		</select>
-		<input class="form-control mr-sm-2" type="text" placeholder="Search" name='searchByMovieKeyWord'
-			aria-label="Search">
-		<button class="btn btn-secondary my-2 my-sm-0" type="submit">찾아봐</button>
-	</form>
-	</sec:authorize>
-
-
-	
-	</nav>
-
-
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication var="mvo" property="principal" />
 		<div
-			style="position: fixed; top: 200px; left: 150px; font-family: 'Do Hyeon'; font-size: 25pt; color: white; z-index: 5;">${mvo.memberName}
-			어서온나. 오늘은 뭐볼라꼬? 	
-	<form class="form-inline my-2 my-lg-0" name='searchMovie' method='post' action='${pageContext.request.contextPath}/movie/selectMovieView'>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		<select name='searchKind'>
-			<option value="movieName">영화제목</option>
-			<option value="movieGenre">영화장르</option>
-			<option value="movieDirector">영화감독명</option>
-		</select>
-		<input class="form-control mr-sm-2" type="text" placeholder="Search" name='searchByMovieKeyWord'
-			aria-label="Search">
-		<button class="btn btn-secondary my-2 my-sm-0" type="submit">함 찾아봐</button>
-	</form></div>
+			style="position: fixed; top: 300px; left: 150px; font-family: 'Do Hyeon'; font-size: 25pt; color: white; z-index: 5;">${mvo.memberName}
+			어서온나. 오늘은 뭐볼라꼬?
+			<form class="form-inline my-2 my-lg-0" name='searchMovie'
+				method='post'
+				action='${pageContext.request.contextPath}/movie/selectMovieView'>
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}"> <select name='searchKind'
+					style="vertical-align: middle; height: 39px; font-size:33px;">
+					<option value="movieName">영화제목</option>
+					<option value="movieGenre">영화장르</option>
+					<option value="movieDirector">영화감독명</option>
+				</select> <input class="form-control mr-sm-2" type="text"
+					placeholder="Search" name='searchByMovieKeyWord'
+					aria-label="Search"
+					style="height: 39px; font-size: 33px; margin-top: 0px; padding-top: 10px; border-radius: 5px; border-width: 1px; border-style: solid; border-color: rgb(166, 166, 166); border-image: initial;">
+				<button class="btn btn-secondary my-2 my-sm-0" type="submit"
+					style="margin-left: 10px;">함 찾아봐</button>
+			</form>
+		</div>
 
 
 		<!-- 
@@ -179,7 +170,7 @@
 -->
 	<form id="logoutFrm"
 		action="${pageContext.request.contextPath}/member/logout"
-		method="post" style="display:none">
+		method="post" style="display: none">
 		<input type="hidden" name="${_csrf.parameterName }"
 			value="${_csrf.token }">
 	</form>

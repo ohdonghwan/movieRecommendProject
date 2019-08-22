@@ -1,5 +1,3 @@
-
-
 header .overlay {
 	top: 0;
 	left: 0;
@@ -53,4 +51,22 @@ li.nav-item {
 	top: 0;
 	z-index: 1030;
 	background-color: black;
+}
+
+#yesorno{
+	text-align:center;
+	margin:auto;
+}
+
+#yesorno > a {
+	font-family: Do Hyeon;
+	font-size: 50px;
+	color:white!important;
+	text-align:cetner;
+	padding: 0px 50px;
+}
+
+#movietonite{
+	text-align:center;
+	width:880px;
 }
