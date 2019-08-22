@@ -91,10 +91,10 @@
 		</div>
 <form class="form-inline my-2 my-lg-0" name='searchMovie' method='post' action='${pageContext.request.contextPath}/movie/selectMovieView'>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		<select>
-			<option value="movie_name">영화제목</option>
-			<option value="movie_genre">영화장르</option>
-			<option value="movie_director">영화감독명</option>
+		<select name='searchKind'>
+			<option value="movieName">영화제목</option>
+			<option value="movieGenre">영화장르</option>
+			<option value="movieDirector">영화감독명</option>
 		</select>
 		<input class="form-control mr-sm-2" type="text" placeholder="Search" name='searchByMovieKeyWord'
 			aria-label="Search">

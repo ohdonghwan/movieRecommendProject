@@ -5,7 +5,7 @@
 <mapper namespace="movieMapper">
 
 
-<!-- 영화 제목으로 검색 -->
+<!-- 영화 검색 -->
 	<select id="selectMovieByKeyWord" resultType="movie" parameterType="map">
 		select movie_no, movie_poster, movie_name, movie_genre, movie_story, movie_director, movie_actor
 		from movie 

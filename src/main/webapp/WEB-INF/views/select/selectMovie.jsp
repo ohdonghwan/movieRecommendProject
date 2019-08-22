@@ -35,7 +35,7 @@ padding-bottom: 30px;
 </style>
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-
+<sec:authorize access="isAuthenticated()">
 <script>
 	
 	$(document).on('click', '#gomain', function(e){
@@ -61,12 +61,12 @@ padding-bottom: 30px;
 					data += "<input type='hidden' id='memberId' value='${mvo.memberId}' name='memberId'/>";
 					data += "<tr>";
 						data+="<input type='hidden' value='"+item.movieNo+"'>";
+						data+="<td><img src='"+item.moviePoster+"'></td>";
 						data+="<td>"+item.movieName+"</td>";
 						data+="<td>"+item.movieGenre+"</td>";
 						data+="<td>"+item.movieStory+"</td>";
 						data+="<td>"+item.movieActor+"</td>";
 						data+="<td>"+item.movieDirector+"</td>";
-						data+="<td><img src='"+item.moviePoster+"'></td>";
 						data+="<td><input type='button' value='찜하기' name='wishListBtn'></td>";
 					data += "</tr>";
 				 })
@@ -102,6 +102,49 @@ padding-bottom: 30px;
 	})
 
 </script>
+</sec:authorize>
+
+<sec:authorize access="!isAuthenticated()">
+<script>
+$(document).on('click', '#gomain', function(e){
+	e.preventDefault();
+	location.href = "${pageContext.request.contextPath}/";
+});
+
+function selectMovieResult(){
+	var params = {
+		searchKind:"${param.searchKind}",
+		keyWord:"${param.searchByMovieKeyWord}",
+		"${_csrf.parameterName}":"${_csrf.token}"
+	}
+	$.ajax({
+		type:"post",
+		url:"${pageContext.request.contextPath}/movie/selectMovie",
+		data:params,
+		dataType:"json",
+		success:function(result){
+			var data="<table border='1' cellpadding='5'>";
+			 data+="<form method='post'>";
+			 $.each(result, function(index, item){
+				data += "<tr>";
+					data+="<input type='hidden' value='"+item.movieNo+"'>";
+					data+="<td><img src='"+item.moviePoster+"'></td>";
+					data+="<td>"+item.movieName+"</td>";
+					data+="<td>"+item.movieGenre+"</td>";
+					data+="<td>"+item.movieStory+"</td>";
+					data+="<td>"+item.movieActor+"</td>";
+					data+="<td>"+item.movieDirector+"</td>";
+				data += "</tr>";
+			 })
+			data+="</form>";
+			data+="</table>";				
+			$("#selectResult").html(data);	
+		}
+	})
+}
+selectMovieResult();
+</script>
+</sec:authorize>
 </head>
 <body>
 
