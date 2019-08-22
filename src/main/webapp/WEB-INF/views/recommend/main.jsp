@@ -73,9 +73,7 @@ $(function(){
 		//5개 다 선택하면 새로 5개 불러옴
 		if($("#movieListView").children().children().length==0){
 			selectRecommendView();
-		}
-		
-		
+		}		
 	});	
 	//버튼 누르면 새로 5개 불러옴
 	$("#reSelectRecommendView").click(function(){

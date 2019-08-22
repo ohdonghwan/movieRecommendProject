@@ -33,10 +33,22 @@
 	rel="stylesheet"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <style>
 img{width: 100px; height: 150px}
+
 .starImg{width: 80px; height: 30px;}
+
+#recommendTable{
+	margin: auto;
+	color: white !important;
+	font-family: "Do Hyeon";
+	font-size: 20px;
+}
+#caption{
+	color: white !important;
+	font-family: "Do Hyeon";
+	font-size: 40px;
+}
 </style>
 
 </head>
@@ -47,16 +59,17 @@ img{width: 100px; height: 150px}
 <c:if test="${not empty requestScope.errorMessage}">
 	<span style="color:red">${requestScope.errorMessage}</span>
 </c:if>
-<h1>내가 별점 준 영화 페이지</h1><br>
-	<div><a href="${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}">내가 별점 준 영화</a></div><br>
+
+<%-- 	<div><a href="${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}">내가 별점 준 영화</a></div><br>
 	<div><a href="${pageContext.request.contextPath }/member/updateForm">정보 수정</a></div><br>
 	<div><a href="${pageContext.request.contextPath}">홈으로</a></div><br>
-	<div><a href="${pageContext.request.contextPath }/member/myWishList?memberId=${mvo.memberId}">찜목록</a></div>
+	<div><a href="${pageContext.request.contextPath }/member/myWishList?memberId=${mvo.memberId}">찜목록</a></div> --%>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
   <div class="container">
-  
-  	<table class="table table-hover">
+  <h3 id='caption'>내가 별점 준 영화</h3>
+  	<table class='table table-dark table-hover table-borderless' id='recommendTable'>
+  		
   		<thead>
   			<tr>
   				<td>포스터</td>
