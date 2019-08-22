@@ -24,8 +24,8 @@ public class MovieController {
 	
 	@RequestMapping("movie/selectMovie")
 	@ResponseBody
-	public List<MovieDTO> selectMovieByKeyWord(String keyWord) {
-		List<MovieDTO> list = movieService.selectMovieByKeyWord(keyWord);
+	public List<MovieDTO> selectMovieByKeyWord(String searchKind, String keyWord) {
+		List<MovieDTO> list = movieService.selectMovieByKeyWord(searchKind, keyWord);
 		return list;
 	}
 }

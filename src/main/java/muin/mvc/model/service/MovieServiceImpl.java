@@ -14,7 +14,7 @@ public class MovieServiceImpl implements MovieService {
 	private MovieDAO movieDAO;
 
 	@Override
-	public List<MovieDTO> selectMovieByKeyWord(String keyWord) {	
-		return 	movieDAO.selectMovieByKeyWord(keyWord);
+	public List<MovieDTO> selectMovieByKeyWord(String searchKind, String keyWord) {	
+		return 	movieDAO.selectMovieByKeyWord(searchKind, keyWord);
 	}
 }

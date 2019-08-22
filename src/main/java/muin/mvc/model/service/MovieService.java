@@ -5,5 +5,5 @@ import java.util.List;
 import muin.mvc.model.dto.MovieDTO;
 
 public interface MovieService {
-	public List<MovieDTO> selectMovieByKeyWord(String keyWord);
+	public List<MovieDTO> selectMovieByKeyWord(String searchKind, String keyWord);
 }

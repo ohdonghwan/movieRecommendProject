@@ -44,9 +44,9 @@ padding-bottom: 30px;
 	});
 
 	function selectMovieResult(){
-		var str = "${param.searchByMovieKeyWord}";
 		var params = {
-			keyWord:str,
+			searchKind:"${param.searchKind}",
+			keyWord:"${param.searchByMovieKeyWord}",
 			"${_csrf.parameterName}":"${_csrf.token}"
 		}
 		$.ajax({
@@ -83,7 +83,7 @@ padding-bottom: 30px;
 			memberId:$("#memberId").val(),
 			movieNo:$(this).parent().parent().children().first().val(),
 			"${_csrf.parameterName}":"${_csrf.token}"
-		}	
+		}
 		
 		$.ajax({
 			type:"post",

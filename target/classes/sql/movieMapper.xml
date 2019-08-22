@@ -6,7 +6,22 @@
 
 
 <!-- 영화 제목으로 검색 -->
-	<select id="selectMovieByKeyWord" resultType="movie" parameterType="String">
-		select movie_no, movie_poster, movie_name, movie_genre, movie_story, movie_director, movie_actor from movie where movie_name like '%'||#{value}||'%'
+	<select id="selectMovieByKeyWord" resultType="movie" parameterType="map">
+		select movie_no, movie_poster, movie_name, movie_genre, movie_story, movie_director, movie_actor
+		from movie 
+		<choose>
+			<when test='searchKind!=null and searchKind=="movieName"'>
+				where movie_name like '%'||#{keyWord}||'%'
+			</when>
+			<when test='searchKind!=null and searchKind=="movieGenre"'>
+				where movie_genre like '%'||#{keyWord}||'%'
+			</when>
+			<when test='searchKind!=null and searchKind=="movieDirector"'>
+				where movie_Director like '%'||#{keyWord}||'%'
+			</when>
+			<otherwise>
+				where movie_no = 1
+			</otherwise>
+		</choose>
 	</select>
 </mapper>
