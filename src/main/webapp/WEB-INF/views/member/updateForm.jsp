@@ -1,76 +1,151 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
-<%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description"
+	content="영화 보고 갈래는 무인 팀이 제작한 사용자 경험 기반 영화 추천 사이트 입니다.">
+<meta name="author" content="Team Muin">
+<link rel="icon" href="../../favicon.ico">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Custom styles for this template -->
+<link href="${pageContext.request.contextPath}/resources/css/cover.css"
+	rel="stylesheet">
+
+<!-- link for main fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+	rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-	$(function(){
-		
-		if($("#pwForm").submit(function(){
-			if($("#pw").val() !== $("#pw2").val()){
+	$(function() {
+
+		if ($("#pwForm").submit(function() {
+			if ($("#pw").val() !== $("#pw2").val()) {
 				alert("비밀번호가 다릅니다.");
 				$("#pw").val("").focus();
 				$("#pw2").val("");
 				return false;
-			}else if ($("#pw").val().length < 8) {
+			} else if ($("#pw").val().length < 8) {
 				alert("비밀번호는 8자 이상으로 설정해야 합니다.");
 				$("#pw").val("").focus();
 				return false;
-			}else if($.trim($("#pw").val()) !== $("#pw").val()){
+			} else if ($.trim($("#pw").val()) !== $("#pw").val()) {
 				alert("공백은 입력이 불가능합니다.");
 				return false;
 			}
-		}));
+		}))
+			;
 	})
 </script>
 
-<%-- <sec:authorize access="isAuthenticated()">
- <form method="post" action="${pageContext.request.contextPath}/updateMemberAction">
-		<input type="hidden" name="command" value="update">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		이메일 : <input type="text" name="memberEmail" value="<sec:authentication property="principal.memberEmail"/>" readonly>
-		<br>패스워드 : <input type="password" name="memberPwd" >	
-		<br>이름 : <input type="text" name="memberName" value="<sec:authentication property="principal.memberName"/>" >	
-		<br><input type="submit" value="회원정보수정">
-		</form>
-</sec:authorize> --%>
+<style>
+body{
+	height:100%;
+	display:flex;
+	
+}
 
+.signinhead {
+	font-family: "Do Hyeon";
+	font-size: "25pt";
+	color: white;
+}
+
+#formgroup {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+
+
+.form-signin .checkbox {
+	font-weight: 400;
+}
+
+.form-signin .form-control {
+	position: relative;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+</style>
+
+</head>
 <sec:authorize access="isAuthenticated()">
-	<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
-			<div class="w3-center w3-large w3-margin-top">
-				<h3>정보수정</h3>
-			</div>
-			<div>
-				<form id="myForm" action="${pageContext.request.contextPath}/updateMemberAction" method="post">
-					<input type="hidden" name="command" value="update">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
-					<p>
-						<label>New Password</label> 
-						<input class="w3-input" id="pw" name="memberPwd" type="password" required>
-					</p>
-					<p>
-						<label>Confirm</label>
-						<input class="w3-input" type="password" id="pw2" type="password" required>
-					</p>
-					<p class="w3-center">
-						<button type="submit" id="joinBtn" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">비밀번호 변경</button>
-					</p>
-				</form>
-				<form id="wdForm" action="${pageContext.request.contextPath}/withdrawal" method="post">
-					<input type="hidden" name="id" readonly  value="${memberEmail}">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-					<p>
-						<label>Password</label>
-						<input class="w3-input" type="password" name="pw" required>
-					</p>
-					<p class="w3-center">
-						<button type="submit" id="withdrawalBtn" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">회원탈퇴</button>
-					</p>
-				</form>
-			</div>
+	<body class="text-center">
+		<div id="formgroup" class="align-middle">
+			<form class="form-signin align-middle" id="myForm"
+				action="${pageContext.request.contextPath}/updateMemberAction"
+				method="post">
+				<h1 class="signinhead">정보 수정</h1>
+				<input type="hidden" name="command" value="update"> <input
+					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				<label for="New Password" class="sr-only">New Password</label> <input
+					type="password" class="form-control" placeholder="New Password"
+					id="pw" name="memberPwd" required autofocus> <label
+					for="Confirmation" class="sr-only">Confirm</label> <input
+					type="password" name="pw2" id="pw2" class="form-control"
+					placeholder="Password" required>
+
+				<button class="btn btn-lg btn-secondary btn-block" type="submit"
+					id="joinBtn">비밀번호 변경</button>
+			</form>
+
+
+			<form class="form-signin" id="wdForm"
+				action="${pageContext.request.contextPath}/withdrawal" method="post">
+				<<input type="hidden" name="id" readonly value="${memberEmail}">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}"> <label for="Password"
+					class="sr-only">Password</label> <input type="password"
+					class="form-control" placeholder="Password" name="pw">
+
+				<button type="submit" id="withdrawalBtn"
+					class="btn btn-lg btn-secondary btn-block">회원 탈퇴</button>
+			</form>
 		</div>
-	</div>
 </sec:authorize>
+
+</body>
+</html>

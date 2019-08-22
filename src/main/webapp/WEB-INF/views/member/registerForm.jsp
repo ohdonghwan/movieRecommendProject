@@ -188,7 +188,7 @@ body {
 		<h1 class="signinhead">
 			이렇게 간단한<br>회원가입 해 봤어?
 		</h1>
-		<input type="hidden" name="memberId" id="memberId"><br> <br>
+		<input type="hidden" name="memberId" id="memberId">
 		<!-- Id는 seq로 준다. 로그인 아이디는 email -->
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}"> <label for="inputEmail"
@@ -200,8 +200,8 @@ body {
 			class="form-control" placeholder="Password" required> <label
 			for="inputName" class="sr-only">Name</label> <input type="text" name="memberName" class="form-control" placeholder="Name" required>
 		<div class="checkbox mb-3">
-			<input type="radio" value="0" name="userType">		ROLE_MEMBER <input
-				type="radio" value="1" name="userType">		ROLE_ADMIN
+			<input type="radio" value="0" name="userType">		MEMBER <input
+				type="radio" value="1" name="userType">		ADMIN
 
 		</div>
 		<button class="btn btn-lg btn-secondary btn-block" type="submit"
