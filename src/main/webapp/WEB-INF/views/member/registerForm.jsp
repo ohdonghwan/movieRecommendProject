@@ -38,8 +38,26 @@
 <script type="text/javascript">
 	$(document)
 			.ready(
+					
+			
 					function() {
 						var checkResultmemberId = "";
+						
+						if($("#regForm").submit(function(){
+							if($("#memberPwd").val() !== $("#memberPwd2").val()){
+								alert("비밀번호가 다릅니다.");
+								$("#pw").val("").focus();
+								$("#pw2").val("");
+								return false;
+							}else if ($("#memberPwd").val().length < 8) {
+								alert("비밀번호는 8자 이상으로 설정해야 합니다.");
+								$("#pw").val("").focus();
+								return false;
+							}else if($.trim($("#memberPwd").val()) !== $("#memberPwd").val()){
+								alert("공백은 입력이 불가능합니다.");
+								return false;
+							}
+						}));
 						$("#regForm").submit(
 								function() {
 									if ($("#regForm :input[name=memberPwd]")
@@ -111,6 +129,8 @@
 													});//ajax
 										});//keyup
 					});//ready
+					
+			
 </script>
 
 <style>
@@ -188,7 +208,7 @@ body {
 		<h1 class="signinhead">
 			이렇게 간단한<br>회원가입 해 봤어?
 		</h1>
-		<input type="hidden" name="memberId" id="memberId">
+		<input type="hidden" name="memberId" id="memberId"><br> <br>
 		<!-- Id는 seq로 준다. 로그인 아이디는 email -->
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}"> <label for="inputEmail"
@@ -196,12 +216,14 @@ body {
 			name="memberEmail" class="form-control"
 			placeholder="Email address" required autofocus> <span
 			id="idCheckView"></span> <label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" name="memberPwd"
-			class="form-control" placeholder="Password" required> <label
-			for="inputName" class="sr-only">Name</label> <input type="text" name="memberName" class="form-control" placeholder="Name" required>
+		<input type="password" name="memberPwd" id="memberPwd"
+			class="form-control" placeholder="비밀번호" required>
+		<input type="password" name="memberPwd2" id="memberPwd2"
+			class="form-control" placeholder="비밀번호 확인" required>
+		<div style="color: red;">${message}</div>
+		 <label for="inputName" class="sr-only">Name</label> <input type="text" name="memberName" class="form-control" placeholder="Name" required>
 		<div class="checkbox mb-3">
-			<input type="radio" value="0" name="userType">		MEMBER <input
-				type="radio" value="1" name="userType">		ADMIN
+			<input type="hidden" value="0" name="userType">
 
 		</div>
 		<button class="btn btn-lg btn-secondary btn-block" type="submit"
