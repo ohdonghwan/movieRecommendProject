@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WishListDTO {
-	private int wishNo;              //찜리스트 번호
+	private Long wishNo;              //찜리스트 번호
+	private Long movieNo;
 	private Long memberId;
 }

@@ -169,9 +169,14 @@ public class MemberController {
 	
 	@RequestMapping("/member/insertWishList")
 	@ResponseBody
-	public int regitWishList(Long memberId, int movieNo) {
-		memberService.insertWishList(memberId, movieNo);
-		return 1;
+	public int regitWishList(Long memberId, Long movieNo) {
+		System.out.println("regitWishList Method start");
+		if(this.checkWishList(memberId, movieNo)==1) {
+			memberService.insertWishList(memberId, movieNo);
+			System.out.println("regitWishList Method end");
+			return 1;
+		}
+		else return 0;
 	}
 	@RequestMapping("/member/myWishList")
 	@ResponseBody
@@ -179,10 +184,12 @@ public class MemberController {
 		List<WishListDTO> list = memberService.myWishList(memberId);
 		return new ModelAndView("member/wishList", "list", list);
 	}
-//	@RequestMapping("/member/checkWishList")
-//	@ResponseBody
-//	public int checkWishList(Long memberId, int movieNo) {
-//		if(memberService.checkWishList(memberId, movieNo)==null) return 0; // select문에서 아무것도 안나왔을때 찜할 수 있음 0이나오면 중복아닌것
-//		else return 1;		
-//	}
+
+	//중복체크 하기위한 메소드
+	public int checkWishList(Long memberId, Long movieNo) {
+		System.out.println("checkWishList Method start");
+		if(memberService.checkWishList(memberId, movieNo)!=null) return 0; // select문에서 아무것도 안나왔을때 찜할 수 있음 1이나오면 중복아닌것
+		else return 1;
+	}
+
 }

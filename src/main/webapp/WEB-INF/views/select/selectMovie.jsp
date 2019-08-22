@@ -79,8 +79,6 @@ padding-bottom: 30px;
 	selectMovieResult();
 	
 	$(document).on("click", "input[name=wishListBtn]", function(){
-		//console.log($(this).parent().parent().children().first().val())
-		//checkWishList();
 		var params={
 			memberId:$("#memberId").val(),
 			movieNo:$(this).parent().parent().children().first().val(),
@@ -91,11 +89,13 @@ padding-bottom: 30px;
 			type:"post",
 			url:"${pageContext.request.contextPath}/member/insertWishList",
 			data:params,
-			success:function(){
-				alert("찜목록에 추가되었습니다!")
-			},
-			error:function(error){
-				alert("이미 찜목록에 추가 되었습니다.")
+			success:function(result){
+				if(result==1){
+					alert("찜목록에 추가되었습니다!")
+				}
+				else{
+					alert("이미 찜목록에 들어 있습니다!")
+				}
 			}
 		})
 		

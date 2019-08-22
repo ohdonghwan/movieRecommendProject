@@ -31,9 +31,9 @@ public interface MemberDAO {
 	
 	int withdrawal(MemberDTO member) throws Exception;
 	
-	public int insertWishList(Long memberId, int movieNo);
+	public int insertWishList(Long memberId, Long movieNo);
 	
-	public List<WishListDTO> checkWishList(Long memberId, int movieNo);
+	public WishListDTO checkWishList(Long memberId, Long movieNo);
 	
 	public List<WishListDTO> myWishList(Long memberId);
 

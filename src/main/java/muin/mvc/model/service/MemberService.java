@@ -36,10 +36,9 @@ public interface MemberService {
 	boolean withdrawal(MemberDTO member) throws Exception;
 	
 	//찜하기 버튼 눌렀을 때 DB에 삽입
-	public int insertWishList(Long memberId, int movieNo); 
+	public int insertWishList(Long memberId, Long movieNo); 
 	
-	//중복체크 하려고 넣었는데 쓰지 않아도 됨
-	public List<WishListDTO> checkWishList(Long memberId, int movieNo);
+	public WishListDTO checkWishList(Long memberId, Long movieNo);
 	
 	//마이페이지 찜목록
 	public List<WishListDTO> myWishList(Long memberId);

@@ -74,19 +74,21 @@ public class MemberDAOImpl implements MemberDAO {
 		return  result;
 	}
 	@Override
-	public int insertWishList(Long memberId, int movieNo) {
+	public int insertWishList(Long memberId, Long movieNo) {
 		Map<String, Long> map = new HashMap<String, Long>();
 		map.put("memberId", memberId);
-		map.put("movieNo", (long) movieNo);		
+		map.put("movieNo", movieNo);		
 		return sqlSession.insert("memberMapper.insertWishList", map);
 	}
 	@Override
-	public List<WishListDTO> checkWishList(Long memberId, int movieNo) {
+	public WishListDTO checkWishList(Long memberId, Long movieNo) {
 		Map<String, Long> map = new HashMap<String, Long>();
 		map.put("memberId", memberId);
-		map.put("movieNo", (long) movieNo);		
-		return sqlSession.selectList("memberMapper.checkWishList", map);
+		map.put("movieNo", movieNo);	
+		WishListDTO dto = sqlSession.selectOne("memberMapper.checkWishList", map);
+		return dto;
 	}
+
 	@Override
 	public List<WishListDTO> myWishList(Long memberId) {
 		List<WishListDTO> list = sqlSession.selectList("memberMapper.myWishList", memberId);

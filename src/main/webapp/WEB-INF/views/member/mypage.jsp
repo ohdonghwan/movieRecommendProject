@@ -38,39 +38,37 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-	$(document)
-			.ready(
-					function() {
-						$("#menu1")
-								.click(
-										function() {
-											$
-													.ajax({
-														url : "${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}",
-														success : function(
-																result) {
-															$("#mainpage")
-																	.html(
-																			result);
-														}
-													});
-										});
-
-						$("#menu2")
-								.click(
-										function() {
-											$
-													.ajax({
-														url : "${pageContext.request.contextPath }/member/updateForm",
-														success : function(
-																result) {
-															$("#mainpage")
-																	.html(
-																			result);
-														}
-													});
-										});
-					});
+	$(document).ready(function() {
+		$("#menu1").click(function() {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}",
+				success : function(result) {
+					$("#mainpage").html(result);
+				}
+			});
+		});
+		
+		$("#menu2").click(function() {
+			$.ajax({		
+				url : "${pageContext.request.contextPath }/member/updateForm",
+				success : function(result) {
+					$("#mainpage").html(result);
+					
+				}
+				
+			});
+			
+		});
+		
+		$("#menu3").click(function(){
+			$.ajax({
+				url : "${pageContext.request.contextPath }/member/myWishList?memberId="+"${mvo.memberId}",
+				success : function(result){
+					$("#mainpage").html(result);	
+				}															
+			});
+		});
+	})
 </script>
 
 <style>
@@ -119,8 +117,7 @@
 					<li class="navbar-brand"><sec:authentication property="principal.memberName" />의 페이지</li>
 					<li class="nav-item"><a id="menu1" href="#">내가 별점 준 영화</a></li>
 					<li class="nav-item"><a id="menu2" href="#">정보 수정</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath }/member/wishList">찜목록</a>
+					<li class="nav-item"><a id="menu3" href="#">찜목록</a>
 					</li>
 
 					<li class="nav-item"><a

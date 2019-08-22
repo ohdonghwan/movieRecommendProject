@@ -113,14 +113,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertWishList(Long memberId, int movieNo) {
+	public int insertWishList(Long memberId, Long movieNo) {
 		return memberDAO.insertWishList(memberId, movieNo);
 	}
 
 	@Override
-	public List<WishListDTO> checkWishList(Long memberId, int movieNo) {
+	public WishListDTO checkWishList(Long memberId, Long movieNo) {
 		return memberDAO.checkWishList(memberId, movieNo);
 	}
+	
 
 	@Override
 	public List<WishListDTO> myWishList(Long memberId) {
