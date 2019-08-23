@@ -21,6 +21,16 @@ crossorigin="anonymous"></script>
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
 integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" 
 crossorigin="anonymous">
+  <!-- Bootstrap core CSS -->
+  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Page level plugin CSS-->
+  <link href="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="${pageContext.request.contextPath}/resources/css/shop-homepage.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+
 <title>검색</title>
 <style>
 
@@ -55,12 +65,11 @@ padding-bottom: 30px;
 			data:params,
 			dataType:"json",
 			success:function(result){
-				var data="<table border='1' cellpadding='5'>";
-				 data+="<form method='post'>";
+				var data = "<form method='post'>";
 				 $.each(result, function(index, item){
-					data += "<input type='hidden' id='memberId' value='${mvo.memberId}' name='memberId'/>";
 					data += "<tr>";
 						data+="<input type='hidden' value='"+item.movieNo+"'>";
+						data += "<input type='hidden' value='${mvo.memberId}' name='memberId'/>";
 						data+="<td><img src='"+item.moviePoster+"'></td>";
 						data+="<td>"+item.movieName+"</td>";
 						data+="<td>"+item.movieGenre+"</td>";
@@ -71,7 +80,6 @@ padding-bottom: 30px;
 					data += "</tr>";
 				 })
 				data+="</form>";
-				data+="</table>";				
 				$("#selectResult").html(data);	
 			}
 		})
@@ -79,8 +87,10 @@ padding-bottom: 30px;
 	selectMovieResult();
 	
 	$(document).on("click", "input[name=wishListBtn]", function(){
+		/* console.log($(this).parent().parent().children().first().val());
+		console.log($('input[name=memberId]').val()); */
 		var params={
-			memberId:$("#memberId").val(),
+			memberId:$('input[name=memberId]').val(),
 			movieNo:$(this).parent().parent().children().first().val(),
 			"${_csrf.parameterName}":"${_csrf.token}"
 		}
@@ -103,7 +113,7 @@ padding-bottom: 30px;
 
 </script>
 </sec:authorize>
-
+<!-- 로그인 안한 사용자의 접근 (로그인 안하면 안쓰실거면 삭제하셔도 됩니다 !isAuthenticated()전부다-->
 <sec:authorize access="!isAuthenticated()">
 <script>
 $(document).on('click', '#gomain', function(e){
@@ -123,8 +133,7 @@ function selectMovieResult(){
 		data:params,
 		dataType:"json",
 		success:function(result){
-			var data="<table border='1' cellpadding='5'>";
-			 data+="<form method='post'>";
+			 var data = "<form method='post'>";
 			 $.each(result, function(index, item){
 				data += "<tr>";
 					data+="<input type='hidden' value='"+item.movieNo+"'>";
@@ -137,7 +146,6 @@ function selectMovieResult(){
 				data += "</tr>";
 			 })
 			data+="</form>";
-			data+="</table>";				
 			$("#selectResult").html(data);	
 		}
 	})
@@ -151,10 +159,45 @@ selectMovieResult();
  <br><br>
 <article>
 <button type="button" class="btn btn-sm btn-primary" id="gomain">메인으로</button>
-<h1>검색</h1>
-<div id="selectResult">
-</div>
+<!-- DataTables Example -->
+	<div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            	영화 검색 목록</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead style = "text-align:center; vertical-align: middle;" >
+					<tr>
+						<th>포스터</th>
+						<th>제목</th>
+						<th>장르</th>
+						<th>줄거리</th>
+						<th>주연배우</th>
+						<th>감독</th>
+						<th>찜하기</th>
+					</tr>
+				</thead>              
+                <tbody style = "text-align:center; vertical-align: bottom;" id='selectResult'>                
+                <!-- 영화 검색 결과 들어가는 body, ajax에서 처리합니다. --> 
+                </tbody> 
+              </table>
+            </div>
+          </div>
+        </div>
 
 </article>
+		<!-- Bootstrap core JavaScript -->
+		<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+		<!-- Page level plugin JavaScript-->
+		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/jquery.dataTables.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+		<!-- Demo scripts for this page-->
+		<script src="${pageContext.request.contextPath}/resources/js/demo/datatables-demo.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
 </body>
 </html>

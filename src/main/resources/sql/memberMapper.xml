@@ -48,7 +48,8 @@
 	 		<result column="movie_story" property="movieStory"/>
 	 		<result column="movie_genre" property="movieGenre"/> 	
 	 		<result column="movie_director" property="movieDirector"/> 	
-	 		<result column="movie_poster" property="moviePoster"/> 		
+	 		<result column="movie_poster" property="moviePoster"/> 	
+	 		<result column="movie_actor" property="movieActor"/>	
  		<association property="recommendDTO" javaType="recommend">
 	 		<id column="recommend_No" property="recommendNo"/>
  			<result column="member_Id" property="memberId"/>
@@ -57,7 +58,7 @@
  		</association>
  	</resultMap> 	
  	<select id="myRecommendGrade" resultMap="MovieRecommendAssociationJoin" parameterType="long">
- 	select m.movie_no, m.movie_name,m.movie_story,m.movie_Genre,r.recommend_No , r.member_id, r.movie_no , r.recommend_grade,
+ 	select m.movie_no,m.movie_actor, m.movie_name,m.movie_story,m.movie_Genre,r.recommend_No , r.member_id, r.movie_no , r.recommend_grade,
  	m.movie_poster, m.movie_director
  	from movie m join recommend r 
  	on m.movie_no = r.movie_no and member_id = #{value}
@@ -84,6 +85,7 @@
 	 		<result column="movie_genre" property="movieGenre"/> 	
 	 		<result column="movie_director" property="movieDirector"/> 	
 	 		<result column="movie_poster" property="moviePoster"/> 		
+	 		<result column="movie_actor" property="movieActor"/>	
  		<association property="wishListDTO" javaType="wishList">
 	 		<id column="wish_no" property="wishNo"/>
 	 		<result column="movie_no" property="movieNo"/>
@@ -91,7 +93,7 @@
  		</association>
  	</resultMap> 	
  	<select id="myWishList" resultMap="MovieWishListAssociationJoin" parameterType="long">
- 	select m.movie_no, m.movie_name,m.movie_story,m.movie_Genre,w.wish_no , w.member_id, w.movie_no,
+ 	select m.movie_no, m.movie_actor, m.movie_name,m.movie_story,m.movie_Genre,w.wish_no , w.member_id, w.movie_no,
  	m.movie_poster, m.movie_director
  	from movie m join wishList w
  	on m.movie_no = w.movie_no and member_id = #{value}

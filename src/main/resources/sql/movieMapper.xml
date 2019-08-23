@@ -19,7 +19,7 @@
 			<when test='searchKind!=null and searchKind=="movieDirector"'>
 				where movie_Director like '%'||#{keyWord}||'%'
 			</when>
-			<otherwise>
+			<otherwise><!-- 검색오류면 1번영화 나옴 -->
 				where movie_no = 1
 			</otherwise>
 		</choose>

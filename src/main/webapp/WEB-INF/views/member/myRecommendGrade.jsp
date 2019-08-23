@@ -60,31 +60,31 @@ img{width: 100px; height: 150px}
 	<span style="color:red">${requestScope.errorMessage}</span>
 </c:if>
 
-<%-- 	<div><a href="${pageContext.request.contextPath}/member/myRecommendGrade?memberId=${mvo.memberId}">내가 별점 준 영화</a></div><br>
-	<div><a href="${pageContext.request.contextPath }/member/updateForm">정보 수정</a></div><br>
-	<div><a href="${pageContext.request.contextPath}">홈으로</a></div><br>
-	<div><a href="${pageContext.request.contextPath }/member/myWishList?memberId=${mvo.memberId}">찜목록</a></div> --%>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
-  <div class="container">
-  <h3 id='caption'>내가 별점 준 영화</h3>
-  	<table class='table table-dark table-hover table-borderless' id='recommendTable'>
-  		
-  		<thead>
-  			<tr>
-  				<td>포스터</td>
-  				<td>영화제목</td>
-  				<td>영화장르</td>
-  				<td>영화감독</td>
-  				<td>내 평점</td>
-  			</tr>
-  		</thead>
+  <h5 id='caption'>내가 별점 준 영화</h5>
+  <div class="card mb-3">          
+            <div class="table-responsive">
+              <table class="table table-dark table-hover table-borderless" id="dataTable" width="100%" cellspacing="0">
+                <thead style = "text-align:center; vertical-align: middle;" >
+					<tr>
+						<th>포스터</th>
+						<th>제목</th>
+						<th>장르</th>
+						<th>줄거리</th>
+						<th>주연배우</th>
+						<th>감독</th>
+						<th>내 별점</th>
+					</tr>
+				</thead>
   		<tbody>
   		<c:forEach items="${list}" var="list">
   			<tr>
   				<td><img src='${list.moviePoster}'/></td>
   				<td>${list.movieName}</td>
   				<td>${list.movieGenre}</td>
+  				<td>${list.movieStory}</td>
+  				<td>${list.movieActor}</td>
   				<td>${list.movieDirector}</td>
   				<td>  				
   				<c:choose>
@@ -98,25 +98,21 @@ img{width: 100px; height: 150px}
   			</tr>
   		</c:forEach>
   		</tbody>
-  	</table>      
-  	
-        <div class="text-center">
-          <ul class="pagination">
-            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li class="active"><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">8</a></li>
-            <li><a href="#">9</a></li>
-            <li><a href="#">10</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-          </ul>          
-        </div>
-      </div>   
+  	</table>
+  	</div>
+  	</div>
+  	      	<!-- Bootstrap core JavaScript -->
+		<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+		<!-- Page level plugin JavaScript-->
+		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/jquery.dataTables.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+		<!-- Demo scripts for this page-->
+		<script src="${pageContext.request.contextPath}/resources/js/demo/datatables-demo.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>        
 </body>
 </html>
 </sec:authorize>
