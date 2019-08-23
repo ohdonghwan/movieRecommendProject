@@ -11,9 +11,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MovieDTO {
 	
-	public MovieDTO(int i, String movieName2, String movieGenre2, String movieStory2, String movieActor2,
-			String movieDirector2, String moviePoster2) {
-		// TODO Auto-generated constructor stub
+
+	public MovieDTO(int movieNo, String movieName, String movieGenre, String movieStory, String movieActor,
+			String movieDirector, String moviePoster) {
+		super();
+		this.movieNo = movieNo;
+		this.movieName = movieName;
+		this.movieGenre = movieGenre;
+		this.movieStory = movieStory;
+		this.movieActor = movieActor;
+		this.movieDirector = movieDirector;
+		this.moviePoster = moviePoster;
 	}
 
 
