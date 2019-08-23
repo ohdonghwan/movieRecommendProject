@@ -6,7 +6,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -98,7 +101,7 @@ public class ApiJson {
 				JSONObject json6 = (JSONObject) json5.get(0);
 				String actor = (String) json6.get("actorNm");
 				mdto.setMovieActor(actor);
-
+	
 				JSONArray json7 = (JSONArray) json4.get("director");
 				JSONObject json8 = (JSONObject) json7.get(0);
 
@@ -135,5 +138,89 @@ public class ApiJson {
 	}// insertAll
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	public List<Map<String, String>> actorDetail() {
+		
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		Map<String, String> actorMap = new HashMap<String, String>();
+		try {
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonMovieApi());
 
+			MovieDTO mdto = new MovieDTO();
+
+
+			JSONArray data = (JSONArray) jsonObject.get("Data");// data
+
+			JSONObject json2 = (JSONObject) data.get(0);
+			JSONArray json3 = (JSONArray) json2.get("Result");
+
+				for (int i = 0; i < json3.size(); i++) {
+					JSONObject json4 = (JSONObject) json3.get(i);
+					String nation = (String) json4.get("nation");
+					JSONArray json5 = (JSONArray) json4.get("actor");
+					JSONObject json6 = (JSONObject) json5.get(0);
+					
+					String actorId = (String) json6.get("actorId");
+					
+					String prodYear = (String) json4.get("prodYear");
+			
+					if(!nation.isEmpty()&&!actorId.isEmpty()&& !prodYear.isEmpty()) {
+					actorMap.put("nation", nation);
+					actorMap.put("actorId", actorId);
+				//	System.out.println("actorid: "+actorId);
+					actorMap.put("prodYear", prodYear);
+					//System.out.println("prodYear : "+prodYear);
+					
+					list.add(actorMap);
+					}//if_end
+				}//for_end
+			//	System.out.println("»çÀÌÁî"+list.size());
+				}//try_end
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+					return list;
+	}//actor
+//////////////////////////////////////////////////////////////////////////////////////		
+	public List<Map<String, String>> directorDetail() {
+		
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		Map<String, String> directorMap = new HashMap<String, String>();
+		try {
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonMovieApi());
+
+			MovieDTO mdto = new MovieDTO();
+
+
+			JSONArray data = (JSONArray) jsonObject.get("Data");// data
+
+			JSONObject json2 = (JSONObject) data.get(0);
+			JSONArray json3 = (JSONArray) json2.get("Result");
+
+				for (int i = 0; i < json3.size(); i++) {
+					JSONObject json4 = (JSONObject) json3.get(i);
+					String nation = (String) json4.get("nation");
+					JSONArray json5 = (JSONArray) json4.get("staff");
+					JSONObject staff = (JSONObject) json5.get(0);
+					
+					String role = (String) staff.get("staffRoleGroup");
+					
+					String direcId = (String) staff.get("staffId");
+			
+					if(!nation.isEmpty()&&!role.isEmpty()&& !direcId.isEmpty()) {
+						directorMap.put("nation", nation);
+						directorMap.put("role", role);
+						directorMap.put("directorId", direcId);
+					
+					list.add(directorMap);
+					}//if_end
+				}//for_end
+				}//try_end
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+					return list;
+	}//director
+	
 }// class

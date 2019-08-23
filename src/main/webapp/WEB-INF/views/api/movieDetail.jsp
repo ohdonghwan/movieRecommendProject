@@ -11,6 +11,25 @@ div { text-align: center; }
 tr {text-align: center;}
 </style>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#actorNm").click(function() {
+	    $("#direcResult").hide();
+	    $("#actorResult").show();
+
+	});
+
+
+	$("#direcNm").click(function() {
+		  $("#actorResult").hide();
+	    $("#direcResult").show();
+
+	});
+});
+
+
+</script>
 <body>
 <h1 align="center">상세검색 결과 : ${MovieDTO.movieName}의 상세 정보</h1>
 
@@ -30,10 +49,10 @@ tr {text-align: center;}
 <th><span>줄거리</span></th><td>${MovieDTO.movieStory}</td>
 </tr>
 <tr>
-<th><span><a href="${pageContext.request.contextPath}/api/movieDetail/${MovieDTO.movieActor}">출연배우</a></span></th><td>${MovieDTO.movieActor}</td>
+<th><span>출연배우</span></th><td><a id="actorNm" href="#">${MovieDTO.movieActor}</a></td>
 </tr>
 <tr>
-<th><span>출연감독</span></th><td>${MovieDTO.movieDirector}</td>
+<th><span>감독</span></th><td><a id="direcNm" href="#">${MovieDTO.movieDirector}</a></td>
 </tr>
 
 <tr>
@@ -43,6 +62,25 @@ tr {text-align: center;}
 </th>
 </tr>
         </table>
+     
+        
+        <br>
+        <br>
+        <br>
+        
+            <div id="actorResult" style="display: none;">
+ 		 <h3>   배우 이름 = ${MovieDTO.movieActor} </h3> 
+          <c:forEach items="${actorDetail}" var="map">        
+            <h3>    ${map.key} =  ${map.value} </h3>   <br>
+             </c:forEach>
+        </div>
+        
+          <div id="direcResult" style="display: none;">
+ 		 <h3>   감독 이름 = ${MovieDTO.movieDirector} </h3> 
+          <c:forEach items="${directorDetail}" var="map">        
+            <h3>    ${map.key} =  ${map.value} </h3>   <br>
+             </c:forEach>
+        </div>
 
 </body>
 </html>

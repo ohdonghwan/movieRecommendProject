@@ -1,5 +1,6 @@
 package muin.mvc.model.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,19 @@ public class ApiController {
 	
 		mv.setViewName("api/movieDetail");
 		mv.addObject("MovieDTO",sv.detailMovie(movieNo));
-		System.out.println("detail 시작 . . .");
+		
+		/////////////// Actor Detail ////////////////////////
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		list=aJson.actorDetail();
+		
+		int i = (int) Math.random() * 100;
+		mv.addObject("actorDetail", list.get(i));
+		
+		///////////////// Director Detail /////////////////////////////
+		List<Map<String, String>> list2 = new ArrayList<Map<String, String>>();
+		list2=aJson.directorDetail();
+		mv.addObject("directorDetail", list2.get(i));
+	//	System.out.println("detail 시작 . . .");
 	//	System.out.println("받은 값 "+request.getParameter("movieNo"));
 		return mv;
 	}
