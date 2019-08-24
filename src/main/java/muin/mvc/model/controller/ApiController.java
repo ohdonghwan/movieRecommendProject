@@ -58,6 +58,7 @@ public class ApiController {
 	@RequestMapping("api/movieDetail/{movieNo}")
 	public ModelAndView detail(@PathVariable("movieNo") int movieNo, ModelAndView mv) {
 	
+		///////////////////////////movieDetail page////////////////////
 		mv.setViewName("api/movieDetail");
 		mv.addObject("MovieDTO",sv.detailMovie(movieNo));
 		

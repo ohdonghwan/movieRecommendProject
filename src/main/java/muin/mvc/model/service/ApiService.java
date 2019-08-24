@@ -14,7 +14,7 @@ public class ApiService {
 	private ApiDAO dao;
 
 	/**
-	 * api µ¥ÀÌÅÍ ÀüÃ¼ ÀúÀå
+	 * api ë°ì´í„° ì „ì²´ ì €ì¥
 	 * */
 	public void insertAll(List<MovieDTO> list) {
 		for (MovieDTO dto : list) {
@@ -25,24 +25,27 @@ public class ApiService {
 	}
 	
 	/**
-	 * api µ¥ÀÌÅÍ ÀüÃ¼ °Ë»ö
+	 * api ë°ì´í„° ì „ì²´ ê²€ìƒ‰
 	 * */
 	public List<MovieDTO> selectAll() {
 		List<MovieDTO> list =dao.selectAll();
 		return list;
 	}
-	
+//	http://file.koreafilm.or.kr/thm/02/00/05/17/tn_DPF018219.jpg
 	/**
-	 * ¿µÈ­ »ó¼¼ °Ë»ö
+	 * ì˜í™” ìƒì„¸ ê²€ìƒ‰
 	 * */
 	public MovieDTO detailMovie(int movieNo) {
 		MovieDTO dto =dao.detailMovie(movieNo);
-		//dto.setMoviePoster(dto.getMoviePoster().split("|")[0]);
+		System.out.println("í¬ìŠ¤í„°"+dto.getMoviePoster());
+		String[] changePoster = dto.getMoviePoster().split(".jpg");
+		dto.setMoviePoster(changePoster[0]+".jpg");
+		
 		return dto;
 	}
 
 	/**
-	 * ¹è¿ì »ó¼¼ °Ë»ö
+	 * ë°°ìš° ìƒì„¸ ê²€ìƒ‰
 	 * */
 	public Object detailMovie(String movieActor) {
 		// TODO Auto-generated method stub
