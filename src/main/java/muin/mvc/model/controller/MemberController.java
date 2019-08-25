@@ -82,7 +82,7 @@ public class MemberController {
 	
 	
 	@RequestMapping("updateMemberAction")
-	public ModelAndView updateMemberAction(@RequestParam String memberPwd,HttpServletRequest request, MemberDTO vo) {
+	public ModelAndView updateMemberAction(@RequestParam String memberPwd,@RequestParam String newName,HttpServletRequest request, MemberDTO vo) {
 		System.out.println("1. MemberVO  :: "+vo);
 		System.out.println("비밀번호값"+memberPwd);
 		//회원정보 수정위해 Spring Security 세션 회원정보를 반환받는다
@@ -93,8 +93,9 @@ public class MemberController {
 		//변경할 비밀번호를 암호화한다 
 		String encodePassword=passwordEncoder.encode(memberPwd);
 		vo.setMemberPwd(encodePassword);
+		vo.setMemberName(newName);
 		memberService.updateMember(vo);
-		
+
 		System.out.println("**********************************************");
 		// 수정한 회원정보로 Spring Security 세션 회원정보를 업데이트한다
 		System.out.println(vo.getMemberPwd());
