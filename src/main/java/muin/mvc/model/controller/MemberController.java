@@ -164,10 +164,8 @@ public class MemberController {
 	@RequestMapping("/member/insertWishList")
 	@ResponseBody
 	public int regitWishList(Long memberId, Long movieNo) {
-		System.out.println("regitWishList Method start");
 		if(this.checkWishList(memberId, movieNo)==1) {
 			memberService.insertWishList(memberId, movieNo);
-			System.out.println("regitWishList Method end");
 			return 1;
 		}
 		else return 0;

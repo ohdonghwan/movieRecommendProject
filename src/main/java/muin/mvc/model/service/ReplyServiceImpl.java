@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import muin.mvc.model.dao.ReplyDAO;
 import muin.mvc.model.dto.ReplyDTO;
+import muin.mvc.model.dto.ReportReplyDTO;
 
 @Service
 public class ReplyServiceImpl implements ReplyService{
@@ -37,6 +38,21 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public int replyDelete(Long replyNo, Long memberId) {
 		return replyDAO.replyDelete(replyNo, memberId);
+	}
+
+	@Override
+	public int insertReplyReport(Long memberId, Long replyNo) {		
+		return replyDAO.insertReplyReport(memberId, replyNo);
+	}
+
+	@Override
+	public int sumReportReply(Long replyNo) {
+		return replyDAO.sumReportReply(replyNo);
+	}
+
+	@Override
+	public ReportReplyDTO checkReportReply(Long memberId, Long replyNo) {
+		return replyDAO.checkReportReply(memberId, replyNo);
 	}
 	
 }

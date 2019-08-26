@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import muin.mvc.model.dto.ReplyDTO;
+import muin.mvc.model.dto.ReportReplyDTO;
 
 @Repository
 public class ReplyDAOImpl implements ReplyDAO {
@@ -43,4 +44,24 @@ public class ReplyDAOImpl implements ReplyDAO {
 		return session.delete("replyMapper.replyDelete", map);
 	}
 
+	@Override
+	public int insertReplyReport(Long memberId, Long replyNo) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("memberId", memberId);
+		map.put("replyNo", replyNo);
+		return session.insert("replyMapper.insertReplyReport", map);
+	}
+
+	@Override
+	public int sumReportReply(Long replyNo) {		
+		return session.selectOne("replyMapper.sumReportReply", replyNo);
+	}
+
+	@Override
+	public ReportReplyDTO checkReportReply(Long memberId, Long replyNo) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("memberId", memberId);
+		map.put("replyNo", replyNo);
+		return session.selectOne("replyMapper.checkReportReply", map);
+	}
 }

@@ -4,15 +4,13 @@
 	<!-- MovieNo에 해당하는 상세정보 봤을 때 그 MovieNo이 갖고 있는 댓글 select 상세보기 추가시 where movie_no 
 		= ? 추가 -->
 	<select id="selectReply" resultType="reply" parameterType="int">
-		select reply_no, reply_content, member_Name, reply_date, reply_Up,
-		reply_Down from reply where movie_no = #{value}
+		select reply_no, reply_content, member_Name, reply_date from reply where movie_no = #{value}
 	</select>
 	<insert id="insertReply" parameterType="reply">
 		insert into
 		reply(reply_no, reply_content, reply_date, movie_no, member_id,
-		member_Name, reply_up, reply_down) values(reply_no_seq.nextval,
-		#{replyContent}, sysdate, #{movieNo}, #{memberId}, #{memberName}, 0,
-		0)
+		member_Name) values(reply_no_seq.nextval,
+		#{replyContent}, sysdate, #{movieNo}, #{memberId}, #{memberName})
 	</insert>
 
 	<!-- 댓글 공감 비공감 -->
@@ -30,5 +28,19 @@
 		delete from reply where
 		reply_no = #{replyNo} and member_id= #{memberId}
 	</delete>
-
+	
+	<!-- 신고 버튼 클릭 -->
+	<insert id="insertReportReply" parameterType="map">
+		insert into reportReply(member_id, reply_no, count) values(#{memberId}, #{replyNo}, 1)
+	</insert>
+	
+	<!-- 해당 댓글에 신고 몇회 인지 계산 -->
+	<select id="sumReportReply" parameterType="long" resultType="reportReply">
+		select sum(count) as sum_count from reportReply where reply_no = #{value}
+	</select>
+	
+	<!-- 신고기능 중복체크 -->
+	<select id="checkReportReply" parameterType="map" resultType="reportReply">
+		select member_id, reply_no, count from reportReply where reply_no=#{replyNo} and member_id=#{memberId}
+	</select>
 </mapper>

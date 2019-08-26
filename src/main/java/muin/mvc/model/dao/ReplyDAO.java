@@ -3,6 +3,7 @@ package muin.mvc.model.dao;
 import java.util.List;
 
 import muin.mvc.model.dto.ReplyDTO;
+import muin.mvc.model.dto.ReportReplyDTO;
 
 public interface ReplyDAO {
 public List<ReplyDTO> selectReply(int movieNo);
@@ -14,4 +15,10 @@ public List<ReplyDTO> selectReply(int movieNo);
 	public void replyDown(Long replyNo);
 	
 	public int replyDelete(Long replyNo, Long memberId);
+	
+	public int insertReplyReport(Long memberId, Long replyNo);
+	
+	public int sumReportReply(Long replyNo);
+	
+	public ReportReplyDTO checkReportReply(Long memberId, Long replyNo);
 }

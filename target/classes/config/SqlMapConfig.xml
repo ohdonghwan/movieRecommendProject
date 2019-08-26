@@ -13,6 +13,7 @@
 		<typeAlias type="muin.mvc.model.dto.MovieDTO" alias="movie"/>
 		<typeAlias type="muin.mvc.model.dto.ReplyDTO" alias="reply"/>
 		<typeAlias type="muin.mvc.model.dto.WishListDTO" alias="wishList"/>
+		<typeAlias type="muin.mvc.model.dto.ReportReplyDTO" alias="reportReply"/>
 	</typeAliases>
 	
 	<mappers>

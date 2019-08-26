@@ -60,4 +60,29 @@ public class ReplyController {
 	public int replyDelete(Long replyNo, Long memberId) {
 		return replyService.replyDelete(replyNo, memberId);
 	}
+	
+	//리플 신고
+	@RequestMapping("reply/insertReplyReport")
+	@ResponseBody
+	public int insertReplyReport(Long memberId, Long replyNo) {
+		if(this.checkReportReply(memberId, replyNo)==1) {
+			replyService.insertReplyReport(memberId, replyNo);
+			return 1;
+		}else		
+			return 0;
+	}
+	
+	//리플 신고 횟수
+	@RequestMapping("reply/sumReportReply")
+	@ResponseBody
+	public int sumReportReply(Long replyNo) {
+		return replyService.sumReportReply(replyNo);
+		
+	}
+	//리플 중복 신고 체크 메소드
+	public int checkReportReply(Long memberId, Long replyNo) {
+		if(replyService.checkReportReply(memberId, replyNo)!=null) return 1; //1이면 중복 아니라서 신고 가능
+		return 0;
+	}
+	
 }
