@@ -102,17 +102,26 @@ body{
 	z-index: 2;
 }
 
-.form-signin input[type="text"] {
-	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
+.form-signin input[name="newName"] {
+	margin-bottom: 10px;
+
 }
 
-.form-signin input[type="password"] {
-	margin-bottom: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+.form-signin input[name="memberPwd2"] {
+		margin-bottom: 10px;
+	
 }
+
+.form-signin input[name="memberPwd"] {
+		margin-bottom: -1px;
+	
+}
+
+.form-signin input[name="pw"] {
+		margin-bottom: 10px;
+	
+}
+
 </style>
 
 </head>
@@ -122,11 +131,11 @@ body{
 			<form class="form-signin align-middle" id="pwForm"
 				action="${pageContext.request.contextPath}/updateMemberAction"
 				method="post">
-				<h1 class="signinhead">정 보 수정</h1>
+				<h1 class="signinhead">정보 수정</h1>
 				<input type="hidden" name="command" value="update"> <input
 					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<label for="New Password" class="sr-only">New Name</label> <input
-				texte="text" class="form-control" placeholder="New Name"
+				<label for="New Name" class="sr-only">New Name</label> <input
+				text="text" class="form-control" placeholder="New Name"
 					id="newName" name="newName" required autofocus>
 				<label for="New Password" class="sr-only">New Password</label> <input
 					type="password" class="form-control" placeholder="New Password"

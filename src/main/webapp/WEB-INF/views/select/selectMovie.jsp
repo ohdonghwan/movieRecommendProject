@@ -27,10 +27,6 @@ crossorigin="anonymous">
   <!-- Page level plugin CSS-->
   <link href="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="${pageContext.request.contextPath}/resources/css/shop-homepage.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-
 <title>검색</title>
 <style>
 
@@ -66,11 +62,13 @@ padding-bottom: 30px;
 			dataType:"json",
 			success:function(result){
 				var data = "<form method='post'>";
-				 $.each(result, function(index, item){
+				 $.each(result, function(index, item){					 
+					 var posterlist=item.moviePoster;
+						var movieposter=posterlist.split("|",1);
 					data += "<tr>";
 						data+="<input type='hidden' value='"+item.movieNo+"'>";
 						data += "<input type='hidden' value='${mvo.memberId}' name='memberId'/>";
-						data+="<td><img src='"+item.moviePoster+"'></td>";
+						data+="<td><a href='${pageContext.request.contextPath}'><img src='"+movieposter+"'></td></a>";
 						data+="<td>"+item.movieName+"</td>";
 						data+="<td>"+item.movieGenre+"</td>";
 						data+="<td>"+item.movieStory+"</td>";

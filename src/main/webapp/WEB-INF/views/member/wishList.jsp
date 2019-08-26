@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<sec:authentication var="mvo" property="principal" /> 
+<sec:authentication var="mvo" property="principal" />
 <sec:authorize access="isAuthenticated()">
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="UTF-8">
@@ -35,18 +35,52 @@
 	crossorigin="anonymous">
 
 <style>
-img{width: 100px; height: 150px}
-#myWishListTable{
-	margin: auto;
-	color: white !important;
-	font-family: "Do Hyeon";
-	font-size: 20px;
-}
-#caption{
+
+#caption {
 	color: white !important;
 	font-family: "Do Hyeon";
 	font-size: 40px;
 }
+
+.card {
+	background-color: transparent !important;
+}
+
+#mypick {
+	margin: 0 auto;
+	text-align: left;
+}
+
+.movietd:hover {
+	position: relative;
+	margin: 0 auto;
+}
+
+.movietd:hover img.movieposter {
+	opacity: 0.2;
+}
+
+
+.movietd:hover .movietitle{
+	visibility: visible;
+
+}
+
+.movietitle {
+	position: absolute;
+	vertical-align: middle;
+	z-index: 5;
+	top: 20%;
+	font-size: 25px;
+	vertical-align: middle;
+	text-align: center;
+	color: white;
+	visibility: hidden;
+	font-family: "Do Hyeon";
+	padding: 10px;
+}
+
+
 </style>
 
 </head>
@@ -54,52 +88,45 @@ img{width: 100px; height: 150px}
 
 <body>
 
-<c:if test="${not empty requestScope.errorMessage}">
-	<span style="color:red">${requestScope.errorMessage}</span>
-</c:if>
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-  	<!-- DataTables Example -->
-    <h5 id='caption'>찜 목록</h5>
-	<div class="card mb-3">          
-            <div class="table-responsive">
-              <table class="table table-dark table-hover table-borderless" id="dataTable" width="100%" cellspacing="0">
-                <thead style = "text-align:center; vertical-align: middle;" >
-					<tr>
-						<th>포스터</th>
-						<th>제목</th>
-						<th>장르</th>
-						<th>줄거리</th>
-						<th>주연배우</th>
-						<th>감독</th>
-					</tr>
-				</thead>              
-                <tbody style = "text-align:center; vertical-align: bottom;" id='selectResult'>                
-	                <c:forEach items="${list}" var="list">
-	  					<tr>
-			  				<td><img src='${list.moviePoster}'/></td>
-			  				<td>${list.movieName}</td>
-			  				<td>${list.movieGenre}</td>
-			  				<td>${list.movieStory}</td>
-			  				<td>${list.movieActor}</td>
-			  				<td>${list.movieDirector}</td>
-	  					</tr>
-	  				</c:forEach> 
-                </tbody> 
-              </table>
-          </div>
-        </div>
-      	<!-- Bootstrap core JavaScript -->
-		<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<c:if test="${not empty requestScope.errorMessage}">
+		<span style="color: red">${requestScope.errorMessage}</span>
+	</c:if>
+	<input type="hidden" name="${_csrf.parameterName}"
+		value="${_csrf.token}">
+
+	<div id="mypick">
+		<span id='caption'>${mvo.memberName}님의 찜 목록</span>
+		<div class="card mb-3">
+			<div class="table-responsive">
+				<table class="table table-borderless" width="100%" cellspacing="0">
+					<thead style="text-align: center; vertical-align: middle;">
+					<tbody id='selectResult'>
+						<c:forEach items="${list}" var="list" varStatus="listStatus">
+
+							<c:forTokens var="poster" items="${list.moviePoster}" delims="|"
+								varStatus="status">
+								<c:if test="${status.first}">
+									<td class="movietd"><a href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}"><img src="${poster}"
+											class="movieposter" style="width: 100%; height: 100%;" /></a>
+								</c:if>
+							</c:forTokens>
+							<div class="movietitle">
+								<p>${list.movieName}</p>
+
+							</div>
+							</td>
 
 
-		<!-- Page level plugin JavaScript-->
-		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/jquery.dataTables.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.js"></script>
-
-		<!-- Demo scripts for this page-->
-		<script src="${pageContext.request.contextPath}/resources/js/demo/datatables-demo.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
+							<c:if test="${listStatus.count%4==0}">
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
 </body>
-</html>
+	</html>
 </sec:authorize>

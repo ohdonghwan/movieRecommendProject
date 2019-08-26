@@ -3,11 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<sec:authentication var="mvo" property="principal" /> 
-<sec:authorize access="isAuthenticated()">
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+
+<sec:authentication var="mvo" property="principal" />
+<sec:authorize access="isAuthenticated()">
+	<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,86 +35,129 @@
 	rel="stylesheet"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+
+
 <style>
-img{width: 100px; height: 150px}
 
-.starImg{width: 80px; height: 30px;}
-
-#recommendTable{
+#recommendTable {
 	margin: auto;
 	color: white !important;
 	font-family: "Do Hyeon";
 	font-size: 20px;
 }
-#caption{
+
+#caption {
 	color: white !important;
 	font-family: "Do Hyeon";
 	font-size: 40px;
 }
+
+.card {
+	background-color: transparent !important;
+}
+
+#mystar {
+	margin: 0 auto;
+	text-align: left;
+}
+
+.movietd:hover {
+	position: relative;
+	margin: 0 auto;
+}
+
+.movietd:hover img.movieposter {
+	opacity: 0.2;
+}
+
+.movietd:hover .movietitle {
+	visibility:visible;
+}
+
+
+.movietitle {
+	position: absolute;
+	vertical-align: middle;
+	z-index: 5;
+	top: 20%;
+	font-size: 25px;
+	vertical-align: middle;
+	text-align: center;
+	color: white;
+	visibility: hidden;
+	font-family: "Do Hyeon";
+	padding: 10px;
+	word-break:break-all;
+}
+
+.movietitle img {
+	width: 60%;
+	padding: 10px;
+}
 </style>
 
-</head>
+	</head>
 
 
-<body>
+	<body>
 
-<c:if test="${not empty requestScope.errorMessage}">
-	<span style="color:red">${requestScope.errorMessage}</span>
-</c:if>
+		<c:if test="${not empty requestScope.errorMessage}">
+			<span style="color: red">${requestScope.errorMessage}</span>
+		</c:if>
 
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}">
+		<div id="mystar">
+			<span id='caption'>${mvo.memberName}님이 별점 준 영화</span>
+			<div class="card mb-3">
+				<div class="table-responsive">
+					<table class="table table-borderless" width="100%" cellspacing="0">
+					<thead style="text-align: center; vertical-align: middle;">
 
-  <h5 id='caption'>내가 별점 준 영화</h5>
-  <div class="card mb-3">          
-            <div class="table-responsive">
-              <table class="table table-dark table-hover table-borderless" id="dataTable" width="100%" cellspacing="0">
-                <thead style = "text-align:center; vertical-align: middle;" >
-					<tr>
-						<th>포스터</th>
-						<th>제목</th>
-						<th>장르</th>
-						<th>줄거리</th>
-						<th>주연배우</th>
-						<th>감독</th>
-						<th>내 별점</th>
-					</tr>
-				</thead>
-  		<tbody>
-  		<c:forEach items="${list}" var="list">
-  			<tr>
-  				<td><img src='${list.moviePoster}'/></td>
-  				<td>${list.movieName}</td>
-  				<td>${list.movieGenre}</td>
-  				<td>${list.movieStory}</td>
-  				<td>${list.movieActor}</td>
-  				<td>${list.movieDirector}</td>
-  				<td>  				
-  				<c:choose>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 5}"><img class='starImg' src="../resources/images/star5.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 4}"><img class='starImg' src="../resources/images/star4.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 3}"><img class='starImg' src="../resources/images/star3.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 2}"><img class='starImg' src="../resources/images/star2.png"/></c:when>
-  					<c:when test="${list.recommendDTO.recommendGrade eq 1}"><img class='starImg' src="../resources/images/star1.png"/></c:when>
-  				</c:choose>  				
-  				</td>
-  			</tr>
-  		</c:forEach>
-  		</tbody>
-  	</table>
-  	</div>
-  	</div>
-  	      	<!-- Bootstrap core JavaScript -->
-		<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+						<tbody>
+							<c:forEach items="${list}" var="list" varStatus="listStatus">
+
+								<c:forTokens var="poster" items="${list.moviePoster}" delims="|"
+									varStatus="status">
+									<c:if test="${status.first}">
+										<td class="movietd"><a href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}"><img src="${poster}"
+												class="movieposter" style="width: 100%; height: 100%;"/></a>
+									</c:if>
+								</c:forTokens>
+								<div class="movietitle">
+									<p>${list.movieName}</p>
+									<c:choose>
+										<c:when test="${list.recommendDTO.recommendGrade eq 5}">
+											<img class='starImg' src="../resources/images/star5.png" />
+										</c:when>
+										<c:when test="${list.recommendDTO.recommendGrade eq 4}">
+											<img class='starImg' src="../resources/images/star4.png" />
+										</c:when>
+										<c:when test="${list.recommendDTO.recommendGrade eq 3}">
+											<img class='starImg' src="../resources/images/star3.png" />
+										</c:when>
+										<c:when test="${list.recommendDTO.recommendGrade eq 2}">
+											<img class='starImg' src="../resources/images/star2.png" />
+										</c:when>
+										<c:when test="${list.recommendDTO.recommendGrade eq 1}">
+											<img class='starImg' src="../resources/images/star1.png" />
+										</c:when>
+									</c:choose>
+								</div>
+								</td>
 
 
-		<!-- Page level plugin JavaScript-->
-		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/jquery.dataTables.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.js"></script>
+								<c:if test="${listStatus.count%4==0}">
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 
-		<!-- Demo scripts for this page-->
-		<script src="${pageContext.request.contextPath}/resources/js/demo/datatables-demo.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>        
-</body>
-</html>
+	</body>
 </sec:authorize>
+
+</html>

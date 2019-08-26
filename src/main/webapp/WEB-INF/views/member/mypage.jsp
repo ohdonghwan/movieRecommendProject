@@ -77,6 +77,7 @@
 	color: white !important;
 	font-family: "Do Hyeon";
 	font-size: 20px;
+	display: flex;
 }
 
 #menucontents>ul>li.navbar-brand {
@@ -94,8 +95,13 @@
 }
 
 #menucontents > ul > li{
-	padding-top: 10px;
+	padding: 5px 5px 5px 10px;
 }
+
+#menucontents > ul {
+	vertical-align: middle;
+}
+
 </style>
 
 </head>
@@ -108,7 +114,7 @@
 	</c:if>
 	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
 		<div id="menubar"
-			style="float: left; width: 15%; z-index: 1; background-color: black; display: flex; height: 100%;">
+			style="float: left; width: 15%; z-index: 1; background-color: black; display: flex; height: 100%; position:fixed">
 			<div id="menucontents" class="align-middle" style="margin: auto;">
 				<ul class="nav flex-column">
 					<li id="hometitle">영화보고갈래?</li>
@@ -128,7 +134,7 @@
 		</div>
 	</sec:authorize>
 	<div id="mainpage"
-		style="float: right; width: 85%; display: flex; height: 100%;">
+		style="float: right; width: 85%; display: flex; height: 100%; position:absolute; right:0;">
 		<video class="video-background" height="100%" width="100%"
 			preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"
 			style="object-position: right; object-fit: cover">
