@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="replyMapper">
-	
-	<!-- MovieNo에 해당하는 상세정보 봤을 때 그 MovieNo이 갖고 있는 댓글 select 상세보기 추가시 where movie_no = ? 추가-->
-	<select id="selectReply" resultType="reply">
-		select reply_no, reply_content, member_Name, reply_date, reply_Up, reply_Down from reply
+	<!-- MovieNo에 해당하는 상세정보 봤을 때 그 MovieNo이 갖고 있는 댓글 select 상세보기 추가시 where movie_no 
+		= ? 추가 -->
+	<select id="selectReply" resultType="reply" parameterType="int">
+		select reply_no, reply_content, member_Name, reply_date, reply_Up,
+		reply_Down from reply where movie_no = #{value}
 	</select>
-
 	<insert id="insertReply" parameterType="reply">
-		insert into reply(reply_no, reply_content, reply_date, movie_no, member_id, member_Name, reply_up, reply_down) values(reply_no_seq.nextval, #{replyContent}, sysdate, #{movieNo}, #{memberId}, #{memberName}, 0, 0)
+		insert into
+		reply(reply_no, reply_content, reply_date, movie_no, member_id,
+		member_Name, reply_up, reply_down) values(reply_no_seq.nextval,
+		#{replyContent}, sysdate, #{movieNo}, #{memberId}, #{memberName}, 0,
+		0)
 	</insert>
-	
+
 	<!-- 댓글 공감 비공감 -->
 	<update id="replyUp" parameterType="long">
-		update reply set reply_up = reply_up+1 where reply_no = #{value}
+		update reply set reply_up =
+		reply_up+1 where reply_no = #{value}
 	</update>
 	<update id="replyDown" parameterType="long">
-		update reply set reply_down = reply_down+1 where reply_no = #{value}
+		update reply set reply_down
+		= reply_down+1 where reply_no = #{value}
 	</update>
-		
+
 	<!-- 댓글 삭제 -->
 	<delete id="replyDelete" parameterType="map">
-		delete from reply where reply_no = #{replyNo} and member_id= #{memberId}
+		delete from reply where
+		reply_no = #{replyNo} and member_id= #{memberId}
 	</delete>
- 	
+
 </mapper>

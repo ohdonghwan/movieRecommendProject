@@ -17,7 +17,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	
 	@Override
 	public List<ReplyDTO> selectReply(int movieNo) {		
-		return session.selectList("replyMapper.selectReply");
+		return session.selectList("replyMapper.selectReply", movieNo);
 	}
 
 	@Override

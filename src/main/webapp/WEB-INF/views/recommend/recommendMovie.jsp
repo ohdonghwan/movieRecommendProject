@@ -39,17 +39,15 @@ $(function(){
 			success:function(result){							
 				var data = "<form method='post'>";
 				 $.each(result, function(index, item){
-					data += "<tr>";
+						var 
 						data+="<input type='hidden' value='"+item.movieNo+"'>";
 						data += "<input type='hidden' value='${mvo.memberId}' name='memberId'/>";
 						data+="<td><img src='"+item.moviePoster+"'></td>";
-						data+="<td>"+item.movieName+"</td>";
-						data+="<td>"+item.movieGenre+"</td>";
-						data+="<td>"+item.movieStory+"</td>";
-						data+="<td>"+item.movieActor+"</td>";
-						data+="<td>"+item.movieDirector+"</td>";
+						
 						data+="<td><input type='button' value='찜하기' name='wishListBtn'></td>";
-					data += "</tr>";
+						if(item.legnth%4==3){
+							data += "</tr>";
+						} 
 				 })
 				data+="</form>";
 				$("#selectResult").html(data);	
