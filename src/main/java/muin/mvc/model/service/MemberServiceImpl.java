@@ -128,5 +128,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.myWishList(memberId);
 	}
 
+	@Override
+	public List<MemberDTO> listAll(String searchOption, String keyword) throws Exception {
+		return memberDAO.listAll(searchOption,keyword);
+	}
+
+	@Override
+	public int countMember(String searchOption, String keyword) throws Exception {
+		return memberDAO.countMember(searchOption,keyword);
+	}
+
 	
 }

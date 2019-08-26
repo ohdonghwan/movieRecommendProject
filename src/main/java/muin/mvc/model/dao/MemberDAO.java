@@ -36,5 +36,10 @@ public interface MemberDAO {
 	public WishListDTO checkWishList(Long memberId, Long movieNo);
 	
 	public List<WishListDTO> myWishList(Long memberId);
+	
+	public List<MemberDTO> listAll(String searchOption,String keyword) throws Exception;
+	
+	public int countMember(String searchOption, String keyword) throws Exception;
+	
 
 }

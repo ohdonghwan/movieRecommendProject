@@ -94,4 +94,24 @@ public class MemberDAOImpl implements MemberDAO {
 		List<WishListDTO> list = sqlSession.selectList("memberMapper.myWishList", memberId);
 		return list;
 	}
+	@Override
+	public List<MemberDTO> listAll(String searchOption, String keyword) throws Exception {
+		Map<String,String> map = new HashMap<String,String>();
+		
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		
+		List<MemberDTO> list = sqlSession.selectList("memberMapper.listAll",map);
+		return list;
+	}
+	@Override
+	public int countMember(String searchOption, String keyword) throws Exception {
+		Map<String, String> map = new HashMap<String,String>();
+		
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		
+		int count = sqlSession.selectOne("memberMapper.countMember",map);
+		return count;
+	}
 }

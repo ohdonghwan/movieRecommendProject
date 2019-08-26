@@ -104,4 +104,27 @@
  		delete from member where member_email=#{memberEmail}
  	</delete>
  	
+ 	<!-- 회원 목록 -->
+ 	<select id="listAll" resultType="member">
+	select member_Id,member_pwd,member_name,member_email from member
+ 	<include refid="search"></include>
+ 	</select>
+
+	<select id="countMember" resultType="int">
+		select count(*) from member
+		<include refid="search"></include>
+	</select> 	
+	
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'all'">
+				where member_email like '%' || #{keyword} || '%'
+				or member_name like '%' || #{keyword} || '%'
+				or member_Id like '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				where ${searchOption} like '%' ||#{keyword} || '%'
+			</otherwise> 
+		</choose>
+	</sql>
 </mapper>

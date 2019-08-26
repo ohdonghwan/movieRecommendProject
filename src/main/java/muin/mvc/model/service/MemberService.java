@@ -42,5 +42,12 @@ public interface MemberService {
 	
 	//마이페이지 찜목록
 	public List<WishListDTO> myWishList(Long memberId);
+	
+	//멤버 목록
+	public List<MemberDTO> listAll(String searchOption, String keyword) throws Exception;
+	
+	//멤버 수 카운트
+	public int countMember(String serchOption, String keyword) throws Exception;
+	
 
 }

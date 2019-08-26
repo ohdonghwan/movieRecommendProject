@@ -1,6 +1,8 @@
 package muin.mvc.model.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -58,16 +60,14 @@ public class MemberController {
 		return "member/findForm";
 	}
 	
-//	//관리자 권한으로 들어가서 회원 명수 파악하기
-	@RequestMapping("admin/enterCafe")
-	public String adminSelect(Model model) {
-		List<MemberDTO> list = memberService.memberList();
-		int count = memberService.getMemberCount();
-		model.addAttribute("list", list);
-		model.addAttribute("count", count);
-		return "admin/enterCafe";
-	}
 	
+	//관리자 권한으로 들어가서 회원 명수 파악하기
+	 
+	 @RequestMapping("admin/enterCafe") public String adminSelect(Model model) {
+	 List<MemberDTO> list = memberService.memberList(); int count =
+	 memberService.getMemberCount(); model.addAttribute("list", list);
+	 model.addAttribute("count", count); return "admin/enterCafe"; }
+	 
 	//아이디 중복확인
 	@RequestMapping("idcheckAjax")
 	@ResponseBody
@@ -134,13 +134,6 @@ public class MemberController {
 		return "member/withdrawal";
 	}
 	
-//	@RequestMapping("/withdrawal")  //탈퇴처리(고객정보삭제)
-//	public String deleteSecession(@RequestParam String pwd, Model model, HttpSession session) {
-//		String id=((MemberDTO)(session.getAttribute("loginForm"))).getMemberEmail();
-//		System.out.println(id);
-//		return pwd;
-//		
-//	}
 	
 	@RequestMapping("member/updateInfo") 
 	  public String updateInfo() { 
@@ -191,6 +184,27 @@ public class MemberController {
 		System.out.println("checkWishList Method start");
 		if(memberService.checkWishList(memberId, movieNo)!=null) return 0; // select문에서 아무것도 안나왔을때 찜할 수 있음 1이나오면 중복아닌것
 		else return 1;
+	}
+	
+	@RequestMapping("/enterCafe")
+	public ModelAndView list(@RequestParam String searchOption, @RequestParam String keyword ) throws Exception{
+		
+		List<MemberDTO> list = memberService.listAll(searchOption, keyword);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		int count = memberService.countMember(searchOption,keyword);
+		
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		map.put("count", count);
+		map.put("searchOption",searchOption);
+		map.put("keyword",keyword);
+		mv.addObject("map",map);
+		mv.setViewName("admin/enterCafe");
+		return mv;
 	}
 
 }

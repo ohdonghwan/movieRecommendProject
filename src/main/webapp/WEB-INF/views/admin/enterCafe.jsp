@@ -42,7 +42,7 @@ padding-bottom: 30px;
 <body>
 <sec:authentication var="mvo" property="principal" />
  <br><br>
-<h1 align="center">총 회원수 : ${requestScope.count}명</h1>
+<h1 align="center">총 회원수 : ${map.count}명</h1>
 
 <article>
 <div class="container">
@@ -58,7 +58,7 @@ padding-bottom: 30px;
 
 			<%-- <col style="width:15%;" /> --%>
 
-			<col style="width:10%;" />
+			<col style="width:10%;" />	
 
 			<col style="width:10%;" />
 
@@ -68,16 +68,26 @@ padding-bottom: 30px;
 		<td>회원이름</td>
 		<td>회원아이디</td>
 	</tr>
-	<c:forEach var="MemberDTO" items="${list}">
+	<c:forEach var="row" items="${map.list}">
 	<tr>
-		<td>${MemberDTO.memberEmail }</td>
-		<td>${MemberDTO.memberName }</td>
-		<td>${MemberDTO.memberId }</td>
+		<td>${row.memberEmail}</td>
+		<td>${row.memberName}</td>
+		<td>${row.memberId}</td>
 	</tr>
 	</c:forEach>
 </table>
 </div>
-
+	<form name="form1" method="post" action="${pageContext.request.contextPath}/enterCafe">
+	<input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}">
+		<select name="searchOption">
+			<option value="all" <c:out value="${map.searchOption == 'all'?'selected' : ''}"/>> 전체</option>
+			<option value="member_email" <c:out value="${map.searchOption == 'member_email'?'selected' : ''}"/>> 이메일</option>
+			<option value="member_name" <c:out value="${map.searchOption == 'member_name'?'selected' : ''}"/>> 이름</option>
+			<option value="member_Id" <c:out value="${map.searchOption == 'member_Id'?'selected' : ''}"/>> 아이디</option>
+		</select>
+		<input name ="keyword" value="${map.keyword}">
+		<input type="submit" value="검색"> 
+	</form>
 <div >
 <button type="button" class="btn btn-sm btn-primary" id="gomain">메인으로</button>
 </div>
