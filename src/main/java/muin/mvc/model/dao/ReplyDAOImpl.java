@@ -46,6 +46,8 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Override
 	public int insertReplyReport(Long memberId, Long replyNo) {
+		System.out.println("insert memberId : " + memberId);
+		System.out.println("insert replyNo : " + replyNo);
 		Map<String, Long> map = new HashMap<String, Long>();
 		map.put("memberId", memberId);
 		map.put("replyNo", replyNo);
@@ -54,11 +56,16 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Override
 	public int sumReportReply(Long replyNo) {		
-		return session.selectOne("replyMapper.sumReportReply", replyNo);
+		System.out.println("sum replyNo : " + replyNo);
+		int result = session.selectOne("replyMapper.sumReportReply", replyNo);
+		System.out.println("result : " + result);
+		return result;
 	}
 
 	@Override
 	public ReportReplyDTO checkReportReply(Long memberId, Long replyNo) {
+		System.out.println("check memberId : " + memberId);
+		System.out.println("check replyNo : " + replyNo);
 		Map<String, Long> map = new HashMap<String, Long>();
 		map.put("memberId", memberId);
 		map.put("replyNo", replyNo);

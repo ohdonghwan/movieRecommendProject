@@ -49,15 +49,16 @@ $(document).ready(function() {
        $("#direcResult").show();
 
    });
+   //var sumReportReply;
+   	 
       function selectReply(){
-    	 
+    	 //alert(sumReportReply)
          $.ajax({
             type:"post",
             url:"${pageContext.request.contextPath}/reply/selectReply",
             data:"${_csrf.parameterName}=${_csrf.token}&movieNo=${MovieDTO.movieNo}",
             dataType:"json",
             success:function(result){
-               var sumReportReply = "${pageContext.request.contextPath}/reply/sumReportReply"; 
                var data="<tr><td>작성자</td><td>내용</td>";
                data+="<td>공감</td>";
                data+="<td>비공감</td>";
@@ -70,8 +71,8 @@ $(document).ready(function() {
                   data+="<td><input type='button' class='btn btn-success' name='replyUp' value='공감 : "+item.replyUp+"'></td>";
                   data+="<td><input type='button' class='btn btn-danger' name='replyDown' value='비공감 : "+item.replyDown+"'></td>";
                   data+="<td>"+item.replyDate+"</td>";
-                  data+="<td><input type='button' class='btn btn-info' name='replyDelete' value='삭제'></td>";
-                  data+="<td><input type='button' class='btn btn-warning' name='reportReply' value='신고 : '"+sumReportReply+"'></td>"
+                  data+="<td><input type='button' class='btn btn-info' name='replyDelete' value='삭제하기'></td>";
+                  data+="<td><input type='button' class='btn btn-warning' name='reportReply' value='신고하기''></td>"
                   data+="</tr>";
                })
                $("#replyTable").html(data);
@@ -132,33 +133,64 @@ $(document).ready(function() {
             replyNo:$(this).parent().parent().children().first().val(),
             memberId:"${mvo.memberId}"
          }
-         
-         $.ajax({
-            type:"post",
-            url:"${pageContext.request.contextPath}/reply/replyDelete",
-            data:params,
-            success:function(result){
-               if(result==1) selectReply();
-               else alert("니가 쓴 댓글 아니야 ^^")
-            }
-         })
+         if(confirm("정말 삭제 할거야??")==true){
+	         $.ajax({
+	            type:"post",
+	            url:"${pageContext.request.contextPath}/reply/replyDelete",
+	            data:params,
+	            success:function(result){               
+	           	   if(result==1) {
+	               	   alert("삭제 됐어 !")
+	               	   selectReply();
+	                  }
+	               else alert("니가 쓴 댓글 아니야 ^^")                      
+	            }
+	         })
+         }
       })
       
       //신고버튼 클릭
-      $(document).on("click", "input[name=reportReply]", function(){
+      $(document).on("click", "input[name=reportReply]", function(){    	 
+    	 //신고버튼 눌렀을 때 해당하는 댓글의 신고 횟수 계산
+    	  var sumParams={
+    	  		"${_csrf.parameterName}":"${_csrf.token}",
+    	  		replyNo:$(this).parent().parent().children().first().val()
+    	  }
+    	  function sumReportReply(replyNo){
+       		  $.ajax({
+       			  type:"post",
+       			  url:"${pageContext.request.contextPath}/reply/sumReportReply",
+       			  dataType:"json",
+       			  data:sumParams,
+       			  success:function(result){
+       				  //신고 횟수 나옵니다 result
+       				  alert("현재 이 댓글의 총 신고 횟수 : " + result);
+       				  
+       			  }
+       		  })
+       	  }
+    	 
+    	 ////////////////////////////////////////////////////
          var params={
             "${_csrf.parameterName}":"${_csrf.token}",
             replyNo:$(this).parent().parent().children().first().val(),
             memberId:"${mvo.memberId}"
          }
-         
+        
          $.ajax({
             type:"post",
             url:"${pageContext.request.contextPath}/reply/insertReplyReport",
             data:params,
             success:function(result){
-               if(result==1) selectReply();
-               else alert("이미 신고 했잖아..")
+               if(result==1) {
+            	   alert("신고가 접수되었습니다 !");
+            	   sumReportReply($(this).parent().parent().children().first().val());
+            	   selectReply();
+               }
+               else {
+            	   alert("이미 신고 했잖아..");
+            	   sumReportReply($(this).parent().parent().children().first().val());
+               }
             }
          })
       })

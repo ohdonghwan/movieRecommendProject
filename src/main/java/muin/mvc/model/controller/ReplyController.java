@@ -76,12 +76,13 @@ public class ReplyController {
 	@RequestMapping("reply/sumReportReply")
 	@ResponseBody
 	public int sumReportReply(Long replyNo) {
-		return replyService.sumReportReply(replyNo);
+		int sumReportReply = replyService.sumReportReply(replyNo);
+		return sumReportReply;
 		
 	}
 	//리플 중복 신고 체크 메소드
 	public int checkReportReply(Long memberId, Long replyNo) {
-		if(replyService.checkReportReply(memberId, replyNo)!=null) return 1; //1이면 중복 아니라서 신고 가능
+		if(replyService.checkReportReply(memberId, replyNo)==null) return 1; //1이면 중복 아니라서 신고 가능
 		return 0;
 	}
 	

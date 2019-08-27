@@ -30,13 +30,13 @@
 	</delete>
 	
 	<!-- 신고 버튼 클릭 -->
-	<insert id="insertReportReply" parameterType="map">
+	<insert id="insertReplyReport" parameterType="map">
 		insert into reportReply(member_id, reply_no, count) values(#{memberId}, #{replyNo}, 1)
 	</insert>
 	
 	<!-- 해당 댓글에 신고 몇회 인지 계산 -->
-	<select id="sumReportReply" parameterType="long" resultType="reportReply">
-		select sum(count) as sum_count from reportReply where reply_no = #{value}
+	<select id="sumReportReply" parameterType="long" resultType="_int">
+		select sum(count) as count from reportReply where reply_no = #{value}
 	</select>
 	
 	<!-- 신고기능 중복체크 -->
