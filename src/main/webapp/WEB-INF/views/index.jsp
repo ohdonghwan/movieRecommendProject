@@ -56,14 +56,25 @@
 			document.getElementById("yup").textContent = "영화 볼거야";
 			$("a").remove("#nope");
 		});
+		$("#recommendmain").click(function() {
+			$("#ajaxload").load("${pageContext.request.contextPath}/recommend/main");
+		});
+		$("#searchIt").click(function() {
+			$("#ajaxload").load("${pageContext.request.contextPath}/movie/selectMovieView", $("#searchMovie").serialize());
+		});
 	});
+	
 </script>
 <script>
 	function logout() {
 		document.getElementById("logoutFrm").submit();
 	}
 </script>
-
+<style>
+#navbarsExampleDefault > ul > li:nth-child(6):hover #logoutbtn{
+	visibility:visible!important;
+}
+</style>
 </head>
 <body>
 
@@ -94,9 +105,9 @@
 
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication var="mvo" property="principal" />
-		<div class="container" style="position:relative; top:150px;">
+		<div class="container" style="position: relative; top: 150px;">
 
-			<div>
+			<div id="ajaxload">
 				<%@ include file="recommend/recommendMovie.jsp"%>
 			</div>
 		</div>
@@ -110,7 +121,7 @@
 		<!-- 관리자인 경우 -->
 		<nav class="navbar navbar-expand-md fixed-top"> <a
 			class="navbar-brand" href="${pageContext.request.contextPath}"
-			style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 50px;">영화보고갈래?</a>
+			style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 40px; padding: 1px 0px 0px 0px">영화보고갈래?</a>
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -125,35 +136,36 @@
 						href="${pageContext.request.contextPath }/member/updateForm">정보수정</a></li>
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/member/mypage">마이페이지</a></li>
-					<li><a class="nav-link"
-						href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
-						<li><a class="nav-link"
-						href="${pageContext.request.contextPath}/recommend/createCsv">추천목록띄우기</a></li>
+					<li><a class="nav-link" id="recommendmain" href="#">너의평점은</a></li>
 
-					<form class="form-inline my-2 my-lg-0" name='searchMovie'
-						method='post'
+
+					<form class="form-inline my-2 my-lg-0" name='searchMovie' id='searchMovie'
+						method='post' onsubmit="return false;"
 						action='${pageContext.request.contextPath}/movie/selectMovieView'>
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}"> <select name='searchKind'
-							style="vertical-align: middle; height: 39px; font-size: 33px;">
+							style="vertical-align: middle; height: 28px; font-size: 20px; font-family: Do Hyeon; margin-left: 20px;">
 							<option value="movieName">영화제목</option>
 							<option value="movieGenre">영화장르</option>
 							<option value="movieDirector">영화감독명</option>
 						</select> <input class="form-control mr-sm-2" type="text"
 							placeholder="Search" name='searchByMovieKeyWord'
 							aria-label="Search"
-							style="height: 39px; font-size: 33px; margin-top: 0px; padding-top: 10px; border-radius: 5px; border-width: 1px; border-style: solid; border-color: rgb(166, 166, 166); border-image: initial;">
-						<button class="btn btn-secondary my-2 my-sm-0" type="submit"
-							style="margin-left: 10px;">함 찾아봐</button>
+							style="height: 28px; font-size: 20px; margin-top: 0px; padding-top: 5px; border-radius: 5px; font-family: Do Hyeon; border-width: 1px; border-style: solid; border-color: rgb(166, 166, 166); border-image: initial; width: 170px;">
+						<button id="searchIt" class="btn btn-secondary my-2 my-sm-0"
+							type="button" style="font-size: 20px !important; height: 28px; padding: 0px 10px 10px 10px !important;">함	찾아봐</button>
 
 					</form>
 				</sec:authorize>
 
-			</ul>
+			<li>
 
 
-		<a class="btn btn-secondary my-2 my-sm-0" href="javascript:logout();"
-			role="button">로그아웃</a>
+			<a class="btn btn-secondary my-2 my-sm-0" href="javascript:logout();"
+				role="button" id="logoutbtn"
+				style="font-size: 20px !important; height: 28px; padding: 0px 10px 10px 10px !important; background-color: transparent;margin:10px 16px 0px 100px!important; visibility:hidden;">로그아웃</a>
+		</li>
+		</ul>
 		</div>
 		</nav>
 

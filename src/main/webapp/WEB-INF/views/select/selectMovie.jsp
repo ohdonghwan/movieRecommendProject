@@ -1,44 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+<%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description"
+	content="영화 보고 갈래는 무인 팀이 제작한 사용자 경험 기반 영화 추천 사이트 입니다.">
+<meta name="author" content="Team Muin">
+<!-- Bootstrap core CSS -->
+<link
+	href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+	rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 
-<sec:authentication var="mvo" property="principal" />
-<!-- jQuery -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
-crossorigin="anonymous"></script>
-
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" 
-href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
-integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" 
-crossorigin="anonymous">
-  <!-- Bootstrap core CSS -->
-  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Page level plugin CSS-->
-  <link href="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-
-<title>검색</title>
 <style>
-
-body {
-
-padding-top: 20px;
-
-padding-bottom: 30px;
-
+#caption {
+	color: white !important;
+	font-family: "Do Hyeon";
+	font-size: 40px;
 }
 
+.card {
+	background-color: transparent !important;
+	   border: none;
+    margin: auto;
+    display: inline-block;
+}
+
+#mypick {
+	text-align: center;
+}
+
+.movietd:hover {
+	position: relative;
+	margin: 0 auto;
+}
+
+.movietd:hover img.movieposter {
+	opacity: 0.2;
+}
+
+.movietd:hover .movietitle {
+	visibility: visible;
+}
+
+.movietitle {
+	position: absolute;
+	vertical-align: middle;
+	z-index: 5;
+	top: 20%;
+	font-size: 25px;
+	vertical-align: middle;
+	text-align: center;
+	color: white;
+	visibility: hidden;
+	font-family: "Do Hyeon";
+	padding: 10px 25px 10px 0px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.movietitle .btn {
+    margin: 10px;
+    font-size: 20px!important;
+    }
 </style>
+<title>검색 결과</title>
+</head>
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <sec:authorize access="isAuthenticated()">
@@ -65,22 +109,24 @@ padding-bottom: 30px;
 				 $.each(result, function(index, item){					 
 					 var posterlist=item.moviePoster;
 						var movieposter=posterlist.split("|",1);
-					data += "<tr>";
 						data+="<input type='hidden' value='"+item.movieNo+"'>";
 						data += "<input type='hidden' value='${mvo.memberId}' name='memberId'/>";
-						data+="<td><a href='${pageContext.request.contextPath}'><img src='"+movieposter+"'></td></a>";
-						data+="<td>"+item.movieName+"</td>";
-						data+="<td>"+item.movieGenre+"</td>";
-						data+="<td>"+item.movieStory+"</td>";
-						data+="<td>"+item.movieActor+"</td>";
-						data+="<td>"+item.movieDirector+"</td>";
-						data+="<td><input type='button' value='찜하기' name='wishListBtn'></td>";
-					data += "</tr>";
+						var posterlist = item.moviePoster;
+						var movieposter = posterlist
+								.split("|", 1);
+						data += "<td class='movietd'><input type='hidden' value='"+item.movieNo+"'>";
+						data += "<img src='"+movieposter+"'class='movieposter' style='width:100%'>";
+						data += "<div class='movietitle'><p>"+item.movieName+"</p>"
+						data +="<a class='btn btn-light' href='${pageContext.request.contextPath}/api/movieDetail/"+item.movieNo+"'>상세 보기</a>";
+						data += "<br><input type='button'class='btn btn-light' value='찜하기' name='wishListBtn'><div></td>";
+						if (index % 3 == 2) {
+							data += "</tr>";
+						}
 				 })
 				data+="</form>";
 				$("#selectResult").html(data);	
 			}
-		})
+		});
 	}
 	selectMovieResult();
 	
@@ -89,7 +135,7 @@ padding-bottom: 30px;
 		console.log($('input[name=memberId]').val()); */
 		var params={
 			memberId:$('input[name=memberId]').val(),
-			movieNo:$(this).parent().parent().children().first().val(),
+			movieNo:$(this).parent().parent().children().eq(0).val(),
 			"${_csrf.parameterName}":"${_csrf.token}"
 		}
 		
@@ -111,80 +157,29 @@ padding-bottom: 30px;
 
 </script>
 </sec:authorize>
-<!-- 로그인 안한 사용자의 접근 (로그인 안하면 안쓰실거면 삭제하셔도 됩니다 !isAuthenticated()전부다-->
-<sec:authorize access="!isAuthenticated()">
-<script>
-$(document).on('click', '#gomain', function(e){
-	e.preventDefault();
-	location.href = "${pageContext.request.contextPath}/";
-});
 
-function selectMovieResult(){
-	var params = {
-		searchKind:"${param.searchKind}",
-		keyWord:"${param.searchByMovieKeyWord}",
-		"${_csrf.parameterName}":"${_csrf.token}"
-	}
-	$.ajax({
-		type:"post",
-		url:"${pageContext.request.contextPath}/movie/selectMovie",
-		data:params,
-		dataType:"json",
-		success:function(result){
-			 var data = "<form method='post'>";
-			 $.each(result, function(index, item){
-				data += "<tr>";
-					data+="<input type='hidden' value='"+item.movieNo+"'>";
-					data+="<td><img src='"+item.moviePoster+"'></td>";
-					data+="<td>"+item.movieName+"</td>";
-					data+="<td>"+item.movieGenre+"</td>";
-					data+="<td>"+item.movieStory+"</td>";
-					data+="<td>"+item.movieActor+"</td>";
-					data+="<td>"+item.movieDirector+"</td>";
-				data += "</tr>";
-			 })
-			data+="</form>";
-			$("#selectResult").html(data);	
-		}
-	})
-}
-selectMovieResult();
-</script>
-</sec:authorize>
 </head>
 <body>
-
- <br><br>
-<article>
-<button type="button" class="btn btn-sm btn-primary" id="gomain">메인으로</button>
 <!-- DataTables Example -->
-	<div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            	영화 검색 목록</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead style = "text-align:center; vertical-align: middle;" >
-					<tr>
-						<th>포스터</th>
-						<th>제목</th>
-						<th>장르</th>
-						<th>줄거리</th>
-						<th>주연배우</th>
-						<th>감독</th>
-						<th>찜하기</th>
-					</tr>
-				</thead>              
-                <tbody style = "text-align:center; vertical-align: bottom;" id='selectResult'>                
-                <!-- 영화 검색 결과 들어가는 body, ajax에서 처리합니다. --> 
-                </tbody> 
-              </table>
-            </div>
-          </div>
-        </div>
+		<div class="container" style="display:flex; width:100%;">
+		<div id="mypick" class="align-middle" style="width:100%;">
+		<span id='caption'>${mvo.memberName} 어서온나. 오늘은 뭐볼라꼬?</span>
+		<div class="card mb-3">
+			<div class="table-responsive">
+				<table class="table table-borderless" width="100%" cellspacing="0">
+					<thead style="text-align: center; vertical-align: middle;">
+						<tbody style="text-align: center; vertical-align: bottom;"
+							id='selectResult'>
+							<!-- 영화 검색 결과 들어가는 body, ajax에서 처리합니다. -->
+						</tbody>
+						</thread>
+					</table>
+				</div>
+			</div>
+		</div>
+		</div>
 
-</article>
+
 		<!-- Bootstrap core JavaScript -->
 		<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

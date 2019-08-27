@@ -160,8 +160,8 @@
 <body>		
 		
 		<!-- DataTables Example -->
-		<div class="container" style="display:flex;">
-		<div id="mypick" class="align-middle">
+		<div class="container" style="display:flex; width:100%;">
+		<div id="mypick" class="align-middle" style="width:100%;">
 		<span id='caption'>${mvo.memberName} 어서온나. 오늘은 뭐볼라꼬?</span>
 		<div class="card mb-3">
 			<div class="table-responsive">
