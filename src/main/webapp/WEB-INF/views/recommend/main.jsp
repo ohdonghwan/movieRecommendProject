@@ -131,7 +131,7 @@ $(function(){
 						data+= "<option value='4'>★★★★☆</option>";
 						data+= "<option value='5'>★★★★★</option>";
 						data+= "</select></div></td>";
-						if (index % 3 == 2) {
+						if (index % 4 == 3) {
 							data += "</tr>";
 						}				 
 						});

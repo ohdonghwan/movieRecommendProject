@@ -84,6 +84,12 @@
     margin: 10px;
     font-size: 20px!important;
     }
+    
+#recommendmain1{
+    font-size: 50px;
+    color: white;
+	font-family:"Black Han Sans";
+}    
 </style>
 
 <title>추천 영화 리스트</title>
@@ -93,9 +99,7 @@
 
 <script>
 $(document).on("click","#recommendmain1",function(){
-	console.log(1);
-	$(".container").load("${pageContext.request.contextPath}/recommend/main");
-
+	$("#ajaxload").load("${pageContext.request.contextPath}/recommend/main");
 });
 
 
@@ -115,7 +119,7 @@ $(document).on("click","#recommendmain1",function(){
 						dataType : "json",
 						success : function(result) {
 							if (result==null){
-								var data="<p><a href='#' id='recommendmain' style='font-size:50px; color:white;'>가서 마음에 드는 거 골라와봐</a></p>";
+								var data="<p><a href='#' id='recommendmain1'>가서 마음에 드는 거 골라와봐</a></p>";
 							}
 							var data = "<form method='post'>";
 							$.each(result,function(index, item){ data += "<input type='hidden' value='"+item.movieNo+"'>";
@@ -128,7 +132,7 @@ $(document).on("click","#recommendmain1",function(){
 												data += "<div class='movietitle'><p>"+item.movieName+"</p>"
 												data +="<a class='btn btn-light' href='${pageContext.request.contextPath}/api/movieDetail/"+item.movieNo+"'>상세 보기</a>";
 												data += "<br><input type='button'class='btn btn-light' value='찜하기' name='wishListBtn'><div></td>";
-												if (index % 3 == 2) {
+												if (index % 4 == 3) {
 													data += "</tr>";
 												}
 											})
@@ -136,7 +140,7 @@ $(document).on("click","#recommendmain1",function(){
 							$("#selectResult").html(data);
 						},
 					error:function(jqXHR,error){
-						if(jqXHR.status==500){var data="<p><a href='#' id='recommendmain1' style='font-size:50px; color:white;'>가서 마음에 드는 거 골라와봐</a></p>";
+						if(jqXHR.status==500){var data="<p><a href='#' id='recommendmain1'>가서 마음에 드는 거 골라와봐</a></p>";
 
 						$("#selectResult").html(data);}
 					}

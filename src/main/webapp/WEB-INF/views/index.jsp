@@ -56,17 +56,25 @@
 			document.getElementById("yup").textContent = "영화 볼거야";
 			$("a").remove("#nope");
 		});
-		$("#recommendmain").click(function() {
-			$("#ajaxload").load("${pageContext.request.contextPath}/recommend/main");
-		});
-		$("#searchIt").click(function() {
-			$("#ajaxload").load("${pageContext.request.contextPath}/movie/selectMovieView", $("#searchMovie").serialize());
-		});
 		
 		
+		var id="<%=(String)session.getAttribute("id")%>";
+		
+		if(id!=null){
+			$("#ajaxload").load("${pageContext.request.contextPath}/recommend/createCsv");
+			$("#recommendmain").click(function() {
+				$("#ajaxload").load("${pageContext.request.contextPath}/recommend/main");
+			});
+			$("#searchIt").click(function() {
+				$("#ajaxload").load("${pageContext.request.contextPath}/movie/selectMovieView", $("#searchMovie").serialize());
+			});
+		}
 	});
 	
+	
+	
 </script>
+
 <script>
 	function logout() {
 		document.getElementById("logoutFrm").submit();
@@ -74,8 +82,7 @@
 </script>
 <style>
 
-
-#navbarsExampleDefault > ul > li:nth-child(6):hover #logoutbtn{
+#navbarsExampleDefault > ul > li:last-child:hover #logoutbtn{
 	visibility:visible!important;
 }
 </style>
@@ -112,7 +119,6 @@
 		<div class="container" style="position: relative; top: 150px;">
 
 			<div id="ajaxload">
-				<%@ include file="recommend/recommendMovie.jsp"%>
 			</div>
 		</div>
 
@@ -129,9 +135,6 @@
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
-
-
-
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath }/admin/enterCafe">어드민</a></li>
 				</sec:authorize>
@@ -139,7 +142,6 @@
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/member/mypage">마이페이지</a></li>
 					<li><a class="nav-link" id="recommendmain" href="#">너의평점은</a></li>
-					<li><a class="nav-link" href="${pageContext.request.contextPath}/recommend/createCsv">test</a></li>
 
 
 					<form class="form-inline my-2 my-lg-0" name='searchMovie' id='searchMovie'
@@ -166,7 +168,7 @@
 
 			<a class="btn btn-secondary my-2 my-sm-0" href="javascript:logout();"
 				role="button" id="logoutbtn"
-				style="font-size: 20px !important; height: 28px; padding: 0px 10px 10px 10px !important; background-color: transparent;margin:10px 16px 0px 100px!important; visibility:hidden;">로그아웃</a>
+				style="font-size: 20px !important; height: 28px; padding: 0px 10px 10px 10px !important; background-color: transparent;margin:10px 16px 0px 10px!important; visibility:hidden;">로그아웃</a>
 		</li>
 		</ul>
 		</div>

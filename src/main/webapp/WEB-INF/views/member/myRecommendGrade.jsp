@@ -153,7 +153,7 @@ p {
 								</a></td>
 
 
-								<c:if test="${listStatus.count%4==0}">
+								<c:if test="${listStatus.count%5==0}">
 									</tr>
 								</c:if>
 							</c:forEach>

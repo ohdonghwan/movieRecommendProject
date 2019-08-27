@@ -8,7 +8,7 @@
 	</insert>
 	<!-- 처음 랜덤 영화 20개 랜덤으로 띄워주기 중복 없이 띄우기-->
 	<select id="selectRecommed" resultType="movie" parameterType="long">
-		select * from (select * from movie where movie_no not in (select movie_no from recommend WHERE member_id = #{value}) order by dbms_random.value) where rownum &lt; 6
+		select * from (select * from movie where movie_no not in (select movie_no from recommend WHERE member_id = #{value}) order by dbms_random.value) where rownum &lt; 9
  	</select>
  	<select id="selectAllRecommend" resultType="recommend">
  		select member_id, movie_no, recommend_grade from recommend	

@@ -114,7 +114,7 @@
 	</c:if>
 	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
 		<div id="menubar"
-			style="float: left; width: 15%; z-index: 1; background-color: black; display: flex; height: 100%; position:fixed">
+			style="float: left; width: 20%; z-index: 1; background-color: black; display: flex; height: 100%; position:fixed">
 			<div id="menucontents" class="align-middle" style="margin: auto;">
 				<ul class="nav flex-column">
 					<li id="hometitle">영화보고갈래?</li>
@@ -134,7 +134,7 @@
 		</div>
 	</sec:authorize>
 	<div id="mainpage"
-		style="float: right; width: 85%; display: flex; height: 100%; position:absolute; right:0;">
+		style="float: right; width: 80%; display: flex; height: 100%; position:absolute; right:0;">
 		<video class="video-background" height="100%" width="100%"
 			preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"
 			style="object-position: right; object-fit: cover">

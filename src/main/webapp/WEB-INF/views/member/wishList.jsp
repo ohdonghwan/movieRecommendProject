@@ -104,7 +104,7 @@
 					<tbody id='selectResult'>
 						<c:forEach items="${list}" var="list" varStatus="listStatus">
 							<td class="movietd">
-							<a href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}" target="mypick">
+							<a href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}">
 									<c:forTokens var="poster" items="${list.moviePoster}"
 										delims="|" varStatus="status">
 										<c:if test="${status.first}">
@@ -117,7 +117,7 @@
 									</td>
 
 
-							<c:if test="${listStatus.count%4==0}">
+							<c:if test="${listStatus.count%5==0}">
 								</tr>
 							</c:if>
 						</c:forEach>
