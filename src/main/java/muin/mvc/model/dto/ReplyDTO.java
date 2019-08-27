@@ -16,4 +16,6 @@ public class ReplyDTO {
 	private int movieNo;
 	private Long memberId;
 	private String memberName;
+	private int replyUp;
+	private int replyDown;
 }

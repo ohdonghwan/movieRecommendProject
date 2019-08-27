@@ -85,5 +85,4 @@ public class ReplyController {
 		if(replyService.checkReportReply(memberId, replyNo)==null) return 1; //1이면 중복 아니라서 신고 가능
 		return 0;
 	}
-	
 }

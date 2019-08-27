@@ -99,13 +99,14 @@ $(document).ready(function() {
          //console.log($(this).parent().parent().children().first().val())
          var params={
             "${_csrf.parameterName}":"${_csrf.token}",
-            replyNo:$(this).parent().parent().children().first().val()
+            replyNo:$(this).parent().parent().children().first().val(),
          }
          $.ajax({
             type:"post",
             url:"${pageContext.request.contextPath}/reply/replyUp",
             data:params,
             success:function(){
+            	console.log(1);
                selectReply();
             }
          })
@@ -114,7 +115,7 @@ $(document).ready(function() {
       $(document).on("click", "input[name=replyDown]", function(){
          var params={
             "${_csrf.parameterName}":"${_csrf.token}",
-            replyNo:$(this).parent().parent().children().first().val()
+            replyNo:$(this).parent().parent().children().first().val(),
          }
          $.ajax({
             type:"post",

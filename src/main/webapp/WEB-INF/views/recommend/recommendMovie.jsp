@@ -93,6 +93,7 @@
 
 <script>
 $(document).on("click","#recommendmain1",function(){
+	console.log(1);
 	$(".container").load("${pageContext.request.contextPath}/recommend/main");
 
 });

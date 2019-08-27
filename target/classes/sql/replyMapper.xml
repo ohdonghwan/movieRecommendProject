@@ -4,13 +4,13 @@
 	<!-- MovieNo에 해당하는 상세정보 봤을 때 그 MovieNo이 갖고 있는 댓글 select 상세보기 추가시 where movie_no 
 		= ? 추가 -->
 	<select id="selectReply" resultType="reply" parameterType="int">
-		select reply_no, reply_content, member_Name, reply_date from reply where movie_no = #{value}
+		select reply_no, reply_content, member_Name, reply_date, reply_up, reply_down from reply where movie_no = #{value}
 	</select>
 	<insert id="insertReply" parameterType="reply">
 		insert into
 		reply(reply_no, reply_content, reply_date, movie_no, member_id,
-		member_Name) values(reply_no_seq.nextval,
-		#{replyContent}, sysdate, #{movieNo}, #{memberId}, #{memberName})
+		member_Name, reply_up, reply_down) values(reply_no_seq.nextval,
+		#{replyContent}, sysdate, #{movieNo}, #{memberId}, #{memberName}, 0, 0)
 	</insert>
 
 	<!-- 댓글 공감 비공감 -->
