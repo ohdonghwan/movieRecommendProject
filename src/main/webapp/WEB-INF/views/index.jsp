@@ -62,6 +62,8 @@
 		$("#searchIt").click(function() {
 			$("#ajaxload").load("${pageContext.request.contextPath}/movie/selectMovieView", $("#searchMovie").serialize());
 		});
+		
+		
 	});
 	
 </script>
@@ -133,10 +135,9 @@
 				</sec:authorize>
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
 					<li><a class="nav-link"
-						href="${pageContext.request.contextPath }/member/updateForm">정보수정</a></li>
-					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/member/mypage">마이페이지</a></li>
 					<li><a class="nav-link" id="recommendmain" href="#">너의평점은</a></li>
+
 
 
 					<form class="form-inline my-2 my-lg-0" name='searchMovie' id='searchMovie'

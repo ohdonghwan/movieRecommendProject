@@ -92,13 +92,9 @@
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script>
 	$(function() {
-		$(document).on('click', '#gomain', function(e) {
-			e.preventDefault();
-			location.href = "${pageContext.request.contextPath}/";
-		});
+
 		function recommendMovie() {
-			$
-					.ajax({
+			$.ajax({
 						type : "post",
 						url : "${pageContext.request.contextPath}/recommend/recommendMovie",
 						data : "${_csrf.parameterName}=${_csrf.token}&memberId="
@@ -171,12 +167,13 @@
 							id='selectResult'>
 							<!-- 영화 검색 결과 들어가는 body, ajax에서 처리합니다. -->
 						</tbody>
-						</thread>
+						</thead>
 					</table>
 				</div>
 			</div>
 		</div>
 		</div>
+</body>
 
 	<!-- Bootstrap core JavaScript -->
 	<script
@@ -194,5 +191,4 @@
 	<!-- Demo scripts for this page-->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/demo/datatables-demo.js"></script>
-</body>
 </html>
