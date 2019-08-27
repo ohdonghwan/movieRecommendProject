@@ -73,6 +73,8 @@
 	}
 </script>
 <style>
+
+
 #navbarsExampleDefault > ul > li:nth-child(6):hover #logoutbtn{
 	visibility:visible!important;
 }
@@ -137,7 +139,7 @@
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/member/mypage">마이페이지</a></li>
 					<li><a class="nav-link" id="recommendmain" href="#">너의평점은</a></li>
-
+					<li><a class="nav-link" href="${pageContext.request.contextPath}/recommend/createCsv">test</a></li>
 
 
 					<form class="form-inline my-2 my-lg-0" name='searchMovie' id='searchMovie'

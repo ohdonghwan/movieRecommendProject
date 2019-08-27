@@ -90,8 +90,20 @@
 </head>
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+
 <script>
+$(document).on("click","#recommendmain1",function(){
+	$(".container").load("${pageContext.request.contextPath}/recommend/main");
+
+});
+
+
+
+</script>
+<script>
+
 	$(function() {
+		
 
 		function recommendMovie() {
 			$.ajax({
@@ -101,6 +113,9 @@
 								+ "${mvo.memberId}",
 						dataType : "json",
 						success : function(result) {
+							if (result==null){
+								var data="<p><a href='#' id='recommendmain' style='font-size:50px; color:white;'>가서 마음에 드는 거 골라와봐</a></p>";
+							}
 							var data = "<form method='post'>";
 							$.each(result,function(index, item){ data += "<input type='hidden' value='"+item.movieNo+"'>";
 												data += "<input type='hidden' value='${mvo.memberId}' name='memberId'/>";
@@ -120,14 +135,15 @@
 							$("#selectResult").html(data);
 						},
 					error:function(jqXHR,error){
-						if(jqXHR.status==500){var data="<a href='${pageContext.request.contextPath}/recommend/main' style='font-size:50px; color:white;'>가서 마음에 드는 거 골라와봐</a>";
+						if(jqXHR.status==500){var data="<p><a href='#' id='recommendmain1' style='font-size:50px; color:white;'>가서 마음에 드는 거 골라와봐</a></p>";
 
 						$("#selectResult").html(data);}
 					}
 					});
 		}
-		recommendMovie();
-
+	recommendMovie();
+		
+		
 		$(document).on("click","input[name=wishListBtn]",
 						function() {
 							console.log($(this).parent().parent().children().eq(0).val());
@@ -153,12 +169,12 @@
 						})
 	});
 </script>
-<body>		
+<body style="background-color:black;">		
 		
 		<!-- DataTables Example -->
 		<div class="container" style="display:flex; width:100%;">
 		<div id="mypick" class="align-middle" style="width:100%;">
-		<span id='caption'>${mvo.memberName} 어서온나. 오늘은 뭐볼라꼬?</span>
+		<div id='caption'>${mvo.memberName} 어서온나. 오늘은 뭐볼라꼬?</div>
 		<div class="card mb-3">
 			<div class="table-responsive">
 				<table class="table table-borderless" width="100%" cellspacing="0">

@@ -133,7 +133,8 @@ $(function(){
 						data+= "</select></div></td>";
 						if (index % 3 == 2) {
 							data += "</tr>";
-						}				 })
+						}				 
+						});
 				data+="</form>";
 				
 				$("#movieListView").html(data);	
@@ -173,7 +174,7 @@ $(function(){
 <body>
 	<div class="container" style="display:flex; width:100%;">
 		<div id="mypick" class="align-middle" style="width:100%;">
-		<span id='caption'>${mvo.memberName}님의 탁월한 안목을 믿습니다.</span>
+		<div id='caption'>${mvo.memberName}님의 탁월한 안목을 믿습니다.</div>
 		<div class="card mb-3">
 			<div class="table-responsive">
 				<table class="table table-borderless" width="100%" cellspacing="0">

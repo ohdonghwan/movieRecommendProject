@@ -203,7 +203,7 @@ $(document).ready(function() {
 table{width}
 </style>
 <body>
-
+<div class="container">
 <table class="table table-borderless table-dark table-hover">
 <tr>
 <td rowspan="7"><div><img src="${MovieDTO.moviePoster}" border="1" align="middle"/></div></td>
@@ -267,7 +267,7 @@ table{width}
       </tr>
    </table>
 </div>
-
+</div>
 </body>
 </sec:authorize>
 </html>

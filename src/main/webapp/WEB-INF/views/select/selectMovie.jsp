@@ -163,7 +163,7 @@
 <!-- DataTables Example -->
 		<div class="container" style="display:flex; width:100%;">
 		<div id="mypick" class="align-middle" style="width:100%;">
-		<span id='caption'>${mvo.memberName} 어서온나. 오늘은 뭐볼라꼬?</span>
+		<div id='caption'>${mvo.memberName} 어서온나. 오늘은 뭐볼라꼬?</div>
 		<div class="card mb-3">
 			<div class="table-responsive">
 				<table class="table table-borderless" width="100%" cellspacing="0">
