@@ -118,12 +118,16 @@ $(document).on("click","#recommendmain1",function(){
 								+ "${mvo.memberId}",
 						dataType : "json",
 						success : function(result) {
-							if (result==null){
+							console.log(result.length);
+							if(result.length==0){
 								var data="<p><a href='#' id='recommendmain1'>가서 마음에 드는 거 골라와봐</a></p>";
-							}
+								$("#selectResult").html(data);}
+							
+							else{
 							var data = "<form method='post'>";
-							$.each(result,function(index, item){ data += "<input type='hidden' value='"+item.movieNo+"'>";
+							$.each(result,function(index, item){ 
 												data += "<input type='hidden' value='${mvo.memberId}' name='memberId'/>";
+												data += "<input type='hidden' value='"+item.movieNo+"'>";
 												var posterlist = item.moviePoster;
 												var movieposter = posterlist
 														.split("|", 1);
@@ -138,6 +142,7 @@ $(document).on("click","#recommendmain1",function(){
 											})
 							data += "</form>";
 							$("#selectResult").html(data);
+							}
 						},
 					error:function(jqXHR,error){
 						if(jqXHR.status==500){var data="<p><a href='#' id='recommendmain1'>가서 마음에 드는 거 골라와봐</a></p>";
