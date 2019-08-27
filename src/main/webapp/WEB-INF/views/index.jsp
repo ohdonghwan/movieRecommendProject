@@ -68,11 +68,11 @@
 <body>
 
 
+	<sec:authorize access="isAnonymous()">
 
-	<header style="position:relative;">
-	<div class=overlay>
+		<header style="position:relative;">
+		<div class=overlay>
 
-		<sec:authorize access="isAnonymous()">
 			<div id="opening" style="position: absolute; top: 30%; left: 10%;">
 				<div id="movietonite"
 					style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 120pt;">영화보고갈래?</div>
@@ -81,38 +81,24 @@
 
 				</div>
 			</div>
-		</sec:authorize>
 
-	</div>
+		</div>
 
-	<video class="video-background" height="100%" width="100%"
-		preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"
-		style="z-index:0;"> <source
-		src="${pageContext.request.contextPath}/resources/video/44_MTZfQmxva2Jhc3Rlcl9DREVJVk8.mp4"
-		type="video/mp4"></video> </header>
+		<video class="video-background" height="100%" width="100%"
+			preload="auto" autoplay="true" loop="loop" muted="muted" volume="0"
+			style="z-index:0;"> <source
+			src="${pageContext.request.contextPath}/resources/video/44_MTZfQmxva2Jhc3Rlcl9DREVJVk8.mp4"
+			type="video/mp4"></video> </header>
 
+	</sec:authorize>
 
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication var="mvo" property="principal" />
-		<div
-			style="position: fixed; top: 300px; left: 150px; font-family: 'Do Hyeon'; font-size: 25pt; color: white; z-index: 5;">${mvo.memberName}
-			어서온나. 오늘은 뭐볼라꼬?
-			<form class="form-inline my-2 my-lg-0" name='searchMovie'
-				method='post'
-				action='${pageContext.request.contextPath}/movie/selectMovieView'>
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}"> <select name='searchKind'
-					style="vertical-align: middle; height: 39px; font-size:33px;">
-					<option value="movieName">영화제목</option>
-					<option value="movieGenre">영화장르</option>
-					<option value="movieDirector">영화감독명</option>
-				</select> <input class="form-control mr-sm-2" type="text"
-					placeholder="Search" name='searchByMovieKeyWord'
-					aria-label="Search"
-					style="height: 39px; font-size: 33px; margin-top: 0px; padding-top: 10px; border-radius: 5px; border-width: 1px; border-style: solid; border-color: rgb(166, 166, 166); border-image: initial;">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit"
-					style="margin-left: 10px;">함 찾아봐</button>
-			</form>
+		<div class="container" style="position:relative; top:150px;">
+
+			<div>
+				<%@ include file="recommend/recommendMovie.jsp"%>
+			</div>
 		</div>
 
 
@@ -125,12 +111,6 @@
 		<nav class="navbar navbar-expand-md fixed-top"> <a
 			class="navbar-brand" href="${pageContext.request.contextPath}"
 			style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 50px;">영화보고갈래?</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarsExampleDefault"
-			aria-controls="navbarsExampleDefault" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -147,15 +127,33 @@
 						href="${pageContext.request.contextPath}/member/mypage">마이페이지</a></li>
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/recommend/main">영화추천별점TEST</a></li>
-					<li><a class="nav-link"
+						<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/recommend/createCsv">추천목록띄우기</a></li>
-					<li><a class="nav-link"
-						href="${pageContext.request.contextPath}/reply/replyPage">상세보기댓글TEST</a></li>
+
+					<form class="form-inline my-2 my-lg-0" name='searchMovie'
+						method='post'
+						action='${pageContext.request.contextPath}/movie/selectMovieView'>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}"> <select name='searchKind'
+							style="vertical-align: middle; height: 39px; font-size: 33px;">
+							<option value="movieName">영화제목</option>
+							<option value="movieGenre">영화장르</option>
+							<option value="movieDirector">영화감독명</option>
+						</select> <input class="form-control mr-sm-2" type="text"
+							placeholder="Search" name='searchByMovieKeyWord'
+							aria-label="Search"
+							style="height: 39px; font-size: 33px; margin-top: 0px; padding-top: 10px; border-radius: 5px; border-width: 1px; border-style: solid; border-color: rgb(166, 166, 166); border-image: initial;">
+						<button class="btn btn-secondary my-2 my-sm-0" type="submit"
+							style="margin-left: 10px;">함 찾아봐</button>
+
+					</form>
 				</sec:authorize>
+
 			</ul>
 
-			<a class="btn btn-secondary my-2 my-sm-0" href="javascript:logout();"
-				role="button">로그아웃</a>
+
+		<a class="btn btn-secondary my-2 my-sm-0" href="javascript:logout();"
+			role="button">로그아웃</a>
 		</div>
 		</nav>
 

@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -38,15 +42,7 @@
 
 
 <style>
-
-#recommendTable {
-	margin: auto;
-	color: white !important;
-	font-family: "Do Hyeon";
-	font-size: 20px;
-}
-
-#caption {
+.caption {
 	color: white !important;
 	font-family: "Do Hyeon";
 	font-size: 40px;
@@ -71,9 +67,8 @@
 }
 
 .movietd:hover .movietitle {
-	visibility:visible;
+	visibility: visible;
 }
-
 
 .movietitle {
 	position: absolute;
@@ -81,19 +76,27 @@
 	z-index: 5;
 	top: 20%;
 	font-size: 25px;
-	vertical-align: middle;
 	text-align: center;
 	color: white;
 	visibility: hidden;
 	font-family: "Do Hyeon";
-	padding: 10px;
-	word-break:break-all;
+	padding: 20px 25px 20px 20px;
+	word-break: break-all;
+	width: 100%;
+	margin: 0 auto;
+}
+
+p {
+	margin-left: -20px;
 }
 
 .movietitle img {
 	width: 60%;
 	padding: 10px;
+	margin-left: -20px;
 }
+
+
 </style>
 
 	</head>
@@ -108,43 +111,46 @@
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}">
 		<div id="mystar">
-			<span id='caption'>${mvo.memberName}님이 별점 준 영화</span>
+			<span class='caption'>${mvo.memberName}님이 별점 준 영화</span>
 			<div class="card mb-3">
 				<div class="table-responsive">
 					<table class="table table-borderless" width="100%" cellspacing="0">
-					<thead style="text-align: center; vertical-align: middle;">
-
+						<thead style="text-align: center; vertical-align: middle;">
 						<tbody>
+							<c:if test="${fn:length(list)==0}">
+								<span class='caption'><a href="${pageContext.request.contextPath}/recommend/main" style="font-size:50px; color:white;">가서 마음에 드는 거 골라와봐</a></span>
+							</c:if>
 							<c:forEach items="${list}" var="list" varStatus="listStatus">
-
-								<c:forTokens var="poster" items="${list.moviePoster}" delims="|"
-									varStatus="status">
-									<c:if test="${status.first}">
-										<td class="movietd"><a href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}"><img src="${poster}"
-												class="movieposter" style="width: 100%; height: 100%;"/></a>
-									</c:if>
-								</c:forTokens>
-								<div class="movietitle">
-									<p>${list.movieName}</p>
-									<c:choose>
-										<c:when test="${list.recommendDTO.recommendGrade eq 5}">
-											<img class='starImg' src="../resources/images/star5.png" />
-										</c:when>
-										<c:when test="${list.recommendDTO.recommendGrade eq 4}">
-											<img class='starImg' src="../resources/images/star4.png" />
-										</c:when>
-										<c:when test="${list.recommendDTO.recommendGrade eq 3}">
-											<img class='starImg' src="../resources/images/star3.png" />
-										</c:when>
-										<c:when test="${list.recommendDTO.recommendGrade eq 2}">
-											<img class='starImg' src="../resources/images/star2.png" />
-										</c:when>
-										<c:when test="${list.recommendDTO.recommendGrade eq 1}">
-											<img class='starImg' src="../resources/images/star1.png" />
-										</c:when>
-									</c:choose>
-								</div>
-								</td>
+								<td class="movietd"><a
+									href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}">
+										<c:forTokens var="poster" items="${list.moviePoster}"
+											delims="|" varStatus="status">
+											<c:if test="${status.first}">
+												<img src="${poster}" class="movieposter"
+													style="width: 100%; " />
+											</c:if>
+										</c:forTokens>
+										<div class="movietitle">
+											<p>${list.movieName}</p>
+											<c:choose>
+												<c:when test="${list.recommendDTO.recommendGrade eq 5}">
+													<img class='starImg' src="../resources/images/star5.png" />
+												</c:when>
+												<c:when test="${list.recommendDTO.recommendGrade eq 4}">
+													<img class='starImg' src="../resources/images/star4.png" />
+												</c:when>
+												<c:when test="${list.recommendDTO.recommendGrade eq 3}">
+													<img class='starImg' src="../resources/images/star3.png" />
+												</c:when>
+												<c:when test="${list.recommendDTO.recommendGrade eq 2}">
+													<img class='starImg' src="../resources/images/star2.png" />
+												</c:when>
+												<c:when test="${list.recommendDTO.recommendGrade eq 1}">
+													<img class='starImg' src="../resources/images/star1.png" />
+												</c:when>
+											</c:choose>
+										</div>
+								</a></td>
 
 
 								<c:if test="${listStatus.count%4==0}">

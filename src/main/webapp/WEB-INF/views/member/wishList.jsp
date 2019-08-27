@@ -17,7 +17,7 @@
 	content="영화 보고 갈래는 무인 팀이 제작한 사용자 경험 기반 영화 추천 사이트 입니다.">
 <meta name="author" content="Team Muin">
 <link rel="icon" href="../../favicon.ico">
-<title>마이 페이지</title>
+<title>찜 리스트</title>
 
 <!-- link for main fonts -->
 <link
@@ -35,7 +35,6 @@
 	crossorigin="anonymous">
 
 <style>
-
 #caption {
 	color: white !important;
 	font-family: "Do Hyeon";
@@ -60,15 +59,12 @@
 	opacity: 0.2;
 }
 
-
-.movietd:hover .movietitle{
+.movietd:hover .movietitle {
 	visibility: visible;
-
 }
 
 .movietitle {
 	position: absolute;
-	vertical-align: middle;
 	z-index: 5;
 	top: 20%;
 	font-size: 25px;
@@ -78,8 +74,14 @@
 	visibility: hidden;
 	font-family: "Do Hyeon";
 	padding: 10px;
+	width: 100%;
+	margin: 0 auto;
+	
 }
 
+#selectResult > tr > td > a > div{
+	margin-left:-10px;
+}
 
 </style>
 
@@ -93,8 +95,7 @@
 	</c:if>
 	<input type="hidden" name="${_csrf.parameterName}"
 		value="${_csrf.token}">
-
-	<div id="mypick">
+	<div id="mypick" name="mypick">
 		<span id='caption'>${mvo.memberName}님의 찜 목록</span>
 		<div class="card mb-3">
 			<div class="table-responsive">
@@ -102,19 +103,18 @@
 					<thead style="text-align: center; vertical-align: middle;">
 					<tbody id='selectResult'>
 						<c:forEach items="${list}" var="list" varStatus="listStatus">
-
-							<c:forTokens var="poster" items="${list.moviePoster}" delims="|"
-								varStatus="status">
-								<c:if test="${status.first}">
-									<td class="movietd"><a href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}"><img src="${poster}"
-											class="movieposter" style="width: 100%; height: 100%;" /></a>
-								</c:if>
-							</c:forTokens>
-							<div class="movietitle">
-								<p>${list.movieName}</p>
-
-							</div>
-							</td>
+							<td class="movietd">
+							<a href="${pageContext.request.contextPath}/api/movieDetail/${list.movieNo}" target="mypick">
+									<c:forTokens var="poster" items="${list.moviePoster}"
+										delims="|" varStatus="status">
+										<c:if test="${status.first}">
+											<img src="${poster}" class="movieposter"
+												style="width: 100%;" />
+										</c:if>
+									</c:forTokens>
+									<div class="movietitle">
+										${list.movieName}</div></a>
+									</td>
 
 
 							<c:if test="${listStatus.count%4==0}">
@@ -126,7 +126,6 @@
 			</div>
 		</div>
 	</div>
-	
 </body>
 	</html>
 </sec:authorize>

@@ -10,6 +10,13 @@ header .overlay {
 	position: absolute;
 }
 
+#form-control mr-sm-2 {
+	height: 30px;
+	font-size: 25px;
+	margin-top: 0px;
+	padding-top: 10px;
+}
+
 body {
 	background-color: black !important;
 	background-repeat: repeat !important;
@@ -21,6 +28,11 @@ body {
 	font-family: 'Do Hyeon';
 	color: white;
 	z-index: 1;
+}
+
+.navbar-nav li form {
+	font-size: 25px;
+	font-family: 'Do Hyeon';
 }
 
 .btn {
@@ -53,20 +65,20 @@ li.nav-item {
 	background-color: black;
 }
 
-#yesorno{
-	text-align:center;
-	margin:auto;
+#yesorno {
+	text-align: center;
+	margin: auto;
 }
 
-#yesorno > a {
+#yesorno>a {
 	font-family: Do Hyeon;
 	font-size: 50px;
-	color:white!important;
-	text-align:cetner;
+	color: white !important;
+	text-align: cetner;
 	padding: 0px 50px;
 }
 
-#movietonite{
-	text-align:center;
-	width:880px;
+#movietonite {
+	text-align: center;
+	width: 880px;
 }
