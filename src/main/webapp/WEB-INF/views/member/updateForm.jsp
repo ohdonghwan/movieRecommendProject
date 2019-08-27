@@ -136,10 +136,10 @@ body{
 					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<label for="New Name" class="sr-only">New Name</label> <input
 				text="text" class="form-control" placeholder="New Name"
-					id="newName" name="newName" required autofocus>
+					id="newName" name="newName">
 				<label for="New Password" class="sr-only">New Password</label> <input
 					type="password" class="form-control" placeholder="New Password"
-					id="pw" name="memberPwd" required autofocus> 
+					id="pw" name="memberPwd"> 
 				<label for="Confirmation" class="sr-only">Confirm</label>
 				 <input type="password" name="memberPwd2" id="pw2" class="form-control"
 					placeholder="Confirm Password" required>
@@ -156,7 +156,7 @@ body{
 					value="${_csrf.token}"> <label for="Password"
 					class="sr-only">Password</label> <input type="password"
 					class="form-control" placeholder="Password" name="pw">
-
+				<div style="color: red;">${message}</div>
 				<button type="submit" id="withdrawalBtn"
 					class="btn btn-lg btn-secondary btn-block">회원 탈퇴</button>
 			</form>

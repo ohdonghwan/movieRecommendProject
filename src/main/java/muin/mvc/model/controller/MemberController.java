@@ -123,8 +123,7 @@ public class MemberController {
 			return "redirect:/";
 			
 		}else {
-			model.addAttribute("message","비밀번호가 불일치합니다.");
-			return "member/withdrawal";
+			return "redirect:/";
 		}
 	
 	}
