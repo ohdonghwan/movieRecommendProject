@@ -100,7 +100,6 @@
 					style="height: auto; font-family: 'Black Han Sans', sans-serif; color: white; font-size: 120pt;">영화보고갈래?</div>
 				<div id="yesorno" style="">
 					<a href="#" id="yup">응</a> <a href="#" id="nope">아니</a>
-
 				</div>
 			</div>
 
